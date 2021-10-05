@@ -1,7 +1,7 @@
 pluginManagement {
     repositories {
         def cordaUseCache = System.getenv("CORDA_USE_CACHE")
-        if (cordaUseCache != null) {
+        if (false) {
             maven {
                 url = "$artifactoryContextUrl/$cordaUseCache"
                 name = "R3 Maven remote repositories"
@@ -56,7 +56,7 @@ dependencyResolutionManagement {
         //mavenLocal()
 
         def cordaUseCache = System.getenv("CORDA_USE_CACHE")
-        if (cordaUseCache != null) {
+        if (false) {
             maven {
                 url = "$artifactoryContextUrl/$cordaUseCache"
                 name = "R3 Maven remote repositories"
