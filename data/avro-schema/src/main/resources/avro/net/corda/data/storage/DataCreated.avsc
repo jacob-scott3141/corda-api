@@ -1,0 +1,15 @@
+{
+  "type": "record",
+  "name": "DataCreated",
+  "namespace": "net.corda.data.storage",
+  "fields": [
+    {
+      "name": "type",
+      "type": "string"
+    },
+    {
+      "name": "secureHash",
+      "type": "net.corda.data.crypto.SecureHash"
+    }
+  ]
+}
