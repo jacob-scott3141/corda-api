@@ -186,11 +186,6 @@ interface SerializationContext {
     fun withWhitelisted(clazz: Class<*>): SerializationContext
 
     /**
-     * Helper method to return a new context based on this context with the given serializers added.
-     */
-    fun withCustomSerializers(serializers: Set<SerializationCustomSerializer<*, *>>): SerializationContext
-
-    /**
      * Helper method to return a new context based on this context but with serialization using the format this header sequence represents.
      */
     fun withPreferredSerializationVersion(magic: SerializationMagic): SerializationContext
