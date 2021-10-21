@@ -4,6 +4,7 @@ import net.corda.packaging.internal.CPIBuilder
 import net.corda.packaging.internal.CPIIdentifierImpl
 import net.corda.packaging.internal.CPIIdentityImpl
 import net.corda.packaging.internal.CPILoader
+import net.corda.packaging.internal.CPIMetadataImpl
 import net.corda.packaging.internal.jarSignatureVerificationEnabledByDefault
 import net.corda.v5.crypto.SecureHash
 import java.io.InputStream
@@ -154,6 +155,10 @@ interface CPI : AutoCloseable {
                      cpiLocation : String? = null,
                      verifySignature : Boolean = jarSignatureVerificationEnabledByDefault()) : Metadata =
                 CPILoader.loadMetadata(inputStream, cpiLocation, verifySignature)
+
+            @JvmStatic
+            fun newInstance(id : Identifier, cpks: Iterable<CPK.Metadata>, networkPolicy : String?) : Metadata =
+                CPIMetadataImpl(id, cpks, networkPolicy)
         }
     }
 

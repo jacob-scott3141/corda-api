@@ -5,6 +5,7 @@ import net.corda.packaging.internal.CPKIdentifierImpl
 import net.corda.packaging.internal.CPKLoader
 import net.corda.packaging.internal.CPKManifestImpl
 import net.corda.packaging.internal.CPKDependencyResolver
+import net.corda.packaging.internal.CPKMetadataImpl
 import net.corda.packaging.internal.jarSignatureVerificationEnabledByDefault
 import net.corda.v5.crypto.SecureHash
 import java.io.IOException
@@ -13,6 +14,7 @@ import java.nio.file.Path
 import java.security.cert.Certificate
 import java.util.NavigableSet
 import java.util.TreeMap
+import java.util.jar.Manifest
 
 /** Represents a [CPK] file in the filesystem */
 interface CPK : AutoCloseable {
@@ -134,6 +136,9 @@ interface CPK : AutoCloseable {
             @Suppress("ThrowsCount")
             fun parseFormatVersion(manifest: java.util.jar.Manifest): FormatVersion =
                 CPKManifestImpl.parseFormatVersion(manifest)
+
+            @JvmStatic
+            fun newInstance(cpkFormatVersion: FormatVersion) : Manifest = CPKManifestImpl(cpkFormatVersion)
         }
     }
 
@@ -165,6 +170,26 @@ interface CPK : AutoCloseable {
                      cpkLocation : String? = null,
                      verifySignature : Boolean = jarSignatureVerificationEnabledByDefault()) : Metadata =
                 CPKLoader.loadMetadata(inputStream, cpkLocation, verifySignature)
+
+            @JvmStatic
+            fun newInstance(manifest: Manifest,
+                            mainBundle : String,
+                            libraries : List<String>,
+                            dependencies : NavigableSet<Identifier>,
+                            cordappManifest: CordappManifest,
+                            type : Type,
+                            hash: SecureHash,
+                            cordappCertificates : Set<Certificate>
+            ) : Metadata = CPKMetadataImpl(
+                mainBundle,
+                manifest,
+                libraries,
+                dependencies,
+                cordappManifest,
+                type,
+                hash,
+                cordappCertificates
+            )
         }
     }
 
