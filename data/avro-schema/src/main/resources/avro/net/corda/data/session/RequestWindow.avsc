@@ -1,0 +1,15 @@
+{
+  "type": "record",
+  "name": "RequestWindow",
+  "namespace": "net.corda.data.session",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string"
+    },
+    {
+      "name": "expireTime",
+      "type": "long"
+    }
+  ]
+}
