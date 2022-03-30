@@ -86,6 +86,12 @@ subprojects {
         }
     }
 
+    tasks.withType(PluginUnderTestMetadata).configureEach { task ->
+        doFirst {
+            buildScan.value(task.path + "-paths", task.paths.toString())
+        }
+    }
+
     version rootProject.version
     group 'net.corda'
 
