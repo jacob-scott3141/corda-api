@@ -78,6 +78,16 @@ logger.quiet("Corda release version: {}", version)
 logger.quiet("Corda baseVersion: {}", cordaVersion)
 logger.quiet("Release Type: {}", releaseType)
 
+allprojects {
+    tasks.withType(PluginUnderTestMetadata).configureEach { task ->
+        println "***********************"
+        doFirst {
+            println "task.path + " - paths ", task.paths.toString()"
+            buildScan.value(task.path + "-paths", task.paths.toString())
+        }
+    }
+}
+
 subprojects {
     buildscript {
         configurations.classpath {
