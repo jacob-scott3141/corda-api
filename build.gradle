@@ -238,6 +238,11 @@ subprojects {
             excludeTags project.hasProperty('runUnstableTests') ? 'runAllTestsNoExclusions' : 'Unstable'
         }
 
+        distribution {
+            enabled = true
+            maxRemoteExecutors = 0
+        }
+
         doFirst {
             // Create all temporary files within the build directory.
             systemProperty 'java.io.tmpdir', buildDir.absolutePath
