@@ -1,6 +1,6 @@
 @file:JvmName("Encoding")
 
-package net.corda.v5.cipher.suite.signing
+package net.corda.v5.crypto.signing
 
 import net.corda.v5.crypto.exceptions.CryptoServiceException
 import net.corda.v5.crypto.sha256Bytes

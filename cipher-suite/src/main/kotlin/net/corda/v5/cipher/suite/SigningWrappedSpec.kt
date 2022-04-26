@@ -1,6 +1,7 @@
 package net.corda.v5.cipher.suite
 
 import net.corda.v5.cipher.suite.schemes.KeyScheme
+import net.corda.v5.crypto.SignatureScheme
 
 /**
  * Holding class for the private key material.
@@ -12,10 +13,12 @@ import net.corda.v5.cipher.suite.schemes.KeyScheme
  * @property encodingVersion The encoding version which was used to encode the private key.
  * @property keyScheme The scheme for the signing operation.
  */
+@Suppress("LongParameterList")
 class SigningWrappedSpec(
     override val tenantId: String,
     val keyMaterial: ByteArray,
     val masterKeyAlias: String?,
     val encodingVersion: Int,
-    override val keyScheme: KeyScheme
+    override val keyScheme: KeyScheme,
+    override val signatureScheme: SignatureScheme
 ) : SigningSpec

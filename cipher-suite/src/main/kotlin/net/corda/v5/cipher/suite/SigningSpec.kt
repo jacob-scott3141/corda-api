@@ -1,6 +1,7 @@
 package net.corda.v5.cipher.suite
 
 import net.corda.v5.cipher.suite.schemes.KeyScheme
+import net.corda.v5.crypto.SignatureScheme
 
 /**
  * Marker interface denoting the signing parameters.
@@ -11,4 +12,5 @@ import net.corda.v5.cipher.suite.schemes.KeyScheme
 interface SigningSpec {
     val tenantId: String
     val keyScheme: KeyScheme
+    val signatureScheme: SignatureScheme
 }

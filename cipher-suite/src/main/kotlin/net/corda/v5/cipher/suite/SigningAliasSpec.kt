@@ -1,6 +1,7 @@
 package net.corda.v5.cipher.suite
 
 import net.corda.v5.cipher.suite.schemes.KeyScheme
+import net.corda.v5.crypto.SignatureScheme
 
 /**
  * Holding class for the key pair which is persisted in HSM and referenced by its alias.
@@ -16,5 +17,5 @@ import net.corda.v5.cipher.suite.schemes.KeyScheme
 class SigningAliasSpec(
     override val tenantId: String,
     val hsmAlias: String,
-    override val keyScheme: KeyScheme
+    override val keyScheme: KeyScheme, override val signatureScheme: SignatureScheme
 ) : SigningSpec

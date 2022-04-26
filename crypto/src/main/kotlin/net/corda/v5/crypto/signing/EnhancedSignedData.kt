@@ -1,4 +1,4 @@
-package net.corda.v5.cipher.suite.signing
+package net.corda.v5.crypto.signing
 
 class EnhancedSignedData(
     val signature: EnhancedSignature,
