@@ -15,7 +15,7 @@ class SigningServiceJavaApiTest {
 
     private final SigningService signingService = mock(SigningService.class);
     private final PublicKey publicKey = mock(PublicKey.class);
-    private final SignatureScheme spec = new SignatureScheme("mock", null, null);
+    private final SignatureScheme spec = new SignatureScheme("mock", "mock", null, null);
 
     @Test
     void signWithByteArrayTest() {

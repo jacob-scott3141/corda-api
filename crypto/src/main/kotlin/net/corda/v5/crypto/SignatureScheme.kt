@@ -1,6 +1,5 @@
 package net.corda.v5.crypto
 
-import net.corda.v5.base.util.toHex
 import java.security.spec.AlgorithmParameterSpec
 
 /**
@@ -28,6 +27,7 @@ data class SignatureScheme(
     val customDigestName: DigestAlgorithmName? = null
 ) {
     init {
+        require(codeName.isNotBlank()) { "The codeName must not be blank." }
         require(signatureName.isNotBlank()) { "The signatureName must not be blank." }
     }
 

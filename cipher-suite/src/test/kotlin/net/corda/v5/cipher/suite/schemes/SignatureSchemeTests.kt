@@ -23,8 +23,19 @@ class SignatureSchemeTests {
     fun `Should throw IllegalArgumentException when initializing with blank signature name`() {
         assertThrows<IllegalArgumentException> {
             SignatureScheme(
+                codeName = "CODE1",
                 signatureName = "  "
             )
         }
     }
-}
+
+    @Test
+    @Timeout(5)
+    fun `Should throw IllegalArgumentException when initializing with blank code name`() {
+        assertThrows<IllegalArgumentException> {
+            SignatureScheme(
+                codeName = "   ",
+                signatureName = "SHA256withRSA"
+            )
+        }
+    }}
