@@ -1,6 +1,6 @@
 package net.corda.v5.cipher.suite
 
-import net.corda.v5.cipher.suite.schemes.SignatureScheme
+import net.corda.v5.cipher.suite.schemes.KeyScheme
 import net.corda.v5.crypto.exceptions.CryptoServiceBadRequestException
 import net.corda.v5.crypto.exceptions.CryptoServiceException
 
@@ -22,7 +22,7 @@ interface CryptoService {
     /**
      * Signature schemes which this implementation of [CryptoService] supports.
      * */
-    fun supportedSchemes(): Array<SignatureScheme>
+    fun supportedSchemes(): Array<KeyScheme>
 
     /**
      * Generates a new key to be used as a wrapping key. Some implementations may not have the notion of
@@ -52,7 +52,7 @@ interface CryptoService {
      *
      * Returns information about the generated key, could be either [GeneratedPublicKey] or [GeneratedWrappedKey]
      *
-     * @throws [CryptoServiceBadRequestException] if the [SignatureScheme] is not supported.
+     * @throws [CryptoServiceBadRequestException] if the [KeyScheme] is not supported.
      * @throws [CryptoServiceException] for general cryptographic exceptions.
      */
     fun generateKeyPair(

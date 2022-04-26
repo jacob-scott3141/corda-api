@@ -7,18 +7,18 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Timeout
 import org.junit.jupiter.api.assertThrows
 
-class SignatureSchemeTemplateTests {
+class KeySchemeTests {
     @Test
     @Timeout(5)
     fun `Should throw IllegalArgumentException when initializing with blank code name`() {
         assertThrows<IllegalArgumentException> {
-            SignatureSchemeTemplate(
+            KeyScheme(
                 codeName = "  ",
                 algorithmOIDs = listOf(AlgorithmIdentifier(X9ObjectIdentifiers.id_ecPublicKey, SECObjectIdentifiers.secp256k1)),
+                providerName = "provider",
                 algorithmName = "EC",
                 algSpec = null,
-                keySize = null,
-                signatureSpec = ECDSA_SECP256K1_SHA256_TEMPLATE.signatureSpec
+                keySize = null
             )
         }
     }
@@ -27,13 +27,28 @@ class SignatureSchemeTemplateTests {
     @Timeout(5)
     fun `Should throw IllegalArgumentException when initializing with empty algorithmOIDs`() {
         assertThrows<IllegalArgumentException> {
-            SignatureSchemeTemplate(
+            KeyScheme(
                 codeName = ECDSA_SECP256K1_CODE_NAME,
                 algorithmOIDs = emptyList(),
+                providerName = "provider",
                 algorithmName = "EC",
                 algSpec = null,
-                keySize = null,
-                signatureSpec = ECDSA_SECP256K1_SHA256_TEMPLATE.signatureSpec
+                keySize = null
+            )
+        }
+    }
+
+    @Test
+    @Timeout(5)
+    fun `Should throw IllegalArgumentException when initializing with blank provider name`() {
+        assertThrows<IllegalArgumentException> {
+            KeyScheme(
+                codeName = ECDSA_SECP256K1_CODE_NAME,
+                algorithmOIDs = listOf(AlgorithmIdentifier(X9ObjectIdentifiers.id_ecPublicKey, SECObjectIdentifiers.secp256k1)),
+                providerName = "  ",
+                algorithmName = "EC",
+                algSpec = null,
+                keySize = null
             )
         }
     }
@@ -42,13 +57,13 @@ class SignatureSchemeTemplateTests {
     @Timeout(5)
     fun `Should throw IllegalArgumentException when initializing with blank algorithm name`() {
         assertThrows<IllegalArgumentException> {
-            SignatureSchemeTemplate(
+            KeyScheme(
                 codeName = ECDSA_SECP256K1_CODE_NAME,
                 algorithmOIDs = listOf(AlgorithmIdentifier(X9ObjectIdentifiers.id_ecPublicKey, SECObjectIdentifiers.secp256k1)),
+                providerName = "provider",
                 algorithmName = "  ",
                 algSpec = null,
-                keySize = null,
-                signatureSpec = ECDSA_SECP256K1_SHA256_TEMPLATE.signatureSpec
+                keySize = null
             )
         }
     }

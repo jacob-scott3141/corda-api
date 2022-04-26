@@ -1,73 +1,29 @@
 package net.corda.v5.cipher.suite.schemes
 
-import org.bouncycastle.asn1.sec.SECObjectIdentifiers
-import org.bouncycastle.asn1.x509.AlgorithmIdentifier
-import org.bouncycastle.asn1.x9.X9ObjectIdentifiers
+import net.corda.v5.crypto.DigestService
+import net.corda.v5.crypto.SignatureScheme
+import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Timeout
 import org.junit.jupiter.api.assertThrows
 
 class SignatureSchemeTests {
-    @Test
-    @Timeout(5)
-    fun `Should throw IllegalArgumentException when initializing with blank code name`() {
-        assertThrows<IllegalArgumentException> {
-            SignatureScheme(
-                codeName = "  ",
-                algorithmOIDs = listOf(AlgorithmIdentifier(X9ObjectIdentifiers.id_ecPublicKey, SECObjectIdentifiers.secp256k1)),
-                providerName = "provider",
-                algorithmName = "EC",
-                algSpec = null,
-                keySize = null,
-                signatureSpec = ECDSA_SECP256K1_SHA256_TEMPLATE.signatureSpec
-            )
+    companion object {
+        private lateinit var digestService: DigestService
+
+        @BeforeAll
+        @JvmStatic
+        fun setup() {
+            digestService = DigestServiceMock()
         }
     }
 
     @Test
     @Timeout(5)
-    fun `Should throw IllegalArgumentException when initializing with empty algorithmOIDs`() {
+    fun `Should throw IllegalArgumentException when initializing with blank signature name`() {
         assertThrows<IllegalArgumentException> {
             SignatureScheme(
-                codeName = ECDSA_SECP256K1_CODE_NAME,
-                algorithmOIDs = emptyList(),
-                providerName = "provider",
-                algorithmName = "EC",
-                algSpec = null,
-                keySize = null,
-                signatureSpec = ECDSA_SECP256K1_SHA256_TEMPLATE.signatureSpec
-            )
-        }
-    }
-
-    @Test
-    @Timeout(5)
-    fun `Should throw IllegalArgumentException when initializing with blank provider name`() {
-        assertThrows<IllegalArgumentException> {
-            SignatureScheme(
-                codeName = ECDSA_SECP256K1_CODE_NAME,
-                algorithmOIDs = listOf(AlgorithmIdentifier(X9ObjectIdentifiers.id_ecPublicKey, SECObjectIdentifiers.secp256k1)),
-                providerName = "  ",
-                algorithmName = "EC",
-                algSpec = null,
-                keySize = null,
-                signatureSpec = ECDSA_SECP256K1_SHA256_TEMPLATE.signatureSpec
-            )
-        }
-    }
-
-    @Test
-    @Timeout(5)
-    fun `Should throw IllegalArgumentException when initializing with blank algorithm name`() {
-        assertThrows<IllegalArgumentException> {
-            SignatureScheme(
-                codeName = ECDSA_SECP256K1_CODE_NAME,
-                algorithmOIDs = listOf(AlgorithmIdentifier(X9ObjectIdentifiers.id_ecPublicKey, SECObjectIdentifiers.secp256k1)),
-                providerName = "provider",
-                algorithmName = "  ",
-                algSpec = null,
-                keySize = null,
-                signatureSpec = ECDSA_SECP256K1_SHA256_TEMPLATE.signatureSpec
+                signatureName = "  "
             )
         }
     }

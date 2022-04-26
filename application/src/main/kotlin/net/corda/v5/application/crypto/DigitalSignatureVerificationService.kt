@@ -2,7 +2,7 @@ package net.corda.v5.application.crypto
 
 import net.corda.v5.application.injection.CordaFlowInjectable
 import net.corda.v5.application.injection.CordaServiceInjectable
-import net.corda.v5.crypto.SignatureSpec
+import net.corda.v5.crypto.SignatureScheme
 import java.security.InvalidKeyException
 import java.security.PublicKey
 import java.security.SignatureException
@@ -13,16 +13,16 @@ import java.security.SignatureException
 interface DigitalSignatureVerificationService : CordaServiceInjectable, CordaFlowInjectable {
 
     /**
-     * Verifies a digital signature by using [signatureSpec].
+     * Verifies a digital signature by using [signatureScheme].
      * Always throws an exception if verification fails.
      *
      * @param publicKey the signer's [PublicKey].
      * @param signatureData the signatureData on a message.
-     * @param signatureSpec the signature spec.
+     * @param signatureScheme the signature spec.
      * @param clearData the clear data/message that was signed (usually the Merkle root).
      * @throws InvalidKeyException if the key is invalid.
      * @throws SignatureException  if verification fails.
      * @throws IllegalArgumentException if the signature scheme is not supported or if any of the clear or signature data is empty.
      */
-    fun verify(publicKey: PublicKey, signatureSpec: SignatureSpec, signatureData: ByteArray, clearData: ByteArray)
+    fun verify(publicKey: PublicKey, signatureScheme: SignatureScheme, signatureData: ByteArray, clearData: ByteArray)
 }

@@ -1,12 +1,12 @@
 package net.corda.v5.cipher.suite
 
-import net.corda.v5.cipher.suite.schemes.SignatureScheme
+import net.corda.v5.cipher.suite.schemes.KeyScheme
 
 /**
  * Defines parameters to generate a key pair.
  *
  * @property tenantId The tenant id which the key pair is generated for.
- * @property signatureScheme The spec defining properties of the key pair being generated.
+ * @property keyScheme The spec defining properties of the key pair being generated.
  * @property alias Optional, the key alias for the pair as defined by the tenant, as that value is not guarantied to be
  * unique, in case if the HSM is shared between several tenants, the implementation must translate it something unique,
  * as an example it can use the provided utility function [computeHSMAlias] which uses the tenantId and alias to calculate
@@ -23,7 +23,7 @@ import net.corda.v5.cipher.suite.schemes.SignatureScheme
  */
 class KeyGenerationSpec(
     val tenantId: String,
-    val signatureScheme: SignatureScheme,
+    val keyScheme: KeyScheme,
     val alias: String?,
     val masterKeyAlias: String?,
     val secret: ByteArray?

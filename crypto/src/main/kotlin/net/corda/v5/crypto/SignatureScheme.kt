@@ -1,6 +1,6 @@
 package net.corda.v5.crypto
 
-import org.bouncycastle.asn1.x509.AlgorithmIdentifier
+import net.corda.v5.base.util.toHex
 import java.security.spec.AlgorithmParameterSpec
 
 /**
@@ -12,8 +12,6 @@ import java.security.spec.AlgorithmParameterSpec
  * (e.g. "NONEwithECDSA").
  * @property params an optional signature parameters, like if RSASSA-PSS is being used then in order to avoid
  * using the default SHA1 you must specify the signature parameters explicitly.
- * @property signatureOID an optional signature algorithm identifier specifier, must be set for specs which are
- * used by [ContentSigner] (to generate self-signed certificates using Bouncy Castle library)
  *
  * When used for signing the [signatureName] must match the corresponding [SignatureScheme], e.g. you cannot use
  * "SHA256withECDSA" with "RSA" keys.
@@ -23,11 +21,11 @@ import java.security.spec.AlgorithmParameterSpec
  * "RSA/NONE/PKCS1Padding" and the [customDigestName] to like "SHA512", the implementation will calculate hash by
  * using the RSA encryption on the private key and the decryption using the public key.
  */
-data class SignatureSpec(
+data class SignatureScheme(
+    val codeName: String,
     val signatureName: String,
     val params: AlgorithmParameterSpec? = null,
-    val customDigestName: DigestAlgorithmName? = null,
-    val signatureOID: AlgorithmIdentifier? = null
+    val customDigestName: DigestAlgorithmName? = null
 ) {
     init {
         require(signatureName.isNotBlank()) { "The signatureName must not be blank." }
