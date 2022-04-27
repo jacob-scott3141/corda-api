@@ -28,7 +28,7 @@ class SigningServiceJavaApiTest {
                 .assertThat(signingService.sign("test".getBytes(), publicKey, spec))
                 .isEqualTo(signatureWithKey);
     }
-
+/*
     @Test
     void signWithByteArrayAndDigestAlgorthmNameTest() {
         final DigitalSignature.WithKey signatureWithKey = new DigitalSignature.WithKey(publicKey, "test".getBytes());
@@ -39,4 +39,6 @@ class SigningServiceJavaApiTest {
                 .assertThat(signingService.sign("test".getBytes(), publicKey, spec))
                 .isEqualTo(signatureWithKey);
     }
+    
+ */
 }
