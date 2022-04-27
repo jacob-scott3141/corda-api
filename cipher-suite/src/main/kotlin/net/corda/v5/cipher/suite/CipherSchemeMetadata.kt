@@ -2,6 +2,7 @@ package net.corda.v5.cipher.suite
 
 import net.corda.v5.cipher.suite.schemes.DigestScheme
 import net.corda.v5.cipher.suite.schemes.KeyScheme
+import net.corda.v5.crypto.DigestAlgorithmName
 import net.corda.v5.crypto.SignatureScheme
 import org.bouncycastle.asn1.x509.AlgorithmIdentifier
 import java.security.KeyFactory
@@ -55,7 +56,7 @@ interface CipherSchemeMetadata : KeyEncodingService, AlgorithmParameterSpecEncod
      *
      * @throws [IllegalArgumentException] if the resulting scheme is not supported
      */
-    fun createSignatureScheme(digestAlgorithm: String, key: PublicKey): SignatureScheme
+    fun createSignatureScheme(signatureDigest: DigestAlgorithmName, key: PublicKey): SignatureScheme
 
     /**
      * Find the corresponding [KeyScheme] based on its [AlgorithmIdentifier]

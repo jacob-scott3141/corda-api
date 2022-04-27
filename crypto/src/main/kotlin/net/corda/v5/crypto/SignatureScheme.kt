@@ -39,7 +39,7 @@ data class SignatureScheme(
     /**
      * Returns signing data, does hashing of required
      */
-    fun getSigningData(hashingService: DigestService, data: ByteArray): ByteArray {
+    fun getSigningBytes(hashingService: DigestService, data: ByteArray): ByteArray {
         return if (precalculateHash) {
             hashingService.hash(data, customDigestName!!).bytes
         } else {

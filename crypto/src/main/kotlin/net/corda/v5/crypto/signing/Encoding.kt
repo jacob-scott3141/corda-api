@@ -12,7 +12,6 @@ import java.time.Instant
 
 const val ENHANCED_SIGNATURE_ENCODING_V1_MAGIC_NUMBER: Short = 18237
 const val ENHANCED_SIGNING_ENCODING_V1_MAGIC_NUMBER: Short = 18238
-const val ENHANCED_SIGNED_ENCODING_V1_MAGIC_NUMBER: Short = 18239
 
 fun EnhancedSignature.encode(): ByteArray =
     ByteArrayOutputStream().use { stream ->
@@ -47,58 +46,20 @@ fun ByteArray.decodeDigitalSignature(): EnhancedSignature =
         }
     }
 
-
 fun EnhancedSigningData.encode(): ByteArray =
     ByteArrayOutputStream().use { stream ->
         DataOutputStream(stream).use { writer ->
             writer.writeShort(ENHANCED_SIGNING_ENCODING_V1_MAGIC_NUMBER.toInt())
-            writeSigningData(writer)
+            writer.writeSigningData(this)
         }
         stream.toByteArray()
     }
 
-private fun EnhancedSigningData.writeSigningData(writer: DataOutputStream) {
-    writer.writeLong(timestamp.toEpochMilli())
-    writer.writeString(signatureCodeName)
-    writer.writeByteArray(bytes)
+private fun DataOutputStream.writeSigningData(data: EnhancedSigningData) {
+    writeLong(data.timestamp.toEpochMilli())
+    writeString(data.signatureCodeName)
+    writeByteArray(data.bytes)
 }
-
-fun EnhancedSigningData.encode(signature: ByteArray): ByteArray =
-    ByteArrayOutputStream().use { stream ->
-        DataOutputStream(stream).use { writer ->
-            writer.writeShort(ENHANCED_SIGNED_ENCODING_V1_MAGIC_NUMBER.toInt())
-            writeSigningData(writer)
-            writer.writeByteArray(signature)
-        }
-        stream.toByteArray()
-    }
-
-fun ByteArray.decodeSignedData(): EnhancedSignedData =
-    ByteArrayInputStream(this).use { stream ->
-        DataInputStream(stream).use { reader ->
-            when (reader.readShort()) {
-                ENHANCED_SIGNED_ENCODING_V1_MAGIC_NUMBER -> {
-                    val timestamp = reader.readLong()
-                    val signatureCodeName = reader.readUTF()
-                    require(!signatureCodeName.isNullOrBlank()) {
-                        "The signature spec id must not be blank."
-                    }
-                    val bytes = reader.readByteArray()
-                    val signature = reader.readByteArray()
-                    EnhancedSignedData(
-                        signature = EnhancedSignature(
-                            timestamp = Instant.ofEpochMilli(timestamp),
-                            signatureCodeName = signatureCodeName,
-                            signature = signature
-                        ),
-                        bytes = bytes
-                    )
-                }
-                else -> throw CryptoServiceException("Unknown signature format.")
-            }
-        }
-    }
-
 
 private fun DataOutputStream.writeString(value: String?): DataOutputStream {
     if (value.isNullOrBlank()) {
