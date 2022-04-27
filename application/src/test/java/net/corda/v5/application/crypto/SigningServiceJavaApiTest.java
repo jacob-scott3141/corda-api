@@ -39,6 +39,6 @@ class SigningServiceJavaApiTest {
                 .assertThat(signingService.sign("test".getBytes(), publicKey, spec))
                 .isEqualTo(signatureWithKey);
     }
-    
+
  */
 }

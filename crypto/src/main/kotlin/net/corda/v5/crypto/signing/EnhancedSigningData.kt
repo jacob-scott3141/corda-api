@@ -3,7 +3,7 @@ package net.corda.v5.crypto.signing
 import java.time.Instant
 
 class EnhancedSigningData(
-    val timestamp: Instant,
+    val timestamp: Instant, // delete
     val signatureCodeName: String,
     val bytes: ByteArray
 ) {
