@@ -1,5 +1,6 @@
 package net.corda.v5.application.crypto;
 
+import net.corda.v5.crypto.DigestAlgorithmName;
 import net.corda.v5.crypto.DigitalSignature;
 import net.corda.v5.crypto.SignatureScheme;
 import org.assertj.core.api.Assertions;
@@ -18,9 +19,20 @@ class SigningServiceJavaApiTest {
     private final SignatureScheme spec = new SignatureScheme("mock", "mock", null, null);
 
     @Test
-    void signWithByteArrayTest() {
+    void signWithByteArrayAndSignatureSchemeTest() {
         final DigitalSignature.WithKey signatureWithKey = new DigitalSignature.WithKey(publicKey, "test".getBytes());
-        Mockito.when(signingService.sign((byte[]) any(), any(), any())).thenReturn(signatureWithKey);
+        Mockito.when(signingService.sign((byte[]) any(), any(), (SignatureScheme)any())).thenReturn(signatureWithKey);
+
+        Assertions.assertThat(signingService.sign("test".getBytes(), publicKey, spec)).isNotNull();
+        Assertions
+                .assertThat(signingService.sign("test".getBytes(), publicKey, spec))
+                .isEqualTo(signatureWithKey);
+    }
+
+    @Test
+    void signWithByteArrayAndDigestAlgorthmNameTest() {
+        final DigitalSignature.WithKey signatureWithKey = new DigitalSignature.WithKey(publicKey, "test".getBytes());
+        Mockito.when(signingService.sign((byte[]) any(), any(), (DigestAlgorithmName) any())).thenReturn(signatureWithKey);
 
         Assertions.assertThat(signingService.sign("test".getBytes(), publicKey, spec)).isNotNull();
         Assertions
