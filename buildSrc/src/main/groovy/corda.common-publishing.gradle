@@ -21,6 +21,9 @@ if (System.getenv('CORDA_ARTIFACTORY_USERNAME') != null || project.hasProperty('
                     if (project.hasProperty("javaDoc")) {
                         maven.artifact(tasks.getByName("javadocJar"))
                     }
+                    if (!project.hasProperty("showPomWarnings")) {
+                        suppressPomMetadataWarningsFor("runtimeElements")
+                    }
 
                 }
             }
