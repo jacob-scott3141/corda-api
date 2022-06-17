@@ -46,6 +46,10 @@
         "logicalType": "timestamp-millis"
       },
       "doc": "Time ([Instant]) in milliseconds when the record was updated or added."
+    },
+    {
+      "name": "entityVersion",
+      "type": [ "null", "int" ]
     }
   ]
 }
