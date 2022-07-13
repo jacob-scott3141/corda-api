@@ -10,7 +10,7 @@ interface ConsensualTestResponse {
     val session: FlowSession
 
     @Suspendable
-    abstract fun createResponse(): String
+    fun createResponse(): String
 }
 
 @DoNotImplement
