@@ -3,14 +3,5 @@
   "name": "EntityResponse",
   "doc": "The response to an {@link EntityRequest}.",
   "namespace": "net.corda.data.persistence",
-  "fields": [
-    {
-      "name": "result",
-      "doc": "Result of request, either null (success or no results), or (amqp) serialized bytes",
-      "type": [
-        "null",
-        "bytes"
-      ]
-    }
-  ]
+  "fields": []
 }
