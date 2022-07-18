@@ -1,0 +1,62 @@
+{
+  "type": "record",
+  "name": "ExternalEventResponse",
+  "namespace": "net.corda.data.flow.event.external",
+  "doc": "Events from workers that are sent back to the flow worker to be consumed by flows",
+  "fields": [
+    {
+      "name": "requestId",
+      "type": "string",
+      "doc": "The request id of the external event response. Used for deduplication when processing responses."
+    },
+    {
+      "name": "chunkNumber",
+      "type": [
+        "null",
+        "int"
+      ],
+      "doc": "The current chunk number that this response contains, or `null` if the response consists of a single payload that does not need to be chunked."
+    },
+    {
+      "name": "numberOfChunks",
+      "type": [
+        "null",
+        "int"
+      ],
+      "doc": "The number of chunks that are being sent back as responses, or `null` if the response consists of a single payload that does not need to be chunked."
+    },
+    {
+      "name": "payload",
+      "type": [
+        "null",
+        "net.corda.data.persistence.EntityResponse",
+        "net.corda.data.crypto.wire.ops.flow.FlowOpsResponse"
+      ],
+      "doc": "The underlying payload that can contain domain specific information that is not serialized into the {@link ExternalEventResponse#data} property. `null` if the response represents an error and therefore does not have a payload to respond with."
+    },
+    {
+      "name": "data",
+      "type": [
+        "null",
+        "bytes"
+      ],
+      "doc": "Serialized data that may or may not be chunked. `null` if the response represents an error and therefore does not have any data to respond with."
+    },
+    {
+      "name": "exceptionEnvelope",
+      "type": [
+        "null",
+        "net.corda.data.flow.event.external.ExternalEventResponseExceptionEnvelope"
+      ],
+      "doc": "The {@link ExternalEventResponseExceptionEnvelope} representing an error that occurred when processing the incoming external event request. `null` if the request was successfully processed and there is no error to respond with."
+    },
+    {
+      "name": "timestamp",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "Time ([Instant]) in milliseconds when the response was created."
+    }
+  ]
+}

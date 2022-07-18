@@ -1,0 +1,44 @@
+{
+  "type": "record",
+  "name": "ExternalEventState",
+  "namespace": "net.corda.data.flow.state.external",
+  "fields": [
+    {
+      "name": "requestId",
+      "type": "string",
+      "doc": "Unique ID of a single crypto request. The Id remains the same for each resend."
+    },
+    {
+      "name": "status",
+      "doc": "Status of the state.",
+      "type": "net.corda.data.flow.state.external.ExternalEventStateStatus"
+    },
+    {
+      "name": "eventToSend",
+      "type": "net.corda.data.flow.event.external.ExternalEvent",
+      "doc": "The event to send"
+    },
+    {
+      "name": "retries",
+      "doc": "The amount of times the request has been sent.",
+      "type": "int",
+      "default": 0
+    },
+    {
+      "name": "sendTimestamp",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "Timestamp of when to send a message. If this time is in the past, then the message needs to be (re)sent."
+    },
+    {
+      "name": "responses",
+      "doc": "The responses received from the external worker.",
+      "type": {
+        "type": "array",
+        "items": "net.corda.data.flow.event.external.ExternalEventResponse"
+      }
+    }
+  ]
+}
