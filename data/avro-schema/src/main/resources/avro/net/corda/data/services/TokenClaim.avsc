@@ -1,0 +1,21 @@
+{
+  "type": "record",
+  "name": "TokenClaim",
+  "namespace": "net.corda.data.services",
+  "fields": [
+      {
+        "name": "claimId",
+        "type": "string"
+      },
+      {
+        "name": "tokenSetKey",
+        "type": "net.corda.data.services.TokenSetKey"
+      },
+      {
+        "name": "claimedTokens",
+        "type": {
+          "type": "array",
+          "items": "net.corda.data.services.Token"
+      }
+    ]
+}

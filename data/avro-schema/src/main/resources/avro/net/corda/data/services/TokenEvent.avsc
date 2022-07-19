@@ -1,0 +1,23 @@
+{
+  "type": "record",
+  "name": "TokenEvent",
+  "namespace": "net.corda.data.services",
+  "fields": [
+      {
+        "name": "tokenSetKey",
+        "type": "net.corda.data.services.TokenSetKey"
+      },
+      {
+        "name": "consumedTokens",
+        "type": {
+          "type": "array",
+          "items": "net.corda.data.services.Token"
+      },
+      {
+        "name": "producedTokens",
+        "type": {
+          "type": "array",
+          "items": "net.corda.data.services.Token"
+      },
+    ]
+}

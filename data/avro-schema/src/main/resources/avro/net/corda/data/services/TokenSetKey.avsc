@@ -1,0 +1,27 @@
+{
+  "type": "record",
+  "name": "TokenSetKey",
+  "namespace": "net.corda.data.services",
+  "fields": [
+      {
+        "name": "shortHolderId",
+        "type": "string"
+      },
+      {
+        "name": "tokenType",
+        "type": "string"
+      },
+      {
+        "name": "issuerHash",
+        "type": "string"
+      },
+      {
+        "name": "notaryHash",
+        "type": "string"
+      },
+      {
+        "name": "symbol",
+        "type": "string"
+      }
+    ]
+}

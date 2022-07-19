@@ -1,0 +1,33 @@
+{
+  "type": "record",
+  "name": "TokenClaimQuery",
+  "namespace": "net.corda.data.services",
+  "fields": [
+      {
+        "name": "flowId",
+        "type": "string"
+      },
+      {
+        "name": "tokenSet",
+        "type": "net.corda.data.services.TokenSetKey"
+      },
+      {
+        "name": "ownerHash",
+        "type": ["null", "string"],
+        "default": null,
+      },
+      {
+        "name": "tagRegex",
+        "type": ["null", "string"],
+        "default": null,
+      },
+      {
+        "name": "targetAmount",
+        "type": "long"
+      },
+      {
+        "name": "awaitWhenClaimed",
+        "type": "boolean",
+      },
+    ]
+}

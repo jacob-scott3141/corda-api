@@ -1,0 +1,24 @@
+{
+  "type": "record",
+  "name": "TokenClaimEvent",
+  "namespace": "net.corda.data.services",
+  "fields": [
+    {
+      "name": "tokenSetKey",
+      "type": "net.corda.data.services.TokenSetKey"
+    },
+    {
+      "name": "payload",
+      "type": [
+        "net.corda.data.services.TokenClaimQuery",
+        "net.corda.data.services.TokenClaimRelease"
+      ]
+    }
+  ]
+}
+
+{
+  "type": "map",
+  "values" : "long",
+  "default": {}
+}
