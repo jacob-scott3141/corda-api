@@ -10,9 +10,19 @@
       "doc": "The request id of the external event. Used for deduplication when processing responses."
     },
     {
+      "name": "flowId",
+      "type": "string",
+      "doc": "The request id of the external event. Used for deduplication when processing responses."
+    },
+    {
       "name": "topic",
       "type": "string",
       "doc": "The topic that the external event is sent to."
+    },
+    {
+      "name": "key",
+      "type": ["string"],
+      "doc": "The key that the external event is partitioned by."
     },
     {
       "name": "payload",
