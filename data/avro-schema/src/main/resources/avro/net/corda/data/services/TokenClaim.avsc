@@ -8,6 +8,10 @@
         "type": "string"
       },
       {
+        "name": "flowId",
+        "type": "string"
+      },
+      {
         "name": "tokenSetKey",
         "type": "net.corda.data.services.TokenSetKey"
       },
