@@ -25,6 +25,11 @@
       "default": 0
     },
     {
+      "name": "handlerClassName",
+      "type": "string",
+      "doc": "The name of the handler to use when resuming the flow."
+    },
+    {
       "name": "sendTimestamp",
       "type": {
         "type": "long",
