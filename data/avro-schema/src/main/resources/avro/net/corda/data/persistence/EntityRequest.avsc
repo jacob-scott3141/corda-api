@@ -20,6 +20,11 @@
         "net.corda.data.persistence.FindEntity",
         "net.corda.data.persistence.FindAll"
       ]
+    },
+    {
+      "name": "flowExternalEventContext",
+      "type": "net.corda.data.flow.event.external.ExternalEventContext",
+      "doc": "The context of the external event that this request was sent from."
     }
   ]
 }
