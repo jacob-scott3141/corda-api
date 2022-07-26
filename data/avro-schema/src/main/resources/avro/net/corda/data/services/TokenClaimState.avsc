@@ -1,24 +1,25 @@
 {
   "type": "record",
-  "name": "TokenClaimEvent",
+  "name": "TokenClaimState",
   "namespace": "net.corda.data.services",
   "fields": [
-    {
-      "name": "tokenSetKey",
-      "type": "net.corda.data.services.TokenSetKey"
-    },
-    {
-      "name": "payload",
-      "type": [
-        "net.corda.data.services.TokenClaimQuery",
-        "net.corda.data.services.TokenClaimRelease"
-      ]
-    }
-  ]
-}
-
-{
-  "type": "map",
-  "values" : "long",
-  "default": {}
+      {
+        "name": "claimRequestId",
+        "type": "string"
+      },
+      {
+        "name": "claimExpiryTime",
+        "type": {
+          "type": "long",
+          "logicalType": "timestamp-millis"
+        }
+      },
+      {
+        "name": "claimedTokens",
+        "type": {
+          "type": "array",
+          "items": "string"
+         }
+      }
+    ]
 }

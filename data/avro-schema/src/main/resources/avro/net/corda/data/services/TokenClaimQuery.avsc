@@ -4,6 +4,10 @@
   "namespace": "net.corda.data.services",
   "fields": [
       {
+        "name": "claimRequestId",
+        "type": "string"
+      },
+      {
         "name": "flowId",
         "type": "string"
       },
@@ -14,12 +18,12 @@
       {
         "name": "ownerHash",
         "type": ["null", "string"],
-        "default": null,
+        "default": null
       },
       {
         "name": "tagRegex",
         "type": ["null", "string"],
-        "default": null,
+        "default": null
       },
       {
         "name": "targetAmount",
@@ -27,7 +31,14 @@
       },
       {
         "name": "awaitWhenClaimed",
-        "type": "boolean",
+        "type": "boolean"
       },
+      {
+        "name": "awaitExpiryTime",
+        "type": ["null",  {
+          "type": "long",
+          "logicalType": "timestamp-millis"
+        }]
+      }
     ]
 }

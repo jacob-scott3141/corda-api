@@ -17,6 +17,7 @@ object ConfigKeys {
     const val POLICY_CONFIG = "corda.policy"
     const val RPC_CONFIG = "corda.rpc"
     const val SECRETS_CONFIG = "corda.secrets"
+    const val SERVICES_CONFIG = "corda.services"
     const val SANDBOX_CONFIG = "corda.sandbox"
     const val RECONCILIATION_CONFIG = "corda.reconciliation"
     const val SECURITY_CONFIG = "corda.security"

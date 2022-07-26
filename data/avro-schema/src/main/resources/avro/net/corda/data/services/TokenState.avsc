@@ -1,0 +1,32 @@
+{
+  "type": "record",
+  "name": "TokenState",
+  "namespace": "net.corda.data.services",
+  "fields": [
+      {
+        "name": "tokenSetKey",
+        "type": "net.corda.data.services.TokenSetKey"
+      },
+      {
+        "name": "blockedClaimQueries",
+        "type": {
+          "type": "array",
+          "items": "net.corda.data.services.TokenClaimQuery"
+         }
+      },
+      {
+        "name": "claimedTokens",
+        "type": {
+          "type": "array",
+          "items": "net.corda.data.services.TokenClaimState"
+         }
+      },
+      {
+        "name": "availableTokens",
+        "type": {
+          "type": "array",
+          "items": "net.corda.data.services.Token"
+         }
+      }
+    ]
+}

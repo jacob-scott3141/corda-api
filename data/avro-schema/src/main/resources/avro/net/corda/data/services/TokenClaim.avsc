@@ -4,12 +4,15 @@
   "namespace": "net.corda.data.services",
   "fields": [
       {
-        "name": "claimId",
+        "name": "claimRequestId",
         "type": "string"
       },
       {
-        "name": "flowId",
-        "type": "string"
+        "name": "claimExpiryTime",
+        "type": {
+          "type": "long",
+          "logicalType": "timestamp-millis"
+        }
       },
       {
         "name": "tokenSetKey",
@@ -20,6 +23,7 @@
         "type": {
           "type": "array",
           "items": "net.corda.data.services.Token"
+         }
       }
     ]
 }

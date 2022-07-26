@@ -1,9 +1,0 @@
-{
-  "type": "enum",
-  "name": "TokenEventType",
-  "namespace": "net.corda.data.services",
-  "symbols": [
-     "PRODUCE",
-     "CONSUME"
-  ]
-}

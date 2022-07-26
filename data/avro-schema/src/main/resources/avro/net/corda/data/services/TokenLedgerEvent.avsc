@@ -1,28 +1,24 @@
 {
   "type": "record",
-  "name": "TokenClaimRelease",
+  "name": "TokenLedgerEvent",
   "namespace": "net.corda.data.services",
   "fields": [
-      {
-        "name": "claimRequestId",
-        "type": "string"
-      },
       {
         "name": "tokenSetKey",
         "type": "net.corda.data.services.TokenSetKey"
       },
       {
-        "name": "usedTokenRefs",
+        "name": "consumedTokens",
         "type": {
           "type": "array",
-          "items": "string"
+          "items": "net.corda.data.services.Token"
         }
       },
       {
-        "name": "releasedTokenRefs",
+        "name": "producedTokens",
         "type": {
           "type": "array",
-          "items": "string"
+          "items": "net.corda.data.services.Token"
         }
       }
     ]

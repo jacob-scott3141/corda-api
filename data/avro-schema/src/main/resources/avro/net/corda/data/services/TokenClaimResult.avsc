@@ -1,0 +1,23 @@
+{
+  "type": "record",
+  "name": "TokenClaimResult",
+  "namespace": "net.corda.data.services",
+  "fields": [
+      {
+        "name": "flowId",
+        "type": "string"
+      },
+      {
+        "name": "status",
+        "type": {
+          "name": "TokenClaimResultStatus",
+          "type": "enum",
+          "symbols": ["SUCCESS","NONE_AVAILABLE","AVAILABLE_CLAIMED"]
+        }
+      },
+      {
+        "name": "tokenClaim",
+        "type": "net.corda.data.services.TokenClaim"
+      }
+    ]
+}
