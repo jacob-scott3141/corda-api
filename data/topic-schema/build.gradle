@@ -1,6 +1,7 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm'
-    id 'com.r3.internal.gradle.plugins.r3Publish'
+    id 'corda.common-publishing'
+    id 'corda-api.common-library'
 }
 
 description 'Definition of Topics'
@@ -8,4 +9,11 @@ description 'Definition of Topics'
 dependencies {
     implementation 'net.corda.kotlin:kotlin-stdlib-jdk8-osgi'
     implementation platform(project(':corda-api'))
+
+    testImplementation "org.assertj:assertj-core:$assertjVersion"
+    testImplementation "com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion"
+    testImplementation "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jacksonVersion"
+
+    compileOnly 'org.osgi:osgi.annotation'
 }
+

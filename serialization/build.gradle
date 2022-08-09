@@ -1,6 +1,6 @@
 plugins {
     id 'corda-api.common-library'
-    id 'com.r3.internal.gradle.plugins.r3Publish'
+    id 'corda.common-publishing'
     id 'net.corda.internal.gradle.plugins.api-scanner'
     id 'org.jetbrains.kotlin.jvm'
 }
@@ -14,4 +14,6 @@ dependencies {
     implementation 'net.corda.kotlin:kotlin-stdlib-jdk8-osgi'
 
     compileOnly 'org.osgi:osgi.annotation'
+
+    testImplementation "org.assertj:assertj-core:$assertjVersion"
 }

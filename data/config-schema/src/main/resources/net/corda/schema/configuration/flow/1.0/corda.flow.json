@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://corda.r3.com/net/corda/schema/configuration/flow/1.0/corda.flow.json",
+  "title": "Corda Flow Configuration Schema",
+  "description": "Configuration schema for the flow subsection.",
+  "type": "object",
+  "default": {},
+  "properties": {
+    "processing": {
+      "description": "Settings for flow pipeline processing",
+      "type": "object",
+      "default": {},
+      "properties": {
+        "maxRetryAttempts": {
+          "description": "The maximum number of retry attempts a transient error will be retried before failing the flow. a value of zero disables retries.",
+          "type": "integer",
+          "minimum": 0,
+          "default": 5
+        },
+        "maxRetryDelay": {
+          "description": "The maximum delay before a retry is scheduled, in milliseconds",
+          "type": "integer",
+          "minimum": 1000,
+          "default": 16000
+        },
+        "maxFlowSleepDuration": {
+          "description": "The maximum delay before a periodic WakeUp is scheduled, in milliseconds",
+          "type": "integer",
+          "minimum": 1000,
+          "default": 60000
+        },
+        "maxFlowExecutionDuration": {
+          "description": "The maximum amount of time in milliseconds a Flow can execute between suspends before it is considered faulty and a candidate for forced failure",
+          "type": "integer",
+          "minimum": 5000,
+          "default": 60000
+        }
+      }
+    },
+    "session": {
+      "description": "Settings for flow sessions",
+      "type": "object",
+      "default": {},
+      "properties": {
+        "messageResendWindow": {
+          "description": "Length of time to wait before resending unacknowledged flow session messages, in milliseconds",
+          "type": "integer",
+          "minimum": 1000,
+          "default": 120000
+        },
+        "heartbeatTimeout": {
+          "description": "Length of time to wait when no message has been received from a counterparty before causing the session to error, in milliseconds",
+          "type": "integer",
+          "minimum": 600000,
+          "default": 3600000
+        },
+        "p2pTTL": {
+          "description": "TTL set on on messages passed to the P2P layer to be sent to a counterparty.",
+          "type": "integer",
+          "minimum": 10000,
+          "default": 240000
+        }
+      }
+    },
+    "persistence": {
+      "description": "Settings for persistence store interactions within a flow",
+      "type": "object",
+      "default": {},
+      "properties": {
+        "messageResendWindow": {
+          "description": "Length of time to wait before resending unacknowledged query messages, in milliseconds",
+          "type": "integer",
+          "minimum": 100,
+          "default": 5000
+        },
+        "maxRetries": {
+          "description": "The maximum amount of times to retry a request before returning an exception to the user code.",
+          "type": "integer",
+          "minimum": 0,
+          "default": 5
+        }
+      }
+    },
+    "crypto": {
+      "description": "Settings for crypto interactions within a flow",
+      "type": "object",
+      "default": {},
+      "properties": {
+        "messageResendWindow": {
+          "description": "Length of time to wait before resending unacknowledged crypto events, in milliseconds",
+          "type": "integer",
+          "minimum": 100,
+          "default": 5000
+        },
+        "maxRetries": {
+          "description": "The maximum amount of times to retry a request before returning an exception to the user code.",
+          "type": "integer",
+          "minimum": 0,
+          "default": 5
+        }
+      }
+    }
+  }
+}

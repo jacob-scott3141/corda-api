@@ -1,0 +1,77 @@
+topics:
+  MembershipEventTopic:
+    name: membership.event
+    consumers:
+    producers:
+    config:
+  MembershipGroupCPIWhitelistTopic:
+    name: membership.group.cpi.whitelists
+    consumers:
+    producers:
+    config:
+      cleanup.policy: compact
+      segment.ms: 600000
+      delete.retention.ms: 300000
+      min.compaction.lag.ms: 60000
+      max.compaction.lag.ms: 604800000
+      min.cleanable.dirty.ratio: 0.5
+  MembershipGroupParamsTopic:
+    name: membership.group.params
+    consumers:
+    producers:
+    config:
+      cleanup.policy: compact
+      segment.ms: 600000
+      delete.retention.ms: 300000
+      min.compaction.lag.ms: 60000
+      max.compaction.lag.ms: 604800000
+      min.cleanable.dirty.ratio: 0.5
+  MembershipUpdateTopic:
+    name: membership.update
+    consumers:
+    producers:
+    config:
+  MembershipRegistrationTopic:
+    name: membership.registration
+    consumers:
+    producers:
+    config:
+  MembershipRegistrationStateTopic:
+    name: membership.registration.state
+    consumers:
+    producers:
+    config:
+  MembershipMembersTopic:
+    name: membership.members
+    consumers:
+    producers:
+    config:
+      cleanup.policy: compact
+      segment.ms: 600000
+      delete.retention.ms: 300000
+      min.compaction.lag.ms: 60000
+      max.compaction.lag.ms: 604800000
+      min.cleanable.dirty.ratio: 0.5
+  MembershipRpcOpsTopic:
+    name: membership.rpc.ops
+    consumers:
+    producers:
+  MembershipRpcOpsResponseTopic:
+    name: membership.rpc.ops.resp
+    consumers:
+    producers:
+  MembershipDBRpcOpsTopic:
+    name: membership.db.rpc.ops
+    consumers:
+    producers:
+    config:
+  MembershipDBRpcOpsResponseTopic:
+    name: membership.db.rpc.ops.resp
+    consumers:
+    producers:
+    config:
+  MembershipSynchronisationTopic:
+    name: membership.sync
+    consumers:
+    producers:
+    config:

@@ -1,0 +1,83 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <changeSet author="R3.Corda" id="crypto-creation-v1.0">
+        <createTable tableName="crypto_wrapping_key">
+            <column name="alias" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="encoding_version" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="algorithm_name" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="key_material" type="VARBINARY(1048576)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey  columnNames="alias"
+                        tableName="crypto_wrapping_key"
+                        constraintName="crypto_wrapping_key_pk"/>
+
+        <createTable tableName="crypto_hsm_association">
+            <column name="id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tenant_id" type="VARCHAR(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="hsm_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="timestamp" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="master_key_alias" type="VARCHAR(30)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <addPrimaryKey  columnNames="id"
+                        tableName="crypto_hsm_association"
+                        constraintName="crypto_hsm_association_pk"/>
+        <addUniqueConstraint columnNames="tenant_id, hsm_id"
+                             tableName="crypto_hsm_association"
+                             constraintName="crypto_hsm_association_uc"/>
+
+        <createTable tableName="crypto_hsm_category_association">
+            <column name="id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tenant_id" type="VARCHAR(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="hsm_association_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="timestamp" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deprecated_at" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey  columnNames="id"
+                        tableName="crypto_hsm_category_association"
+                        constraintName="crypto_hsm_category_association_pk"/>
+        <addUniqueConstraint columnNames="tenant_id, category, deprecated_at"
+                             tableName="crypto_hsm_category_association"
+                             constraintName="crypto_hsm_category_association_uc"/>
+        <addForeignKeyConstraint  baseColumnNames="hsm_association_id"
+                                  baseTableName="crypto_hsm_category_association"
+                                  referencedColumnNames="id"
+                                  referencedTableName="crypto_hsm_association"
+                                  constraintName="crypto_hsm_category_association_fk1"/>
+    </changeSet>
+</databaseChangeLog>

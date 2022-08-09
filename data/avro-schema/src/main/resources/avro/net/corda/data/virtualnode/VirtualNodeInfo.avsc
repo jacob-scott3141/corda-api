@@ -1,0 +1,58 @@
+{
+  "type": "record",
+  "name": "VirtualNodeInfo",
+  "namespace": "net.corda.data.virtualnode",
+  "fields": [
+    {
+      "name": "holdingIdentity",
+      "type": "net.corda.data.identity.HoldingIdentity"
+    },
+    {
+      "name": "cpiIdentifier",
+      "type": "net.corda.data.packaging.CpiIdentifier"
+    },
+
+    {
+      "name": "vaultDdlConnectionId",
+      "type": ["null", "string"],
+      "doc": "ID of virtual node Vault DB connection for DDL operations. Null value means that DB is managed externally."
+    },
+    {
+      "name": "vaultDmlConnectionId",
+      "type": "string",
+      "doc": "ID of virtual node Vault DB connection for DML operations."
+    },
+    {
+      "name": "cryptoDdlConnectionId",
+      "type": ["null", "string"],
+      "doc": "ID of virtual node Crypto DB connection for DDL operations. Null value means that DB is managed externally."
+    },
+    {
+      "name": "cryptoDmlConnectionId",
+      "type": "string",
+      "doc": "ID of virtual node Vault DB connection for DML operations."
+    },
+    {
+      "name": "hsmConnectionId",
+      "type": ["null", "string"],
+      "doc": "ID of HSM connection. Null value means that HSM is not used."
+    },
+    {
+      "name": "virtualNodeState",
+      "type": "string",
+      "doc": "The current maintenance state of the virtual node."
+    },
+    {
+      "name": "version",
+      "type": "int"
+    },
+    {
+      "name": "timestamp",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "Time ([Instant]) in milliseconds when the record was updated or added."
+    }
+  ]
+}

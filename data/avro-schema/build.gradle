@@ -4,13 +4,23 @@ import groovy.text.SimpleTemplateEngine
 
 plugins {
     id 'org.jetbrains.kotlin.jvm'
-    id 'com.r3.internal.gradle.plugins.r3Publish'
+    id 'corda.common-publishing'
     id "com.github.davidmc24.gradle.plugin.avro-base"
     id 'biz.aQute.bnd.builder'
+    id 'java-library'
 }
 
 dependencies {
     api "org.apache.avro:avro:$avroVersion"
+    // Transitive dependency bump to eliminate critical violation in NexusIQ report - see nexus iq report.
+    // Constraints block can be removed when Avro is upgraded to v1.11
+    // For more details, please see: https://issues.apache.org/jira/browse/AVRO-3215
+    constraints {
+        implementation('org.apache.commons:commons-compress:1.21') {
+            because 'CVE-2021-35515, CVE-2021-35516, CVE-2021-35517, CVE-2021-36090'
+        }
+    }
+
     implementation platform(project(':corda-api'))
     implementation project(":base")
     implementation 'net.corda.kotlin:kotlin-stdlib-jdk8-osgi'
@@ -34,6 +44,8 @@ sourceSets {
 }
 
 def generateAvro = tasks.register("generateAvro", GenerateAvroJavaTask) {
+    outputs.cacheIf { false }
+    outputs.upToDateWhen { false }
     group = "codeGeneration"
     source("src/main/resources/avro")
     outputDir = generatedAvroDir
@@ -48,6 +60,7 @@ avro {
 // generate through Avro
 
 def generateOSGiPackageInfo = tasks.register("generateOSGiPackageInfo", Task) {
+    outputs.cacheIf { false }
     group = "codeGeneration"
     def packages = [] as Set<String>
     def classes = [] as Set<String>
@@ -127,9 +140,18 @@ tasks.named('processResources', ProcessResources) {
  * all the classes from this bundle.
  */
 tasks.named('jar', Jar) {
-    bnd """
+    archiveBaseName = "corda-" + project.name
+
+    bundle {
+        bnd '''\
 Bundle-Name: \${project.description}
 Bundle-SymbolicName: \${project.group}.\${project.name}
 Fragment-Host: avro
-"""
+'''
+    }
+}
+
+tasks.named("sourcesJar", Jar) {
+    inputs.files(generateAvro)
+    inputs.files(generateOSGiPackageInfo)
 }

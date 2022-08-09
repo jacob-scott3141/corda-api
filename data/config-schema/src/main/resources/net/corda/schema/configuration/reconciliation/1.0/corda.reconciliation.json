@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://corda.r3.com/net/corda/schema/configuration/reconciliation/1.0/corda.reconciliation.json",
+  "title": "Corda Reconciliation Configuration Schema",
+  "description": "Configuration schema for the reconciliation subsection.",
+  "type": "object",
+  "default": {},
+  "properties": {
+    "permissionSummaryIntervalMs": {
+      "description": "",
+      "type": "integer",
+      "minimum": 5000,
+      "default": 30000
+    },
+    "cpkWriteIntervalMs": {
+      "description": "",
+      "type": "integer",
+      "minimum": 5000,
+      "default": 10000
+    },
+    "cpiInfoIntervalMs": {
+      "description": "",
+      "type": "integer",
+      "minimum": 5000,
+      "default": 30000
+    },
+    "vnodeInfoIntervalMs": {
+      "description": "",
+      "type": "integer",
+      "minimum": 5000,
+      "default": 30000
+    },
+    "configIntervalMs": {
+      "description": "",
+      "type": "integer",
+      "minimum": 5000,
+      "default": 30000
+    }
+  }
+}

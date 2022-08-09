@@ -12,12 +12,10 @@ dependencies {
 
     api platform(project(':corda-api'))
     api project(":base")
+    api project(":crypto")
+    api project(":membership")
+    api project(":persistence")
     api project(":serialization")
-
-    implementation project(":crypto")
-
-    implementation "org.bouncycastle:bcprov-jdk15on:$bouncycastleVersion"
-    implementation "org.bouncycastle:bcpkix-jdk15on:$bouncycastleVersion"
 
     compileOnly 'org.osgi:osgi.core'
     compileOnly 'org.osgi:osgi.annotation'

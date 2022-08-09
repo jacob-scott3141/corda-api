@@ -1,10 +1,10 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import static org.gradle.api.JavaVersion.*
+import static org.gradle.api.JavaVersion.VERSION_11
+import static org.gradle.jvm.toolchain.JavaLanguageVersion.of
 
 buildscript {
     ext {
-        // Remember where our Java executable lives (until Bnd supports Gradle toolchains).
-        javaExecutable = file("${System.getProperty('java.home')}/bin/java")
+        vcsUrl = System.getenv('GIT_URL') ?: 'https://github.com/corda/corda-api.git'
     }
 }
 
@@ -13,14 +13,24 @@ plugins {
     id 'net.corda.cordapp.cordapp-configuration'
     id 'org.jetbrains.kotlin.jvm' apply false
     id 'org.jetbrains.kotlin.plugin.allopen' apply false
-    id 'org.jetbrains.kotlin.plugin.noarg' apply false
+    id 'org.jetbrains.kotlin.plugin.jpa' apply false
     id 'io.gitlab.arturbosch.detekt' apply false
+    id "org.gradle.test-retry" apply false
+    id 'io.snyk.gradle.plugin.snykplugin'
     id 'org.ajoberstar.grgit' // used for GIT interaction (e.g. extract commit hash)
-    id 'com.r3.internal.gradle.plugins.r3ArtifactoryPublish'
-    id 'maven-publish'
+    id 'corda.root-publish'
     id 'jacoco' // test coverage
     id 'com.dorongold.task-tree' // utility to visualise Gradle task DAG
     id 'org.jetbrains.dokka'
+    id 'com.github.ben-manes.versions' // discover possible dependency version upgrades
+}
+
+snyk {
+    api = project.findProperty("snykApiToken") ?: System.getenv('SNYK_TOKEN')
+    arguments = project.findProperty("snykArguments") ?: '--all-sub-projects'
+    severity = project.findProperty("snykSeverity") ?: 'low'
+    autoDownload = true
+    autoUpdate = true
 }
 
 def rootProjectDir = rootDir
@@ -54,8 +64,8 @@ def releaseType = System.getenv('RELEASE_TYPE') ?: "SNAPSHOT"
 def javaVersion = VERSION_11
 
 logger.quiet("********************** CORDA BUILD **********************")
-if (JavaVersion.current() != javaVersion) {
-    throw new GradleException("The java version used ${JavaVersion.current()} is not the expected version ${javaVersion}.")
+if (!JavaVersion.current().isCompatibleWith(javaVersion)) {
+    throw new GradleException("The java version used ${JavaVersion.current()} is not compatible with the expected version ${javaVersion}.")
 }
 logger.quiet("SDK version: {}", JavaVersion.current())
 logger.quiet("JAVA HOME {}", System.getProperty("java.home"))
@@ -87,6 +97,20 @@ subprojects {
     version rootProject.version
     group 'net.corda'
 
+    pluginManager.withPlugin('java') {
+        java {
+            toolchain {
+                languageVersion = of(javaVersion.majorVersion.toInteger())
+            }
+
+            if (releaseType != 'GA' && releaseType != 'RC') {
+                withSourcesJar()
+            }
+        }
+    }
+
+    apply plugin: "org.gradle.test-retry" 
+
     pluginManager.withPlugin('org.jetbrains.kotlin.jvm') {
         apply plugin: 'io.gitlab.arturbosch.detekt'
         apply plugin: 'jacoco'
@@ -99,7 +123,7 @@ subprojects {
             // Test libraries -> keep consistent across modules
             testImplementation "org.jetbrains.kotlin:kotlin-test:$kotlinVersion"
             testImplementation "org.mockito:mockito-core:$mockitoVersion"
-            testImplementation("com.nhaarman:mockito-kotlin:$mockitoKotlinVersion") {
+            testImplementation("org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion") {
                 // Excluding mockito-core and adding it implicitly above. This is done to allow the use of the latest version of mockito.
                 exclude group: 'mockito-core'
             }
@@ -112,11 +136,6 @@ subprojects {
             detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektPluginVersion"
         }
 
-        java {
-            sourceCompatibility = javaVersion
-            targetCompatibility = javaVersion
-        }
-
         // Making all persistence entity open and with an empty constructor to allow Hibernate to work.
         apply plugin: 'kotlin-allopen'
         allOpen {
@@ -126,25 +145,9 @@ subprojects {
                 "javax.persistence.MappedSuperclass"
             )
         }
-        apply plugin: 'kotlin-noarg'
-        noArg {
-            annotations(
-                "javax.persistence.Entity",
-                "javax.persistence.Embeddable",
-                "javax.persistence.MappedSuperclass"
-            )
-        }
+        apply plugin: 'kotlin-jpa'
 
         configurations {
-            all {
-                resolutionStrategy {
-                    dependencySubstitution {
-                        // Replace any Logback SLF4J back-end with Log4J2.
-                        substitute module('ch.qos.logback:logback-classic') using module("org.apache.logging.log4j:log4j-slf4j-impl:$log4jVersion")
-                    }
-                }
-            }
-
             [ compileClasspath, testCompileClasspath, runtimeClasspath, testRuntimeClasspath ].forEach { cfg ->
                 configureKotlinForOSGi(cfg)
             }
@@ -153,74 +156,30 @@ subprojects {
         tasks.withType(KotlinCompile).configureEach {
             kotlinOptions {
                 allWarningsAsErrors = true
-                languageVersion = '1.4'
-                apiVersion = '1.4'
+                languageVersion = '1.7'
+                apiVersion = '1.7'
                 verbose = true
                 jvmTarget = javaVersion
                 freeCompilerArgs += [
                     "-Xjvm-default=all",
-                    // Prevent Kotlin from warning about kotlin.* classes inside the OSGi bundle.
-                    "-Xskip-runtime-version-check",
                     "-java-parameters"
                 ]
             }
         }
 
-        tasks.withType(JavaCompile).configureEach {
-            def compilerArgs = options.compilerArgs
-            compilerArgs << '-parameters'
-
-            options.encoding = 'UTF-8'
-        }
-
-        // TODO: does this really need to apply to all modules or can this be moved to the modules that need it only?
-        tasks.named('compileTestJava', JavaCompile) {
-            def compilerArgs = options.compilerArgs
-            compilerArgs << '--add-exports'
-            compilerArgs << 'java.base/sun.security.x509=ALL-UNNAMED'
-            compilerArgs << '--add-exports'
-            compilerArgs << 'java.base/sun.security.util=ALL-UNNAMED'
-        }
-
-        // TODO: as above, this may not apply to all modules, so maybe should be moved out
-        tasks.withType(Jar).matching { it.name != 'cpk' }.configureEach {
-            manifest {
-                attributes("Corda-Release-Version": archiveVersion.get())
-                attributes("Corda-Revision": revision)
-                attributes("Automatic-Module-Name": "net.corda.${project.name.replace('-', '.')}")
-                // NOTE: this needs to be reverted to a URL with the version once the URL structure has been defined.
-//                attributes("Corda-Docs-Link": "https://docs.corda.net/docs/corda-os/$cordaVersion")
-                attributes("Corda-Docs-Link": "https://docs.r3.com/")
+        tasks.named("detekt").configure {
+            if(file("$projectDir/detekt-baseline.xml").exists()){
+                baseline = file("$projectDir/detekt-baseline.xml")
             }
-        }
-
-        // Added to support junit5 tests
-        tasks.withType(Test).configureEach {
-            useJUnitPlatform()
-        }
-
-        tasks.register('compileAll') { task ->
-            description = "Compiles all the Kotlin and Java classes, including all of the test classes."
-            group = "verification"
-
-            task.dependsOn tasks.withType(AbstractCompile)
-        }
-
-        detekt {
-            baseline = file("$projectDir/detekt-baseline.xml")
-            config.setFrom(files("$rootProjectDir/detekt-config.yml"))
+            config.setFrom(files("$rootDir/detekt-config.yml"))
             parallel = true
             reports {
-                xml {
-                    enabled = true
-                    destination = file("$projectDir/build/detekt-report.xml")
+                xml{
+                    outputLocation.set(file("$projectDir/build/detekt-report.xml"))
                 }
-                html {
-                    enabled = false
-                }
-                txt {
-                    enabled = false
-                }
+                txt.required.set(false)
+                sarif.required.set(false)
+                html.required.set(false)
             }
         }
 
@@ -246,4 +205,80 @@ subprojects {
             from(dokkaHtml.outputDirectory)
         }
     }
+
+    // we do this to allow for Gradle task caching. OSGI attribute Bnd-LastModified breaks gradle caching as it is a timestamp
+    // below block tells Gradle to ignore specifically the Bnd-LastModified attribute of the manifest when checking if
+    // a task is up-to-date, this has no impact on publishing or production of jar.
+    normalization {
+        runtimeClasspath {
+            metaInf {
+                ignoreAttribute("Bnd-LastModified")
+            }
+        }
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        def compilerArgs = options.compilerArgs
+        compilerArgs << '-parameters'
+
+        options.encoding = 'UTF-8'
+    }
+
+    // TODO: as above, this may not apply to all modules, so maybe should be moved out
+    tasks.withType(Jar).matching { it.name != 'cpk' && it.name != 'cpb' }.configureEach {
+        manifest {
+            attributes("Corda-Release-Version": project.version)
+            attributes("Corda-Revision": revision)
+            attributes("Automatic-Module-Name": "net.corda.${project.name.replace('-', '.')}")
+            // NOTE: this needs to be reverted to a URL with the version once the URL structure has been defined.
+//                attributes("Corda-Docs-Link": "https://docs.corda.net/docs/corda-os/$cordaVersion")
+            attributes("Corda-Docs-Link": "https://docs.r3.com/")
+        }
+    }
+
+    // Added to support junit5 tests
+    tasks.withType(Test).configureEach {
+        useJUnitPlatform(){
+            excludeTags project.hasProperty('runUnstableTests') ? 'runAllTestsNoExclusions' : 'Unstable'
+        }
+
+        doFirst {
+            // Create all temporary files within the build directory.
+            systemProperty 'java.io.tmpdir', buildDir.absolutePath
+        }
+
+        retry {
+            if (System.getenv().containsKey("JENKINS_URL")) {
+                maxRetries = 2
+                maxFailures = 10
+            }
+        }
+    }
+
+    tasks.register('compileAll') { task ->
+        description = "Compiles all the Kotlin and Java classes, including all of the test classes."
+        group = "verification"
+
+        task.dependsOn tasks.withType(AbstractCompile)
+    }
+
+    tasks.register('allDependencyInsight', DependencyInsightReportTask)
+    tasks.register('allDependencies', DependencyReportTask)
+}
+
+// report updatable dependencies: gradle dependencyUpdates
+def isNonStable = { String version ->
+    def stableKeyword = ['RELEASE', 'FINAL', 'GA'].any { it -> version.toUpperCase().contains(it) }
+    def regex = /^[0-9,.v-]+(-r)?$/
+    return !stableKeyword && !(version ==~ regex)
+}
+tasks.named("dependencyUpdates").configure {
+    rejectVersionIf {
+        isNonStable(it.candidate.version) && !isNonStable(it.currentVersion)
+    }
+}
+
+wrapper {
+    gradleVersion = '7.4.2'
+    distributionType = Wrapper.DistributionType.BIN
 }
