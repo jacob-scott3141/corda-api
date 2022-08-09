@@ -36,6 +36,149 @@ net.corda.v5.base.concurrent.ConcurrencyUtils:
       type: public static final
       returnType: V
       params: {}
+net.corda.v5.base.exceptions.BackoffStrategy:
+  annotations: []
+  type: public interface
+  extends: []
+  interface: true
+  methods:
+    createBackoff:
+      annotations:
+        - NotNull
+      default: true
+      type: public static
+      returnType: net.corda.v5.base.exceptions.BackoffStrategy
+      params:
+        maxAttempts:
+          annotation: []
+          type: int
+        backoff:
+          annotation:
+            - NotNull
+          type: java.util.List<Long>
+    createExponentialBackoff:
+      annotations:
+        - NotNull
+      default: true
+      type: public static
+      returnType: net.corda.v5.base.exceptions.BackoffStrategy
+      params:
+        maxAttempts:
+          annotation: []
+          type: int
+        initialBackoff:
+          annotation: []
+          type: long
+    createLinearBackoff:
+      annotations:
+        - NotNull
+      default: true
+      type: public static
+      returnType: net.corda.v5.base.exceptions.BackoffStrategy
+    getBackoff:
+      annotations: []
+      default: false
+      type: public abstract
+      returnType: long
+      params:
+        attempt:
+          annotation: []
+          type: int
+net.corda.v5.base.exceptions.BackoffStrategy$Companion:
+  annotations: []
+  type: public static final class
+  extends: null
+  implements: []
+  interface: false
+  methods:
+    createBackoff:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: net.corda.v5.base.exceptions.BackoffStrategy
+      params:
+        maxAttempts:
+          annotation: []
+          type: int
+        backoff:
+          annotation:
+            - NotNull
+          type: java.util.List<Long>
+    createExponentialBackoff:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: net.corda.v5.base.exceptions.BackoffStrategy
+      params:
+        maxAttempts:
+          annotation: []
+          type: int
+        initialBackoff:
+          annotation: []
+          type: long
+    createLinearBackoff:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: net.corda.v5.base.exceptions.BackoffStrategy
+net.corda.v5.base.exceptions.BackoffStrategy$Default:
+  annotations: []
+  type: public static final class
+  extends: null
+  implements:
+    - net.corda.v5.base.exceptions.BackoffStrategy
+  interface: false
+  methods:
+    createBackoff:
+      annotations:
+        - NotNull
+      default: true
+      type: public static
+      returnType: net.corda.v5.base.exceptions.BackoffStrategy
+      params:
+        maxAttempts:
+          annotation: []
+          type: int
+        backoff:
+          annotation:
+            - NotNull
+          type: java.util.List<Long>
+    createExponentialBackoff:
+      annotations:
+        - NotNull
+      default: true
+      type: public static
+      returnType: net.corda.v5.base.exceptions.BackoffStrategy
+      params:
+        maxAttempts:
+          annotation: []
+          type: int
+        initialBackoff:
+          annotation: []
+          type: long
+    createLinearBackoff:
+      annotations:
+        - NotNull
+      default: true
+      type: public static
+      returnType: net.corda.v5.base.exceptions.BackoffStrategy
+    getBackoff:
+      annotations: []
+      default: false
+      type: public
+      returnType: long
+      params:
+        attempt:
+          annotation: []
+          type: int
+  fields:
+    Companion:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.base.exceptions.BackoffStrategy$Companion
 net.corda.v5.base.exceptions.CordaRuntimeException:
   annotations:
     - CordaSerializable
@@ -183,6 +326,93 @@ net.corda.v5.base.exceptions.CordaThrowable:
           annotation:
             - Nullable
           type: String
+net.corda.v5.base.exceptions.ValueNotFoundException:
+  annotations:
+    - CordaSerializable
+  type: public final class
+  extends: net.corda.v5.base.exceptions.CordaThrowable
+  implements: []
+  interface: false
+  methods:
+    addSuppressed:
+      annotations: []
+      default: false
+      type: public abstract
+      returnType: void
+      params:
+        suppressed:
+          annotation:
+            - NotNull
+          type: "Throwable[]"
+    equals:
+      annotations: []
+      default: false
+      type: public
+      returnType: boolean
+      params:
+        other:
+          annotation:
+            - Nullable
+          type: Object
+    getCause:
+      annotations:
+        - Nullable
+      default: false
+      type: public
+      returnType: Throwable
+    getMessage:
+      annotations:
+        - Nullable
+      default: false
+      type: public
+      returnType: String
+    getOriginalExceptionClassName:
+      annotations:
+        - Nullable
+      default: false
+      type: public abstract
+      returnType: String
+    getOriginalMessage:
+      annotations:
+        - Nullable
+      default: false
+      type: public abstract
+      returnType: String
+    hashCode:
+      annotations: []
+      default: false
+      type: public
+      returnType: int
+    setCause:
+      annotations: []
+      default: false
+      type: public abstract
+      returnType: void
+      params:
+        cause:
+          annotation:
+            - Nullable
+          type: Throwable
+    setMessage:
+      annotations: []
+      default: false
+      type: public abstract
+      returnType: void
+      params:
+        message:
+          annotation:
+            - Nullable
+          type: String
+    setOriginalExceptionClassName:
+      annotations: []
+      default: false
+      type: public abstract
+      returnType: void
+      params:
+        <set-?>:
+          annotation:
+            - Nullable
+          type: String
 net.corda.v5.base.stream.Cursor:
   annotations:
     - DoNotImplement
@@ -195,7 +425,7 @@ net.corda.v5.base.stream.Cursor:
         - NotNull
       default: true
       type: public
-      returnType: java.util.concurrent.CompletableFuture<net.corda.v5.base.stream.Cursor.PollResult<T>>
+      returnType: java.util.concurrent.CompletableFuture<net.corda.v5.base.stream.Cursor$PollResult<T>>
       params:
         maxCount:
           annotation: []
@@ -210,7 +440,7 @@ net.corda.v5.base.stream.Cursor:
         - NotNull
       default: false
       type: public abstract
-      returnType: net.corda.v5.base.stream.Cursor.PollResult<T>
+      returnType: net.corda.v5.base.stream.Cursor$PollResult<T>
       params:
         maxCount:
           annotation: []
@@ -242,7 +472,7 @@ net.corda.v5.base.stream.Cursor$PollResult:
         - NotNull
       default: false
       type: public abstract
-      returnType: java.util.List<net.corda.v5.base.stream.Cursor.PollResult.PositionedValue<T>>
+      returnType: java.util.List<net.corda.v5.base.stream.Cursor$PollResult$PositionedValue<T>>
     getRemainingElementsCountEstimate:
       annotations:
         - Nullable
@@ -393,7 +623,7 @@ net.corda.v5.base.stream.DurableCursor:
         - NotNull
       default: true
       type: public
-      returnType: java.util.concurrent.CompletableFuture<net.corda.v5.base.stream.Cursor.PollResult<T>>
+      returnType: java.util.concurrent.CompletableFuture<net.corda.v5.base.stream.Cursor$PollResult<T>>
       params:
         maxCount:
           annotation: []
@@ -411,7 +641,7 @@ net.corda.v5.base.stream.DurableCursor:
         result:
           annotation:
             - NotNull
-          type: net.corda.v5.base.stream.Cursor.PollResult<T>
+          type: net.corda.v5.base.stream.Cursor$PollResult<T>
     getCurrentPosition:
       annotations: []
       default: true
@@ -429,7 +659,7 @@ net.corda.v5.base.stream.DurableCursor:
         - NotNull
       default: false
       type: public abstract
-      returnType: net.corda.v5.base.stream.Cursor.PollResult<T>
+      returnType: net.corda.v5.base.stream.Cursor$PollResult<T>
       params:
         maxCount:
           annotation: []
@@ -504,7 +734,7 @@ net.corda.v5.base.stream.FiniteDurableCursor:
         - NotNull
       default: true
       type: public
-      returnType: java.util.concurrent.CompletableFuture<net.corda.v5.base.stream.Cursor.PollResult<T>>
+      returnType: java.util.concurrent.CompletableFuture<net.corda.v5.base.stream.Cursor$PollResult<T>>
       params:
         maxCount:
           annotation: []
@@ -522,7 +752,7 @@ net.corda.v5.base.stream.FiniteDurableCursor:
         result:
           annotation:
             - NotNull
-          type: net.corda.v5.base.stream.Cursor.PollResult<T>
+          type: net.corda.v5.base.stream.Cursor$PollResult<T>
     getCurrentPosition:
       annotations: []
       default: true
@@ -540,7 +770,7 @@ net.corda.v5.base.stream.FiniteDurableCursor:
         - NotNull
       default: false
       type: public abstract
-      returnType: net.corda.v5.base.stream.Cursor.PollResult<T>
+      returnType: net.corda.v5.base.stream.Cursor$PollResult<T>
       params:
         maxCount:
           annotation: []
@@ -568,7 +798,7 @@ net.corda.v5.base.stream.FiniteDurableCursor:
         - NotNull
       default: true
       type: public
-      returnType: net.corda.v5.base.stream.Cursor.PollResult<T>
+      returnType: net.corda.v5.base.stream.Cursor$PollResult<T>
       params:
         maxCount:
           annotation: []
@@ -814,7 +1044,7 @@ net.corda.v5.base.types.ByteSequence:
     Companion:
       annotation:
         - NotNull
-      type: public static final net.corda.v5.base.types.ByteSequence.Companion
+      type: public static final net.corda.v5.base.types.ByteSequence$Companion
 net.corda.v5.base.types.ByteSequence$Companion:
   annotations: []
   type: public static final class
@@ -833,6 +1063,257 @@ net.corda.v5.base.types.ByteSequence$Companion:
           annotation:
             - NotNull
           type: "byte[]"
+net.corda.v5.base.types.LayeredPropertyMap:
+  annotations: []
+  type: public interface
+  extends: []
+  interface: true
+  methods:
+    get:
+      annotations:
+        - Nullable
+      default: false
+      type: public abstract
+      returnType: String
+      params:
+        key:
+          annotation:
+            - NotNull
+          type: String
+    getEntries:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: "java.util.Set<java.util.Map$Entry<String, String>>"
+    parse:
+      annotations: []
+      default: false
+      type: public abstract
+      returnType: T
+      params:
+        key:
+          annotation:
+            - NotNull
+          type: String
+        clazz:
+          annotation:
+            - NotNull
+          type: Class<? extends T>
+    parseList:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: java.util.List<T>
+      params:
+        itemKeyPrefix:
+          annotation:
+            - NotNull
+          type: String
+        clazz:
+          annotation:
+            - NotNull
+          type: Class<? extends T>
+    parseOrNull:
+      annotations:
+        - Nullable
+      default: false
+      type: public abstract
+      returnType: T
+      params:
+        key:
+          annotation:
+            - NotNull
+          type: String
+        clazz:
+          annotation:
+            - NotNull
+          type: Class<? extends T>
+    parseSet:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: java.util.Set<T>
+      params:
+        itemKeyPrefix:
+          annotation:
+            - NotNull
+          type: String
+        clazz:
+          annotation:
+            - NotNull
+          type: Class<? extends T>
+net.corda.v5.base.types.MemberX500Name:
+  annotations:
+    - CordaSerializable
+  type: public final class
+  extends: null
+  implements: []
+  interface: false
+  methods:
+    build:
+      annotations:
+        - NotNull
+      default: false
+      type: public static final
+      returnType: net.corda.v5.base.types.MemberX500Name
+      params:
+        principal:
+          annotation:
+            - NotNull
+          type: javax.security.auth.x500.X500Principal
+    equals:
+      annotations: []
+      default: false
+      type: public
+      returnType: boolean
+      params:
+        other:
+          annotation:
+            - Nullable
+          type: Object
+    getCommonName:
+      annotations:
+        - Nullable
+      default: false
+      type: public final
+      returnType: String
+    getCountry:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: String
+    getLocality:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: String
+    getOrganisation:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: String
+    getOrganisationUnit:
+      annotations:
+        - Nullable
+      default: false
+      type: public final
+      returnType: String
+    getState:
+      annotations:
+        - Nullable
+      default: false
+      type: public final
+      returnType: String
+    getX500Principal:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: javax.security.auth.x500.X500Principal
+    hashCode:
+      annotations: []
+      default: false
+      type: public
+      returnType: int
+    parse:
+      annotations:
+        - NotNull
+      default: false
+      type: public static final
+      returnType: net.corda.v5.base.types.MemberX500Name
+      params:
+        name:
+          annotation:
+            - NotNull
+          type: String
+    toAttributesMap:
+      annotations:
+        - NotNull
+      default: false
+      type: public static final
+      returnType: "java.util.Map<String, String>"
+      params:
+        name:
+          annotation:
+            - NotNull
+          type: String
+    toString:
+      annotations:
+        - NotNull
+      default: false
+      type: public
+      returnType: String
+  fields:
+    Companion:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.base.types.MemberX500Name$Companion
+    MAX_LENGTH_ORGANISATION:
+      annotation: []
+      type: public static final int
+      initialised value: 128
+    MAX_LENGTH_LOCALITY:
+      annotation: []
+      type: public static final int
+      initialised value: 64
+    MAX_LENGTH_STATE:
+      annotation: []
+      type: public static final int
+      initialised value: 64
+    MAX_LENGTH_ORGANISATION_UNIT:
+      annotation: []
+      type: public static final int
+      initialised value: 64
+    MAX_LENGTH_COMMON_NAME:
+      annotation: []
+      type: public static final int
+      initialised value: 64
+net.corda.v5.base.types.MemberX500Name$Companion:
+  annotations: []
+  type: public static final class
+  extends: null
+  implements: []
+  interface: false
+  methods:
+    build:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: net.corda.v5.base.types.MemberX500Name
+      params:
+        principal:
+          annotation:
+            - NotNull
+          type: javax.security.auth.x500.X500Principal
+    parse:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: net.corda.v5.base.types.MemberX500Name
+      params:
+        name:
+          annotation:
+            - NotNull
+          type: String
+    toAttributesMap:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: "java.util.Map<String, String>"
+      params:
+        name:
+          annotation:
+            - NotNull
+          type: String
 net.corda.v5.base.types.OpaqueBytes:
   annotations:
     - CordaSerializable
@@ -971,7 +1452,7 @@ net.corda.v5.base.types.OpaqueBytes:
     Companion:
       annotation:
         - NotNull
-      type: public static final net.corda.v5.base.types.OpaqueBytes.Companion
+      type: public static final net.corda.v5.base.types.OpaqueBytes$Companion
 net.corda.v5.base.types.OpaqueBytes$Companion:
   annotations: []
   type: public static final class
@@ -1127,7 +1608,7 @@ net.corda.v5.base.types.OpaqueBytesSubSequence:
     Companion:
       annotation:
         - NotNull
-      type: public static final net.corda.v5.base.types.ByteSequence.Companion
+      type: public static final net.corda.v5.base.types.ByteSequence$Companion
 net.corda.v5.base.util.Base58:
   annotations: []
   type: public class
@@ -1364,6 +1845,42 @@ net.corda.v5.base.util.KotlinUtilsKt:
       default: false
       type: public static final synthetic
       returnType: org.slf4j.Logger
+    parse:
+      annotations: []
+      default: false
+      type: public static final synthetic
+      returnType: T
+      params:
+        "null":
+          annotation: []
+          type: String
+    parseList:
+      annotations: []
+      default: false
+      type: public static final synthetic
+      returnType: java.util.List<T>
+      params:
+        "null":
+          annotation: []
+          type: String
+    parseOrNull:
+      annotations: []
+      default: false
+      type: public static final synthetic
+      returnType: T
+      params:
+        "null":
+          annotation: []
+          type: String
+    parseSet:
+      annotations: []
+      default: false
+      type: public static final synthetic
+      returnType: java.util.Set<T>
+      params:
+        "null":
+          annotation: []
+          type: String
     trace:
       annotations: []
       default: false
@@ -1433,7 +1950,7 @@ net.corda.v5.base.util.NetworkHostAndPort:
       type: public
       returnType: boolean
       params:
-        "null":
+        other:
           annotation:
             - Nullable
           type: Object
@@ -1471,6 +1988,10 @@ net.corda.v5.base.util.NetworkHostAndPort:
       type: public
       returnType: String
   fields:
+    Companion:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.base.util.NetworkHostAndPort$Companion
     INVALID_PORT_FORMAT:
       annotation:
         - NotNull
@@ -1486,10 +2007,6 @@ net.corda.v5.base.util.NetworkHostAndPort:
         - NotNull
       type: public static final String
       initialised value: "Missing port: %s"
-    Companion:
-      annotation:
-        - NotNull
-      type: public static final net.corda.v5.base.util.NetworkHostAndPort.Companion
 net.corda.v5.base.util.NetworkHostAndPort$Companion:
   annotations: []
   type: public static final class
@@ -1528,449 +2045,6 @@ net.corda.v5.base.util.PropertyDelegate:
           annotation:
             - NotNull
           type: kotlin.reflect.KProperty<?>
-net.corda.v5.base.util.Try:
-  annotations:
-    - CordaSerializable
-  type: public abstract class
-  extends: null
-  implements: []
-  interface: false
-  methods:
-    combine:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.base.util.Try<C>
-      params:
-        other:
-          annotation:
-            - NotNull
-          type: net.corda.v5.base.util.Try<? extends B>
-        function:
-          annotation:
-            - NotNull
-          type: "kotlin.jvm.functions.Function2<? super A, ? super B, ? extends C>"
-    doOnFailure:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.base.util.Try<A>
-      params:
-        action:
-          annotation:
-            - NotNull
-          type: java.util.function.Consumer<Throwable>
-    doOnSuccess:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.base.util.Try<A>
-      params:
-        action:
-          annotation:
-            - NotNull
-          type: java.util.function.Consumer<? super A>
-    flatMap:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.base.util.Try<B>
-      params:
-        function:
-          annotation:
-            - NotNull
-          type: "kotlin.jvm.functions.Function1<? super A, ? extends net.corda.v5.base.util.Try<?\
-            \ extends B>>"
-    getOrThrow:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: A
-    isFailure:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: boolean
-    isSuccess:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: boolean
-    map:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.base.util.Try<B>
-      params:
-        function:
-          annotation:
-            - NotNull
-          type: "kotlin.jvm.functions.Function1<? super A, ? extends B>"
-    "on":
-      annotations:
-        - NotNull
-      default: false
-      type: public static final
-      returnType: net.corda.v5.base.util.Try<T>
-      params:
-        body:
-          annotation:
-            - NotNull
-          type: kotlin.jvm.functions.Function0<? extends T>
-    throwError:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.base.util.Try<A>
-  fields:
-    Companion:
-      annotation:
-        - NotNull
-      type: public static final net.corda.v5.base.util.Try.Companion
-net.corda.v5.base.util.Try$Companion:
-  annotations: []
-  type: public static final class
-  extends: null
-  implements: []
-  interface: false
-  methods:
-    "on":
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.base.util.Try<T>
-      params:
-        body:
-          annotation:
-            - NotNull
-          type: kotlin.jvm.functions.Function0<? extends T>
-net.corda.v5.base.util.Try$Failure:
-  annotations:
-    - CordaSerializable
-  type: public static final class
-  extends: net.corda.v5.base.util.Try<A>
-  implements: []
-  interface: false
-  methods:
-    combine:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.base.util.Try<C>
-      params:
-        other:
-          annotation:
-            - NotNull
-          type: net.corda.v5.base.util.Try<? extends B>
-        function:
-          annotation:
-            - NotNull
-          type: "kotlin.jvm.functions.Function2<? super A, ? super B, ? extends C>"
-    component1:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: Throwable
-    copy:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.base.util.Try.Failure<A>
-      params:
-        exception:
-          annotation:
-            - NotNull
-          type: Throwable
-    doOnFailure:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.base.util.Try<A>
-      params:
-        action:
-          annotation:
-            - NotNull
-          type: java.util.function.Consumer<Throwable>
-    doOnSuccess:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.base.util.Try<A>
-      params:
-        action:
-          annotation:
-            - NotNull
-          type: java.util.function.Consumer<? super A>
-    equals:
-      annotations: []
-      default: false
-      type: public
-      returnType: boolean
-      params:
-        "null":
-          annotation:
-            - Nullable
-          type: Object
-    flatMap:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.base.util.Try<B>
-      params:
-        function:
-          annotation:
-            - NotNull
-          type: "kotlin.jvm.functions.Function1<? super A, ? extends net.corda.v5.base.util.Try<?\
-            \ extends B>>"
-    getException:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: Throwable
-    getOrThrow:
-      annotations: []
-      default: false
-      type: public
-      returnType: A
-    hashCode:
-      annotations: []
-      default: false
-      type: public
-      returnType: int
-    isFailure:
-      annotations: []
-      default: false
-      type: public
-      returnType: boolean
-    isSuccess:
-      annotations: []
-      default: false
-      type: public
-      returnType: boolean
-    map:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.base.util.Try<B>
-      params:
-        function:
-          annotation:
-            - NotNull
-          type: "kotlin.jvm.functions.Function1<? super A, ? extends B>"
-    "on":
-      annotations:
-        - NotNull
-      default: false
-      type: public static final
-      returnType: net.corda.v5.base.util.Try<T>
-      params:
-        body:
-          annotation:
-            - NotNull
-          type: kotlin.jvm.functions.Function0<? extends T>
-    throwError:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.base.util.Try<A>
-    toString:
-      annotations:
-        - NotNull
-      default: false
-      type: public
-      returnType: String
-  fields:
-    Companion:
-      annotation:
-        - NotNull
-      type: public static final net.corda.v5.base.util.Try.Companion
-net.corda.v5.base.util.Try$Success:
-  annotations:
-    - CordaSerializable
-  type: public static final class
-  extends: net.corda.v5.base.util.Try<A>
-  implements: []
-  interface: false
-  methods:
-    combine:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.base.util.Try<C>
-      params:
-        other:
-          annotation:
-            - NotNull
-          type: net.corda.v5.base.util.Try<? extends B>
-        function:
-          annotation:
-            - NotNull
-          type: "kotlin.jvm.functions.Function2<? super A, ? super B, ? extends C>"
-    component1:
-      annotations: []
-      default: false
-      type: public final
-      returnType: A
-    copy:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.base.util.Try.Success<A>
-      params:
-        value:
-          annotation: []
-          type: A
-    doOnFailure:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.base.util.Try<A>
-      params:
-        action:
-          annotation:
-            - NotNull
-          type: java.util.function.Consumer<Throwable>
-    doOnSuccess:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.base.util.Try<A>
-      params:
-        action:
-          annotation:
-            - NotNull
-          type: java.util.function.Consumer<? super A>
-    equals:
-      annotations: []
-      default: false
-      type: public
-      returnType: boolean
-      params:
-        "null":
-          annotation:
-            - Nullable
-          type: Object
-    flatMap:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.base.util.Try<B>
-      params:
-        function:
-          annotation:
-            - NotNull
-          type: "kotlin.jvm.functions.Function1<? super A, ? extends net.corda.v5.base.util.Try<?\
-            \ extends B>>"
-    getOrThrow:
-      annotations: []
-      default: false
-      type: public
-      returnType: A
-    getValue:
-      annotations: []
-      default: false
-      type: public final
-      returnType: A
-    hashCode:
-      annotations: []
-      default: false
-      type: public
-      returnType: int
-    isFailure:
-      annotations: []
-      default: false
-      type: public
-      returnType: boolean
-    isSuccess:
-      annotations: []
-      default: false
-      type: public
-      returnType: boolean
-    map:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.base.util.Try<B>
-      params:
-        function:
-          annotation:
-            - NotNull
-          type: "kotlin.jvm.functions.Function1<? super A, ? extends B>"
-    "on":
-      annotations:
-        - NotNull
-      default: false
-      type: public static final
-      returnType: net.corda.v5.base.util.Try<T>
-      params:
-        body:
-          annotation:
-            - NotNull
-          type: kotlin.jvm.functions.Function0<? extends T>
-    throwError:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.base.util.Try<A>
-    toString:
-      annotations:
-        - NotNull
-      default: false
-      type: public
-      returnType: String
-  fields:
-    Companion:
-      annotation:
-        - NotNull
-      type: public static final net.corda.v5.base.util.Try.Companion
-net.corda.v5.base.util.UuidGenerator:
-  annotations: []
-  type: public final class
-  extends: null
-  implements: []
-  interface: false
-  methods: {}
-  fields:
-    Companion:
-      annotation:
-        - NotNull
-      type: public static final net.corda.v5.base.util.UuidGenerator.Companion
-net.corda.v5.base.util.UuidGenerator$Companion:
-  annotations: []
-  type: public static final class
-  extends: null
-  implements: []
-  interface: false
-  methods:
-    next:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: java.util.UUID
 net.corda.v5.base.util.VariablePropertyDelegate:
   annotations: []
   type: public interface
@@ -2009,3 +2083,87 @@ net.corda.v5.base.util.VariablePropertyDelegate:
         value:
           annotation: []
           type: T
+net.corda.v5.base.versioning.Version:
+  annotations: []
+  type: public final class
+  extends: null
+  implements: []
+  interface: false
+  methods:
+    component1:
+      annotations: []
+      default: false
+      type: public final
+      returnType: int
+    component2:
+      annotations: []
+      default: false
+      type: public final
+      returnType: int
+    copy:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: net.corda.v5.base.versioning.Version
+      params:
+        major:
+          annotation: []
+          type: int
+        minor:
+          annotation: []
+          type: int
+    equals:
+      annotations: []
+      default: false
+      type: public
+      returnType: boolean
+      params:
+        other:
+          annotation:
+            - Nullable
+          type: Object
+    getMajor:
+      annotations: []
+      default: false
+      type: public final
+      returnType: int
+    getMinor:
+      annotations: []
+      default: false
+      type: public final
+      returnType: int
+    hashCode:
+      annotations: []
+      default: false
+      type: public
+      returnType: int
+    toString:
+      annotations:
+        - NotNull
+      default: false
+      type: public
+      returnType: String
+  fields:
+    Companion:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.base.versioning.Version$Companion
+net.corda.v5.base.versioning.Version$Companion:
+  annotations: []
+  type: public static final class
+  extends: null
+  implements: []
+  interface: false
+  methods:
+    fromString:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: net.corda.v5.base.versioning.Version
+      params:
+        versionString:
+          annotation:
+            - NotNull
+          type: String

@@ -1,0 +1,220 @@
+net.corda.v5.membership.EndpointInfo:
+  annotations:
+    - CordaSerializable
+  type: public interface
+  extends: []
+  interface: true
+  methods:
+    getProtocolVersion:
+      annotations: []
+      default: false
+      type: public abstract
+      returnType: int
+    getUrl:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: String
+net.corda.v5.membership.EndpointInfo$Companion:
+  annotations: []
+  type: public static final class
+  extends: null
+  implements: []
+  interface: false
+  methods: {}
+  fields:
+    DEFAULT_PROTOCOL_VERSION:
+      annotation: []
+      type: public static final int
+      initialised value: 1
+net.corda.v5.membership.GroupParameters:
+  annotations:
+    - CordaSerializable
+  type: public interface
+  extends: []
+  interface: true
+  methods:
+    get:
+      annotations:
+        - Nullable
+      default: false
+      type: public abstract
+      returnType: Object
+      params:
+        key:
+          annotation:
+            - NotNull
+          type: String
+    getEpoch:
+      annotations: []
+      default: true
+      type: public static
+      returnType: int
+      params: {}
+    getKeys:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: java.util.Set<String>
+    getMinimumPlatformVersion:
+      annotations: []
+      default: true
+      type: public static
+      returnType: int
+      params: {}
+    getModifiedTime:
+      annotations:
+        - NotNull
+      default: true
+      type: public static
+      returnType: java.time.Instant
+      params: {}
+net.corda.v5.membership.GroupParameters$Companion:
+  annotations: []
+  type: public static final class
+  extends: null
+  implements: []
+  interface: false
+  methods:
+    getEpoch:
+      annotations: []
+      default: false
+      type: public final
+      returnType: int
+      params: {}
+    getMinimumPlatformVersion:
+      annotations: []
+      default: false
+      type: public final
+      returnType: int
+      params: {}
+    getModifiedTime:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: java.time.Instant
+      params: {}
+  fields:
+    MINIMUM_PLATFORM_VERSION_KEY:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: corda.minimumPlatformVersion
+    MODIFIED_TIME_KEY:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: corda.modifiedTime
+    EPOCH_KEY:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: corda.epoch
+net.corda.v5.membership.GroupParametersConstantsKt:
+  annotations: []
+  type: public final class
+  extends: null
+  implements: []
+  interface: false
+  methods: {}
+  fields:
+    MAX_MESSAGE_SIZE:
+      annotation: []
+      type: public static final int
+      initialised value: 1048576
+    MAX_TRANSACTION_SIZE:
+      annotation: []
+      type: public static final int
+      initialised value: 1048576
+net.corda.v5.membership.GroupParametersKt:
+  annotations: []
+  type: public final class
+  extends: null
+  implements: []
+  interface: false
+  methods:
+    getValue:
+      annotations: []
+      default: false
+      type: public static final synthetic
+      returnType: T
+      params:
+        "null":
+          annotation: []
+          type: String
+net.corda.v5.membership.MGMContext:
+  annotations: []
+  type: public interface
+  extends:
+    - net.corda.v5.base.types.LayeredPropertyMap
+  interface: true
+  methods: {}
+net.corda.v5.membership.MemberContext:
+  annotations: []
+  type: public interface
+  extends:
+    - net.corda.v5.base.types.LayeredPropertyMap
+  interface: true
+  methods: {}
+net.corda.v5.membership.MemberInfo:
+  annotations:
+    - CordaSerializable
+  type: public interface
+  extends: []
+  interface: true
+  methods:
+    getLedgerKeys:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: java.util.List<java.security.PublicKey>
+    getMemberProvidedContext:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.membership.MemberContext
+    getMgmProvidedContext:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.membership.MGMContext
+    getName:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.base.types.MemberX500Name
+    getPlatformVersion:
+      annotations: []
+      default: false
+      type: public abstract
+      returnType: int
+    getSerial:
+      annotations: []
+      default: false
+      type: public abstract
+      returnType: long
+    getSessionInitiationKey:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: java.security.PublicKey
+    isActive:
+      annotations: []
+      default: false
+      type: public abstract
+      returnType: boolean
+net.corda.v5.membership.ZoneVersionTooLowException:
+  annotations: []
+  type: public final class
+  extends: net.corda.v5.base.exceptions.CordaRuntimeException
+  implements: []
+  interface: false
+  methods: {}

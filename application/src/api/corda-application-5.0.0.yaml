@@ -1,932 +1,8 @@
-net.corda.v5.application.cordapp.CordappConfig:
+net.corda.v5.application.audit.FlowAuditor:
   annotations:
     - DoNotImplement
   type: public interface
   extends: []
-  interface: true
-  methods:
-    exists:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: boolean
-      params:
-        path:
-          annotation:
-            - NotNull
-          type: String
-    get:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: Object
-      params:
-        path:
-          annotation:
-            - NotNull
-          type: String
-    getBoolean:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: boolean
-      params:
-        path:
-          annotation:
-            - NotNull
-          type: String
-    getDouble:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: double
-      params:
-        path:
-          annotation:
-            - NotNull
-          type: String
-    getFloat:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: float
-      params:
-        path:
-          annotation:
-            - NotNull
-          type: String
-    getInt:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: int
-      params:
-        path:
-          annotation:
-            - NotNull
-          type: String
-    getLong:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: long
-      params:
-        path:
-          annotation:
-            - NotNull
-          type: String
-    getNumber:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: Number
-      params:
-        path:
-          annotation:
-            - NotNull
-          type: String
-    getString:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: String
-      params:
-        path:
-          annotation:
-            - NotNull
-          type: String
-net.corda.v5.application.cordapp.CordappConfigException:
-  annotations: []
-  type: public final class
-  extends: java.lang.RuntimeException
-  implements: []
-  interface: false
-  methods: {}
-net.corda.v5.application.cordapp.CordappInfo:
-  annotations: []
-  type: public interface
-  extends: []
-  interface: true
-  methods:
-    getJarHash:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.crypto.SecureHash
-    getLicence:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: String
-    getMinimumPlatformVersion:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: int
-    getName:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: String
-    getShortName:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: String
-    getTargetPlatformVersion:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: int
-    getType:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: String
-    getVendor:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: String
-    getVersion:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: String
-net.corda.v5.application.cordapp.CordappProvider:
-  annotations:
-    - DoNotImplement
-  type: public interface
-  extends:
-    - net.corda.v5.application.injection.CordaFlowInjectable
-    - net.corda.v5.application.injection.CordaServiceInjectable
-  interface: true
-  methods:
-    getAppConfig:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.cordapp.CordappConfig
-net.corda.v5.application.crypto.DigitalSignatureAndMeta:
-  annotations:
-    - CordaSerializable
-  type: public final class
-  extends: net.corda.v5.crypto.DigitalSignature
-  implements: []
-  interface: false
-  methods:
-    equals:
-      annotations: []
-      default: false
-      type: public
-      returnType: boolean
-      params:
-        other:
-          annotation:
-            - Nullable
-          type: Object
-    getBy:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: java.security.PublicKey
-    getPartialMerkleTree:
-      annotations:
-        - Nullable
-      default: false
-      type: public final
-      returnType: net.corda.v5.crypto.PartialMerkleTree
-    getSignatureMetadata:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.application.crypto.SignatureMetadata
-    hashCode:
-      annotations: []
-      default: false
-      type: public
-      returnType: int
-net.corda.v5.application.crypto.NamedByHash:
-  annotations: []
-  type: public interface
-  extends: []
-  interface: true
-  methods:
-    getId:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.crypto.SecureHash
-net.corda.v5.application.crypto.SignableData:
-  annotations:
-    - CordaSerializable
-  type: public final class
-  extends: null
-  implements: []
-  interface: false
-  methods:
-    component1:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.crypto.SecureHash
-    component2:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.application.crypto.SignatureMetadata
-    copy:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.application.crypto.SignableData
-      params:
-        hash:
-          annotation:
-            - NotNull
-          type: net.corda.v5.crypto.SecureHash
-        signatureMetadata:
-          annotation:
-            - NotNull
-          type: net.corda.v5.application.crypto.SignatureMetadata
-    equals:
-      annotations: []
-      default: false
-      type: public
-      returnType: boolean
-      params:
-        "null":
-          annotation:
-            - Nullable
-          type: Object
-    getHash:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.crypto.SecureHash
-    getSignatureMetadata:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.application.crypto.SignatureMetadata
-    hashCode:
-      annotations: []
-      default: false
-      type: public
-      returnType: int
-    toString:
-      annotations:
-        - NotNull
-      default: false
-      type: public
-      returnType: String
-net.corda.v5.application.crypto.SignatureMetadata:
-  annotations:
-    - CordaSerializable
-  type: public final class
-  extends: null
-  implements: []
-  interface: false
-  methods:
-    component1:
-      annotations: []
-      default: false
-      type: public final
-      returnType: int
-    copy:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.application.crypto.SignatureMetadata
-      params:
-        platformVersion:
-          annotation: []
-          type: int
-    equals:
-      annotations: []
-      default: false
-      type: public
-      returnType: boolean
-      params:
-        "null":
-          annotation:
-            - Nullable
-          type: Object
-    getPlatformVersion:
-      annotations: []
-      default: false
-      type: public final
-      returnType: int
-    hashCode:
-      annotations: []
-      default: false
-      type: public
-      returnType: int
-    toString:
-      annotations:
-        - NotNull
-      default: false
-      type: public
-      returnType: String
-net.corda.v5.application.crypto.SignedData:
-  annotations:
-    - CordaSerializable
-  type: public class
-  extends: null
-  implements: []
-  interface: false
-  methods:
-    getRaw:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.serialization.SerializedBytes<T>
-    getSig:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.crypto.DigitalSignature.WithKey
-    verified:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: T
-      params:
-        signatureVerifier:
-          annotation:
-            - NotNull
-          type: net.corda.v5.crypto.SignatureVerificationService
-        serializationService:
-          annotation:
-            - NotNull
-          type: net.corda.v5.application.services.serialization.SerializationService
-    verifyData:
-      annotations: []
-      default: false
-      type: protected
-      returnType: void
-      params:
-        data:
-          annotation:
-            - NotNull
-          type: T
-net.corda.v5.application.flows.BadRpcStartFlowRequestException:
-  annotations: []
-  type: public final class
-  extends: net.corda.v5.base.exceptions.CordaRuntimeException
-  implements: []
-  interface: false
-  methods:
-    getMsg:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: String
-net.corda.v5.application.flows.Destination:
-  annotations:
-    - DoNotImplement
-  type: public interface
-  extends: []
-  interface: true
-  methods: {}
-net.corda.v5.application.flows.Flow:
-  annotations: []
-  type: public interface
-  extends: []
-  interface: true
-  methods:
-    call:
-      annotations:
-        - Suspendable
-      default: false
-      type: public abstract
-      returnType: T
-net.corda.v5.application.flows.FlowException:
-  annotations: []
-  type: public class
-  extends: net.corda.v5.base.exceptions.CordaRuntimeException
-  implements:
-    - net.corda.v5.application.flows.IdentifiableException
-  interface: false
-  methods:
-    getErrorId:
-      annotations:
-        - Nullable
-      default: false
-      type: public
-      returnType: Long
-    getOriginalErrorId:
-      annotations:
-        - Nullable
-      default: false
-      type: public final
-      returnType: Long
-    setOriginalErrorId:
-      annotations: []
-      default: false
-      type: public final
-      returnType: void
-      params:
-        <set-?>:
-          annotation:
-            - Nullable
-          type: Long
-net.corda.v5.application.flows.FlowExternalOperation:
-  annotations: []
-  type: public interface
-  extends: []
-  interface: true
-  methods:
-    execute:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: R
-      params:
-        deduplicationId:
-          annotation:
-            - NotNull
-          type: String
-net.corda.v5.application.flows.FlowId:
-  annotations:
-    - CordaSerializable
-  type: public final class
-  extends: null
-  implements: []
-  interface: false
-  methods:
-    component1:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: java.util.UUID
-    copy:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.application.flows.FlowId
-      params:
-        uuid:
-          annotation:
-            - NotNull
-          type: java.util.UUID
-    createRandom:
-      annotations:
-        - NotNull
-      default: false
-      type: public static final
-      returnType: net.corda.v5.application.flows.FlowId
-    equals:
-      annotations: []
-      default: false
-      type: public
-      returnType: boolean
-      params:
-        "null":
-          annotation:
-            - Nullable
-          type: Object
-    getUuid:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: java.util.UUID
-    hashCode:
-      annotations: []
-      default: false
-      type: public
-      returnType: int
-    toString:
-      annotations:
-        - NotNull
-      default: false
-      type: public
-      returnType: String
-  fields:
-    Companion:
-      annotation:
-        - NotNull
-      type: public static final net.corda.v5.application.flows.FlowId.Companion
-net.corda.v5.application.flows.FlowId$Companion:
-  annotations: []
-  type: public static final class
-  extends: null
-  implements: []
-  interface: false
-  methods:
-    createRandom:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.application.flows.FlowId
-net.corda.v5.application.flows.FlowInfo:
-  annotations:
-    - CordaSerializable
-  type: public final class
-  extends: null
-  implements: []
-  interface: false
-  methods:
-    component1:
-      annotations: []
-      default: false
-      type: public final
-      returnType: int
-    component2:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: String
-    copy:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.application.flows.FlowInfo
-      params:
-        flowVersion:
-          annotation: []
-          type: int
-        appName:
-          annotation:
-            - NotNull
-          type: String
-    equals:
-      annotations: []
-      default: false
-      type: public
-      returnType: boolean
-      params:
-        "null":
-          annotation:
-            - Nullable
-          type: Object
-    getAppName:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: String
-    getFlowVersion:
-      annotations: []
-      default: false
-      type: public final
-      returnType: int
-    hashCode:
-      annotations: []
-      default: false
-      type: public
-      returnType: int
-    toString:
-      annotations:
-        - NotNull
-      default: false
-      type: public
-      returnType: String
-net.corda.v5.application.flows.FlowSession:
-  annotations:
-    - DoNotImplement
-  type: public interface
-  extends: []
-  interface: true
-  methods:
-    close:
-      annotations:
-        - Suspendable
-      default: false
-      type: public abstract
-      returnType: void
-    getCounterparty:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.identity.Party
-    getCounterpartyFlowInfo:
-      annotations:
-        - Suspendable
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.flows.FlowInfo
-    getDestination:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.flows.Destination
-    receive:
-      annotations:
-        - Suspendable
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.flows.UntrustworthyData<R>
-      params:
-        receiveType:
-          annotation:
-            - NotNull
-          type: Class<R>
-    send:
-      annotations:
-        - Suspendable
-      default: false
-      type: public abstract
-      returnType: void
-      params:
-        payload:
-          annotation:
-            - NotNull
-          type: Object
-    sendAndReceive:
-      annotations:
-        - Suspendable
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.flows.UntrustworthyData<R>
-      params:
-        receiveType:
-          annotation:
-            - NotNull
-          type: Class<R>
-        payload:
-          annotation:
-            - NotNull
-          type: Object
-net.corda.v5.application.flows.FlowSessionKt:
-  annotations: []
-  type: public final class
-  extends: null
-  implements: []
-  interface: false
-  methods:
-    receive:
-      annotations:
-        - Suspendable
-      default: false
-      type: public static final synthetic
-      returnType: net.corda.v5.application.flows.UntrustworthyData<R>
-      params:
-        "null":
-          annotation: []
-          type: net.corda.v5.application.flows.FlowSession
-    sendAndReceive:
-      annotations:
-        - Suspendable
-      default: false
-      type: public static final synthetic
-      returnType: net.corda.v5.application.flows.UntrustworthyData<R>
-      params:
-        "null":
-          annotation: []
-          type: Object
-net.corda.v5.application.flows.HospitalizeFlowException:
-  annotations: []
-  type: public class
-  extends: net.corda.v5.base.exceptions.CordaRuntimeException
-  implements: []
-  interface: false
-  methods: {}
-net.corda.v5.application.flows.IdentifiableException:
-  annotations: []
-  type: public interface
-  extends: []
-  interface: true
-  methods:
-    getErrorId:
-      annotations:
-        - Nullable
-      default: true
-      type: public
-      returnType: Long
-net.corda.v5.application.flows.InitiatedBy:
-  annotations: []
-  type: public @interface
-  interface: false
-  methods:
-    value:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: Class<? extends net.corda.v5.application.flows.Flow<?>>
-net.corda.v5.application.flows.InitiatingFlow:
-  annotations: []
-  type: public @interface
-  interface: false
-  methods:
-    version:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: int
-net.corda.v5.application.flows.JsonConstructor:
-  annotations: []
-  type: public @interface
-  interface: false
-  methods: {}
-net.corda.v5.application.flows.KilledFlowException:
-  annotations: []
-  type: public final class
-  extends: net.corda.v5.base.exceptions.CordaRuntimeException
-  implements: []
-  interface: false
-  methods:
-    getId:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.application.flows.FlowId
-net.corda.v5.application.flows.ResultSerializationException:
-  annotations: []
-  type: public final class
-  extends: net.corda.v5.base.exceptions.CordaRuntimeException
-  implements: []
-  interface: false
-  methods: {}
-net.corda.v5.application.flows.RetryFlowException:
-  annotations: []
-  type: public class
-  extends: net.corda.v5.base.exceptions.CordaRuntimeException
-  implements: []
-  interface: false
-  methods: {}
-net.corda.v5.application.flows.RpcStartFlowRequestParameters:
-  annotations:
-    - CordaSerializable
-  type: public final class
-  extends: null
-  implements: []
-  interface: false
-  methods:
-    component1:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: String
-    copy:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.application.flows.RpcStartFlowRequestParameters
-      params:
-        parametersInJson:
-          annotation:
-            - NotNull
-          type: String
-    equals:
-      annotations: []
-      default: false
-      type: public
-      returnType: boolean
-      params:
-        "null":
-          annotation:
-            - Nullable
-          type: Object
-    getParametersInJson:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: String
-    hashCode:
-      annotations: []
-      default: false
-      type: public
-      returnType: int
-    toString:
-      annotations:
-        - NotNull
-      default: false
-      type: public
-      returnType: String
-net.corda.v5.application.flows.StartableByRPC:
-  annotations: []
-  type: public @interface
-  interface: false
-  methods: {}
-net.corda.v5.application.flows.StartableByService:
-  annotations: []
-  type: public @interface
-  interface: false
-  methods: {}
-net.corda.v5.application.flows.UnexpectedFlowEndException:
-  annotations: []
-  type: public final class
-  extends: net.corda.v5.base.exceptions.CordaRuntimeException
-  implements:
-    - net.corda.v5.application.flows.IdentifiableException
-  interface: false
-  methods:
-    getErrorId:
-      annotations:
-        - Nullable
-      default: false
-      type: public
-      returnType: Long
-    getOriginalErrorId:
-      annotations:
-        - Nullable
-      default: false
-      type: public final
-      returnType: Long
-net.corda.v5.application.flows.UntrustworthyData:
-  annotations: []
-  type: public final class
-  extends: null
-  implements: []
-  interface: false
-  methods:
-    getFromUntrustedWorld:
-      annotations: []
-      default: false
-      type: public final
-      returnType: T
-    unwrap:
-      annotations:
-        - Suspendable
-      default: false
-      type: public final
-      returnType: R
-      params:
-        validator:
-          annotation:
-            - NotNull
-          type: "net.corda.v5.application.flows.UntrustworthyData.Validator<? super\
-            \ T, ? extends R>"
-net.corda.v5.application.flows.UntrustworthyData$Validator:
-  annotations: []
-  type: public static interface
-  extends:
-    - java.io.Serializable
-  interface: true
-  methods:
-    validate:
-      annotations:
-        - Suspendable
-      default: false
-      type: public abstract
-      returnType: R
-      params:
-        data:
-          annotation: []
-          type: T
-net.corda.v5.application.flows.UntrustworthyDataKt:
-  annotations: []
-  type: public final class
-  extends: null
-  implements: []
-  interface: false
-  methods:
-    unwrap:
-      annotations: []
-      default: false
-      type: public static final
-      returnType: R
-      params:
-        validator:
-          annotation:
-            - NotNull
-          type: "kotlin.jvm.functions.Function1<? super T, ? extends R>"
-net.corda.v5.application.flows.flowservices.FlowAuditor:
-  annotations:
-    - DoNotImplement
-  type: public interface
-  extends:
-    - net.corda.v5.application.injection.CordaFlowInjectable
   interface: true
   methods:
     checkFlowPermission:
@@ -963,48 +39,473 @@ net.corda.v5.application.flows.flowservices.FlowAuditor:
           annotation:
             - NotNull
           type: "java.util.Map<String, String>"
-net.corda.v5.application.flows.flowservices.FlowEngine:
+net.corda.v5.application.configuration.CordappConfig:
   annotations:
     - DoNotImplement
   type: public interface
-  extends:
-    - net.corda.v5.application.injection.CordaFlowInjectable
+  extends: []
   interface: true
   methods:
-    await:
+    exists:
+      annotations:
+        - Suspendable
+      default: false
+      type: public abstract
+      returnType: boolean
+      params:
+        path:
+          annotation:
+            - NotNull
+          type: String
+    get:
       annotations:
         - Suspendable
         - NotNull
       default: false
       type: public abstract
-      returnType: R
+      returnType: Object
       params:
-        operation:
+        path:
           annotation:
             - NotNull
-          type: net.corda.v5.application.flows.FlowExternalOperation<R>
-    checkFlowIsNotKilled:
+          type: String
+    getBoolean:
       annotations:
         - Suspendable
       default: false
       type: public abstract
-      returnType: void
+      returnType: boolean
       params:
-        lazyMessage:
+        path:
           annotation:
             - NotNull
-          type: kotlin.jvm.functions.Function0<?>
+          type: String
+    getDouble:
+      annotations:
+        - Suspendable
+      default: false
+      type: public abstract
+      returnType: double
+      params:
+        path:
+          annotation:
+            - NotNull
+          type: String
+    getFloat:
+      annotations:
+        - Suspendable
+      default: false
+      type: public abstract
+      returnType: float
+      params:
+        path:
+          annotation:
+            - NotNull
+          type: String
+    getInt:
+      annotations:
+        - Suspendable
+      default: false
+      type: public abstract
+      returnType: int
+      params:
+        path:
+          annotation:
+            - NotNull
+          type: String
+    getLong:
+      annotations:
+        - Suspendable
+      default: false
+      type: public abstract
+      returnType: long
+      params:
+        path:
+          annotation:
+            - NotNull
+          type: String
+    getNumber:
+      annotations:
+        - Suspendable
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: Number
+      params:
+        path:
+          annotation:
+            - NotNull
+          type: String
+    getString:
+      annotations:
+        - Suspendable
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: String
+      params:
+        path:
+          annotation:
+            - NotNull
+          type: String
+net.corda.v5.application.configuration.CordappConfigException:
+  annotations: []
+  type: public final class
+  extends: net.corda.v5.base.exceptions.CordaRuntimeException
+  implements: []
+  interface: false
+  methods: {}
+net.corda.v5.application.configuration.CordappConfigProvider:
+  annotations:
+    - DoNotImplement
+  type: public interface
+  extends: []
+  interface: true
+  methods:
+    getAppConfig:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.application.configuration.CordappConfig
+net.corda.v5.application.crypto.DigitalSignatureAndMetadata:
+  annotations:
+    - CordaSerializable
+  type: public final class
+  extends: null
+  implements: []
+  interface: false
+  methods:
+    component1:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: net.corda.v5.crypto.DigitalSignature$WithKey
+    component2:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: net.corda.v5.application.crypto.DigitalSignatureMetadata
+    copy:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: net.corda.v5.application.crypto.DigitalSignatureAndMetadata
+      params:
+        signature:
+          annotation:
+            - NotNull
+          type: net.corda.v5.crypto.DigitalSignature$WithKey
+        metadata:
+          annotation:
+            - NotNull
+          type: net.corda.v5.application.crypto.DigitalSignatureMetadata
+    equals:
+      annotations: []
+      default: false
+      type: public
+      returnType: boolean
+      params:
+        other:
+          annotation:
+            - Nullable
+          type: Object
+    getBy:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: java.security.PublicKey
+    getMetadata:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: net.corda.v5.application.crypto.DigitalSignatureMetadata
+    getSignature:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: net.corda.v5.crypto.DigitalSignature$WithKey
+    hashCode:
+      annotations: []
+      default: false
+      type: public
+      returnType: int
+    toString:
+      annotations:
+        - NotNull
+      default: false
+      type: public
+      returnType: String
+net.corda.v5.application.crypto.DigitalSignatureMetadata:
+  annotations:
+    - CordaSerializable
+  type: public final class
+  extends: null
+  implements: []
+  interface: false
+  methods:
+    component1:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: java.time.Instant
+    component2:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: "java.util.Map<String, String>"
+    copy:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: net.corda.v5.application.crypto.DigitalSignatureMetadata
+      params:
+        timestamp:
+          annotation:
+            - NotNull
+          type: java.time.Instant
+        properties:
+          annotation:
+            - NotNull
+          type: "java.util.Map<String, String>"
+    equals:
+      annotations: []
+      default: false
+      type: public
+      returnType: boolean
+      params:
+        other:
+          annotation:
+            - Nullable
+          type: Object
+    getProperties:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: "java.util.Map<String, String>"
+    getTimestamp:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: java.time.Instant
+    hashCode:
+      annotations: []
+      default: false
+      type: public
+      returnType: int
+    toString:
+      annotations:
+        - NotNull
+      default: false
+      type: public
+      returnType: String
+net.corda.v5.application.crypto.DigitalSignatureVerificationService:
+  annotations: []
+  type: public interface
+  extends: []
+  interface: true
+  methods:
+    verify:
+      annotations: []
+      default: false
+      type: public abstract
+      returnType: void
+      params:
+        publicKey:
+          annotation:
+            - NotNull
+          type: java.security.PublicKey
+        signatureSpec:
+          annotation:
+            - NotNull
+          type: net.corda.v5.crypto.SignatureSpec
+        signatureData:
+          annotation:
+            - NotNull
+          type: "byte[]"
+        clearData:
+          annotation:
+            - NotNull
+          type: "byte[]"
+net.corda.v5.application.crypto.HashingService:
+  annotations:
+    - DoNotImplement
+  type: public interface
+  extends: []
+  interface: true
+  methods:
+    digestLength:
+      annotations:
+        - Suspendable
+      default: false
+      type: public abstract
+      returnType: int
+      params:
+        digestAlgorithmName:
+          annotation:
+            - NotNull
+          type: net.corda.v5.crypto.DigestAlgorithmName
+    getDefaultDigestAlgorithmName:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.crypto.DigestAlgorithmName
+    hash:
+      annotations:
+        - Suspendable
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.crypto.SecureHash
+      params:
+        inputStream:
+          annotation:
+            - NotNull
+          type: java.io.InputStream
+        digestAlgorithmName:
+          annotation:
+            - NotNull
+          type: net.corda.v5.crypto.DigestAlgorithmName
+net.corda.v5.application.crypto.SigningService:
+  annotations:
+    - DoNotImplement
+  type: public interface
+  extends: []
+  interface: true
+  methods:
+    decodePublicKey:
+      annotations:
+        - Suspendable
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: java.security.PublicKey
+      params:
+        encodedKey:
+          annotation:
+            - NotNull
+          type: String
+    sign:
+      annotations:
+        - Suspendable
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.crypto.DigitalSignature$WithKey
+      params:
+        bytes:
+          annotation:
+            - NotNull
+          type: "byte[]"
+        publicKey:
+          annotation:
+            - NotNull
+          type: java.security.PublicKey
+        signatureSpec:
+          annotation:
+            - NotNull
+          type: net.corda.v5.crypto.SignatureSpec
+net.corda.v5.application.flows.CordaInject:
+  annotations: []
+  type: public @interface
+  interface: false
+  methods: {}
+net.corda.v5.application.flows.Flow:
+  annotations:
+    - DoNotImplement
+  type: public interface
+  extends: []
+  interface: true
+  methods: {}
+net.corda.v5.application.flows.FlowContextProperties:
+  annotations: []
+  type: public interface
+  extends: []
+  interface: true
+  methods:
+    get:
+      annotations:
+        - Nullable
+      default: false
+      type: public abstract
+      returnType: String
+      params:
+        key:
+          annotation:
+            - NotNull
+          type: String
+    put:
+      annotations: []
+      default: false
+      type: public abstract
+      returnType: void
+      params:
+        key:
+          annotation:
+            - NotNull
+          type: String
+        value:
+          annotation:
+            - NotNull
+          type: String
+net.corda.v5.application.flows.FlowContextPropertiesKt:
+  annotations: []
+  type: public final class
+  extends: null
+  implements: []
+  interface: false
+  methods:
+    set:
+      annotations: []
+      default: false
+      type: public static final
+      returnType: void
+      params:
+        key:
+          annotation:
+            - NotNull
+          type: String
+        value:
+          annotation:
+            - NotNull
+          type: String
+net.corda.v5.application.flows.FlowEngine:
+  annotations:
+    - DoNotImplement
+  type: public interface
+  extends: []
+  interface: true
+  methods:
+    getFlowContextProperties:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.application.flows.FlowContextProperties
     getFlowId:
       annotations:
         - NotNull
       default: false
       type: public abstract
-      returnType: net.corda.v5.application.flows.FlowId
-    isKilled:
-      annotations: []
+      returnType: java.util.UUID
+    getVirtualNodeName:
+      annotations:
+        - NotNull
       default: false
       type: public abstract
-      returnType: boolean
+      returnType: net.corda.v5.base.types.MemberX500Name
     sleep:
       annotations:
         - Suspendable
@@ -1023,30 +524,402 @@ net.corda.v5.application.flows.flowservices.FlowEngine:
       type: public abstract
       returnType: R
       params:
-        subLogic:
+        subFlow:
           annotation:
             - NotNull
-          type: net.corda.v5.application.flows.Flow<? extends R>
-net.corda.v5.application.flows.flowservices.FlowIdentity:
-  annotations:
-    - DoNotImplement
+          type: net.corda.v5.application.flows.SubFlow<? extends R>
+net.corda.v5.application.flows.InitiatedBy:
+  annotations: []
+  type: public @interface
+  interface: false
+  methods:
+    protocol:
+      annotations: []
+      default: false
+      type: public abstract
+      returnType: String
+    version:
+      annotations: []
+      default: false
+      type: public abstract
+      returnType: "int[]"
+net.corda.v5.application.flows.InitiatingFlow:
+  annotations: []
+  type: public @interface
+  interface: false
+  methods:
+    protocol:
+      annotations: []
+      default: false
+      type: public abstract
+      returnType: String
+    version:
+      annotations: []
+      default: false
+      type: public abstract
+      returnType: "int[]"
+net.corda.v5.application.flows.RPCRequestData:
+  annotations: []
   type: public interface
-  extends:
-    - net.corda.v5.application.injection.CordaFlowInjectable
+  extends: []
   interface: true
   methods:
-    getOurIdentity:
+    getRequestBody:
       annotations:
         - NotNull
       default: false
       type: public abstract
-      returnType: net.corda.v5.application.identity.Party
-net.corda.v5.application.flows.flowservices.FlowMessaging:
+      returnType: String
+    getRequestBodyAs:
+      annotations: []
+      default: false
+      type: public abstract
+      returnType: T
+      params:
+        marshallingService:
+          annotation:
+            - NotNull
+          type: net.corda.v5.application.marshalling.MarshallingService
+        clazz:
+          annotation:
+            - NotNull
+          type: Class<T>
+    getRequestBodyAsList:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: java.util.List<T>
+      params:
+        marshallingService:
+          annotation:
+            - NotNull
+          type: net.corda.v5.application.marshalling.MarshallingService
+        clazz:
+          annotation:
+            - NotNull
+          type: Class<T>
+net.corda.v5.application.flows.RPCRequestDataKt:
+  annotations: []
+  type: public final class
+  extends: null
+  implements: []
+  interface: false
+  methods:
+    getRequestBodyAs:
+      annotations: []
+      default: false
+      type: public static final synthetic
+      returnType: T
+      params:
+        "null":
+          annotation: []
+          type: net.corda.v5.application.marshalling.MarshallingService
+    getRequestBodyAsList:
+      annotations: []
+      default: false
+      type: public static final synthetic
+      returnType: java.util.List<T>
+      params:
+        "null":
+          annotation: []
+          type: net.corda.v5.application.marshalling.MarshallingService
+net.corda.v5.application.flows.RPCStartableFlow:
   annotations:
     - DoNotImplement
   type: public interface
   extends:
-    - net.corda.v5.application.injection.CordaFlowInjectable
+    - net.corda.v5.application.flows.Flow
+  interface: true
+  methods:
+    call:
+      annotations:
+        - Suspendable
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: String
+      params:
+        requestBody:
+          annotation:
+            - NotNull
+          type: net.corda.v5.application.flows.RPCRequestData
+net.corda.v5.application.flows.ResponderFlow:
+  annotations:
+    - DoNotImplement
+  type: public interface
+  extends:
+    - net.corda.v5.application.flows.Flow
+  interface: true
+  methods:
+    call:
+      annotations:
+        - Suspendable
+      default: false
+      type: public abstract
+      returnType: void
+      params:
+        session:
+          annotation:
+            - NotNull
+          type: net.corda.v5.application.messaging.FlowSession
+net.corda.v5.application.flows.SubFlow:
+  annotations:
+    - DoNotImplement
+  type: public interface
+  extends:
+    - net.corda.v5.application.flows.Flow
+  interface: true
+  methods:
+    call:
+      annotations:
+        - Suspendable
+      default: false
+      type: public abstract
+      returnType: T
+net.corda.v5.application.flows.exceptions.FlowException:
+  annotations: []
+  type: public class
+  extends: net.corda.v5.base.exceptions.CordaRuntimeException
+  implements: []
+  interface: false
+  methods: {}
+net.corda.v5.application.marshalling.JsonMarshallingService:
+  annotations:
+    - DoNotImplement
+  type: public interface
+  extends:
+    - net.corda.v5.application.marshalling.MarshallingService
+  interface: true
+  methods:
+    format:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: String
+      params:
+        data:
+          annotation:
+            - NotNull
+          type: Object
+    parse:
+      annotations: []
+      default: false
+      type: public abstract
+      returnType: T
+      params:
+        input:
+          annotation:
+            - NotNull
+          type: String
+        clazz:
+          annotation:
+            - NotNull
+          type: Class<T>
+    parseList:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: java.util.List<T>
+      params:
+        input:
+          annotation:
+            - NotNull
+          type: String
+        clazz:
+          annotation:
+            - NotNull
+          type: Class<T>
+net.corda.v5.application.marshalling.MarshallingService:
+  annotations:
+    - DoNotImplement
+  type: public interface
+  extends: []
+  interface: true
+  methods:
+    format:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: String
+      params:
+        data:
+          annotation:
+            - NotNull
+          type: Object
+    parse:
+      annotations: []
+      default: false
+      type: public abstract
+      returnType: T
+      params:
+        input:
+          annotation:
+            - NotNull
+          type: String
+        clazz:
+          annotation:
+            - NotNull
+          type: Class<T>
+    parseList:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: java.util.List<T>
+      params:
+        input:
+          annotation:
+            - NotNull
+          type: String
+        clazz:
+          annotation:
+            - NotNull
+          type: Class<T>
+net.corda.v5.application.marshalling.MarshallingServiceKt:
+  annotations: []
+  type: public final class
+  extends: null
+  implements: []
+  interface: false
+  methods:
+    parse:
+      annotations: []
+      default: false
+      type: public static final synthetic
+      returnType: T
+      params:
+        "null":
+          annotation: []
+          type: String
+    parseList:
+      annotations: []
+      default: false
+      type: public static final synthetic
+      returnType: java.util.List<T>
+      params:
+        "null":
+          annotation: []
+          type: String
+net.corda.v5.application.membership.GroupParametersService:
+  annotations:
+    - DoNotImplement
+  type: public interface
+  extends: []
+  interface: true
+  methods:
+    getCurrentHash:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.crypto.SecureHash
+    lookup:
+      annotations:
+        - Suspendable
+        - Nullable
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.membership.GroupParameters
+      params:
+        hash:
+          annotation:
+            - NotNull
+          type: net.corda.v5.crypto.SecureHash
+net.corda.v5.application.membership.MemberLookup:
+  annotations:
+    - DoNotImplement
+  type: public interface
+  extends: []
+  interface: true
+  methods:
+    lookup:
+      annotations:
+        - Suspendable
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: java.util.List<net.corda.v5.membership.MemberInfo>
+    myInfo:
+      annotations:
+        - Suspendable
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.membership.MemberInfo
+net.corda.v5.application.messaging.FlowInfo:
+  annotations:
+    - CordaSerializable
+  type: public final class
+  extends: null
+  implements: []
+  interface: false
+  methods:
+    component1:
+      annotations: []
+      default: false
+      type: public final
+      returnType: int
+    component2:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: String
+    copy:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: net.corda.v5.application.messaging.FlowInfo
+      params:
+        flowVersion:
+          annotation: []
+          type: int
+        appName:
+          annotation:
+            - NotNull
+          type: String
+    equals:
+      annotations: []
+      default: false
+      type: public
+      returnType: boolean
+      params:
+        other:
+          annotation:
+            - Nullable
+          type: Object
+    getAppName:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: String
+    getFlowVersion:
+      annotations: []
+      default: false
+      type: public final
+      returnType: int
+    hashCode:
+      annotations: []
+      default: false
+      type: public
+      returnType: int
+    toString:
+      annotations:
+        - NotNull
+      default: false
+      type: public
+      returnType: String
+net.corda.v5.application.messaging.FlowMessaging:
+  annotations:
+    - DoNotImplement
+  type: public interface
+  extends: []
   interface: true
   methods:
     close:
@@ -1059,26 +932,26 @@ net.corda.v5.application.flows.flowservices.FlowMessaging:
         sessions:
           annotation:
             - NotNull
-          type: java.util.Set<? extends net.corda.v5.application.flows.FlowSession>
+          type: java.util.Set<? extends net.corda.v5.application.messaging.FlowSession>
     initiateFlow:
       annotations:
         - Suspendable
         - NotNull
       default: false
       type: public abstract
-      returnType: net.corda.v5.application.flows.FlowSession
+      returnType: net.corda.v5.application.messaging.FlowSession
       params:
-        party:
+        x500Name:
           annotation:
             - NotNull
-          type: net.corda.v5.application.identity.Party
+          type: net.corda.v5.base.types.MemberX500Name
     receiveAll:
       annotations:
         - Suspendable
         - NotNull
       default: false
       type: public abstract
-      returnType: java.util.List<net.corda.v5.application.flows.UntrustworthyData<R>>
+      returnType: java.util.List<net.corda.v5.application.messaging.UntrustworthyData<R>>
       params:
         receiveType:
           annotation:
@@ -1087,19 +960,19 @@ net.corda.v5.application.flows.flowservices.FlowMessaging:
         sessions:
           annotation:
             - NotNull
-          type: java.util.Set<? extends net.corda.v5.application.flows.FlowSession>
+          type: java.util.Set<? extends net.corda.v5.application.messaging.FlowSession>
     receiveAllMap:
       annotations:
         - Suspendable
         - NotNull
       default: false
       type: public abstract
-      returnType: "java.util.Map<net.corda.v5.application.flows.FlowSession, net.corda.v5.application.flows.UntrustworthyData<Object>>"
+      returnType: "java.util.Map<net.corda.v5.application.messaging.FlowSession, net.corda.v5.application.messaging.UntrustworthyData<Object>>"
       params:
         sessions:
           annotation:
             - NotNull
-          type: "java.util.Map<net.corda.v5.application.flows.FlowSession, ? extends\
+          type: "java.util.Map<net.corda.v5.application.messaging.FlowSession, ? extends\
             \ Class<?>>"
     sendAll:
       annotations:
@@ -1115,7 +988,7 @@ net.corda.v5.application.flows.flowservices.FlowMessaging:
         sessions:
           annotation:
             - NotNull
-          type: java.util.Set<? extends net.corda.v5.application.flows.FlowSession>
+          type: java.util.Set<? extends net.corda.v5.application.messaging.FlowSession>
     sendAllMap:
       annotations:
         - Suspendable
@@ -1126,2043 +999,256 @@ net.corda.v5.application.flows.flowservices.FlowMessaging:
         payloadsPerSession:
           annotation:
             - NotNull
-          type: "java.util.Map<net.corda.v5.application.flows.FlowSession, ?>"
-net.corda.v5.application.identity.AbstractParty:
+          type: "java.util.Map<net.corda.v5.application.messaging.FlowSession, ?>"
+net.corda.v5.application.messaging.FlowSession:
   annotations:
-    - CordaSerializable
     - DoNotImplement
-  type: public interface
-  extends:
-    - net.corda.v5.application.flows.Destination
-  interface: true
-  methods:
-    getOwningKey:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: java.security.PublicKey
-    nameOrNull:
-      annotations:
-        - Nullable
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.identity.CordaX500Name
-    ref:
-      annotations:
-        - NotNull
-      default: true
-      type: public
-      returnType: net.corda.v5.application.identity.PartyAndReference
-      params:
-        bytes:
-          annotation:
-            - NotNull
-          type: "byte[]"
-net.corda.v5.application.identity.AnonymousParty:
-  annotations:
-    - CordaSerializable
-    - DoNotImplement
-  type: public interface
-  extends:
-    - net.corda.v5.application.identity.AbstractParty
-  interface: true
-  methods:
-    getOwningKey:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: java.security.PublicKey
-    nameOrNull:
-      annotations:
-        - Nullable
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.identity.CordaX500Name
-    ref:
-      annotations:
-        - NotNull
-      default: true
-      type: public
-      returnType: net.corda.v5.application.identity.PartyAndReference
-      params:
-        bytes:
-          annotation:
-            - NotNull
-          type: "byte[]"
-net.corda.v5.application.identity.CordaX500Name:
-  annotations:
-    - CordaSerializable
-  type: public final class
-  extends: null
-  implements: []
-  interface: false
-  methods:
-    build:
-      annotations:
-        - NotNull
-      default: false
-      type: public static final
-      returnType: net.corda.v5.application.identity.CordaX500Name
-      params:
-        principal:
-          annotation:
-            - NotNull
-          type: javax.security.auth.x500.X500Principal
-    component1:
-      annotations:
-        - Nullable
-      default: false
-      type: public final
-      returnType: String
-    component2:
-      annotations:
-        - Nullable
-      default: false
-      type: public final
-      returnType: String
-    component3:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: String
-    component4:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: String
-    component5:
-      annotations:
-        - Nullable
-      default: false
-      type: public final
-      returnType: String
-    component6:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: String
-    copy:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.application.identity.CordaX500Name
-      params:
-        commonName:
-          annotation:
-            - Nullable
-          type: String
-        organisationUnit:
-          annotation:
-            - Nullable
-          type: String
-        organisation:
-          annotation:
-            - NotNull
-          type: String
-        locality:
-          annotation:
-            - NotNull
-          type: String
-        state:
-          annotation:
-            - Nullable
-          type: String
-        country:
-          annotation:
-            - NotNull
-          type: String
-    equals:
-      annotations: []
-      default: false
-      type: public
-      returnType: boolean
-      params:
-        "null":
-          annotation:
-            - Nullable
-          type: Object
-    getCommonName:
-      annotations:
-        - Nullable
-      default: false
-      type: public final
-      returnType: String
-    getCountry:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: String
-    getLocality:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: String
-    getOrganisation:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: String
-    getOrganisationUnit:
-      annotations:
-        - Nullable
-      default: false
-      type: public final
-      returnType: String
-    getState:
-      annotations:
-        - Nullable
-      default: false
-      type: public final
-      returnType: String
-    getX500Principal:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: javax.security.auth.x500.X500Principal
-    hashCode:
-      annotations: []
-      default: false
-      type: public
-      returnType: int
-    parse:
-      annotations:
-        - NotNull
-      default: false
-      type: public static final
-      returnType: net.corda.v5.application.identity.CordaX500Name
-      params:
-        name:
-          annotation:
-            - NotNull
-          type: String
-    toString:
-      annotations:
-        - NotNull
-      default: false
-      type: public
-      returnType: String
-  fields:
-    MAX_LENGTH_ORGANISATION:
-      annotation: []
-      type: public static final int
-      initialised value: 128
-    MAX_LENGTH_LOCALITY:
-      annotation: []
-      type: public static final int
-      initialised value: 64
-    MAX_LENGTH_STATE:
-      annotation: []
-      type: public static final int
-      initialised value: 64
-    MAX_LENGTH_ORGANISATION_UNIT:
-      annotation: []
-      type: public static final int
-      initialised value: 64
-    MAX_LENGTH_COMMON_NAME:
-      annotation: []
-      type: public static final int
-      initialised value: 64
-    Companion:
-      annotation:
-        - NotNull
-      type: public static final net.corda.v5.application.identity.CordaX500Name.Companion
-net.corda.v5.application.identity.CordaX500Name$Companion:
-  annotations: []
-  type: public static final class
-  extends: null
-  implements: []
-  interface: false
-  methods:
-    build:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.application.identity.CordaX500Name
-      params:
-        principal:
-          annotation:
-            - NotNull
-          type: javax.security.auth.x500.X500Principal
-    parse:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.application.identity.CordaX500Name
-      params:
-        name:
-          annotation:
-            - NotNull
-          type: String
-net.corda.v5.application.identity.CordaX500NameKt:
-  annotations: []
-  type: public final class
-  extends: null
-  implements: []
-  interface: false
-  methods: {}
-net.corda.v5.application.identity.Party:
-  annotations:
-    - CordaSerializable
-    - DoNotImplement
-  type: public interface
-  extends:
-    - net.corda.v5.application.identity.AbstractParty
-  interface: true
-  methods:
-    anonymise:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.identity.AnonymousParty
-    description:
-      annotations:
-        - NotNull
-      default: true
-      type: public
-      returnType: String
-    getName:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.identity.CordaX500Name
-    getOwningKey:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: java.security.PublicKey
-    nameOrNull:
-      annotations:
-        - Nullable
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.identity.CordaX500Name
-    ref:
-      annotations:
-        - NotNull
-      default: true
-      type: public
-      returnType: net.corda.v5.application.identity.PartyAndReference
-      params:
-        bytes:
-          annotation:
-            - NotNull
-          type: "byte[]"
-net.corda.v5.application.identity.PartyAndReference:
-  annotations:
-    - CordaSerializable
-  type: public final class
-  extends: null
-  implements: []
-  interface: false
-  methods:
-    component1:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.application.identity.AbstractParty
-    component2:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.base.types.OpaqueBytes
-    copy:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.application.identity.PartyAndReference
-      params:
-        party:
-          annotation:
-            - NotNull
-          type: net.corda.v5.application.identity.AbstractParty
-        reference:
-          annotation:
-            - NotNull
-          type: net.corda.v5.base.types.OpaqueBytes
-    equals:
-      annotations: []
-      default: false
-      type: public
-      returnType: boolean
-      params:
-        "null":
-          annotation:
-            - Nullable
-          type: Object
-    getParty:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.application.identity.AbstractParty
-    getReference:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.base.types.OpaqueBytes
-    hashCode:
-      annotations: []
-      default: false
-      type: public
-      returnType: int
-    toString:
-      annotations:
-        - NotNull
-      default: false
-      type: public
-      returnType: String
-net.corda.v5.application.injection.CordaFlowInjectable:
-  annotations: []
   type: public interface
   extends: []
   interface: true
-  methods: {}
-net.corda.v5.application.injection.CordaInject:
-  annotations: []
-  type: public @interface
-  interface: false
-  methods: {}
-net.corda.v5.application.injection.CordaInjectPreStart:
-  annotations: []
-  type: public @interface
-  interface: false
-  methods: {}
-net.corda.v5.application.injection.CordaServiceInjectable:
-  annotations: []
-  type: public interface
-  extends: []
-  interface: true
-  methods: {}
-net.corda.v5.application.internal.LegalNameValidator:
-  annotations: []
-  type: public final class
-  extends: null
-  implements: []
-  interface: false
   methods:
-    normalize:
+    close:
+      annotations:
+        - Suspendable
+      default: false
+      type: public abstract
+      returnType: void
+    getCounterparty:
       annotations:
         - NotNull
       default: false
-      type: public final
-      returnType: String
+      type: public abstract
+      returnType: net.corda.v5.base.types.MemberX500Name
+    getCounterpartyFlowInfo:
+      annotations:
+        - Suspendable
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.application.messaging.FlowInfo
+    receive:
+      annotations:
+        - Suspendable
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.application.messaging.UntrustworthyData<R>
       params:
-        nameAttribute:
+        receiveType:
           annotation:
             - NotNull
-          type: String
-    validateOrganization:
-      annotations: []
+          type: Class<R>
+    send:
+      annotations:
+        - Suspendable
       default: false
-      type: public final
+      type: public abstract
       returnType: void
       params:
-        normalizedOrganization:
+        payload:
           annotation:
             - NotNull
-          type: String
-  fields:
-    INSTANCE:
-      annotation:
+          type: Object
+    sendAndReceive:
+      annotations:
+        - Suspendable
         - NotNull
-      type: public static final net.corda.v5.application.internal.LegalNameValidator
-net.corda.v5.application.internal.LegalNameValidator$Rule:
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.application.messaging.UntrustworthyData<R>
+      params:
+        receiveType:
+          annotation:
+            - NotNull
+          type: Class<R>
+        payload:
+          annotation:
+            - NotNull
+          type: Object
+net.corda.v5.application.messaging.FlowSessionKt:
   annotations: []
-  type: public abstract static class
+  type: public final class
   extends: null
   implements: []
   interface: false
+  methods:
+    receive:
+      annotations:
+        - Suspendable
+      default: false
+      type: public static final synthetic
+      returnType: net.corda.v5.application.messaging.UntrustworthyData<R>
+      params:
+        "null":
+          annotation: []
+          type: net.corda.v5.application.messaging.FlowSession
+    sendAndReceive:
+      annotations:
+        - Suspendable
+      default: false
+      type: public static final synthetic
+      returnType: net.corda.v5.application.messaging.UntrustworthyData<R>
+      params:
+        "null":
+          annotation: []
+          type: Object
+net.corda.v5.application.messaging.UntrustworthyData:
+  annotations: []
+  type: public final class
+  extends: null
+  implements: []
+  interface: false
+  methods:
+    getFromUntrustedWorld:
+      annotations: []
+      default: false
+      type: public final
+      returnType: T
+    unwrap:
+      annotations:
+        - Suspendable
+      default: false
+      type: public final
+      returnType: R
+      params:
+        validator:
+          annotation:
+            - NotNull
+          type: "net.corda.v5.application.messaging.UntrustworthyData$Validator<?\
+            \ super T, ? extends R>"
+net.corda.v5.application.messaging.UntrustworthyData$Validator:
+  annotations: []
+  type: public static interface
+  extends:
+    - java.io.Serializable
+  interface: true
   methods:
     validate:
-      annotations: []
+      annotations:
+        - Suspendable
       default: false
       type: public abstract
-      returnType: void
+      returnType: R
       params:
-        legalName:
+        data:
           annotation: []
           type: T
-  fields:
-    Companion:
-      annotation:
-        - NotNull
-      type: public static final net.corda.v5.application.internal.LegalNameValidator.Rule.Companion
-net.corda.v5.application.internal.LegalNameValidator$Rule$Companion:
-  annotations: []
-  type: public static final class
-  extends: null
-  implements: []
-  interface: false
-  methods:
-    getAttributeRules:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: java.util.List<net.corda.v5.application.internal.LegalNameValidator.Rule<String>>
-    getLegalNameRules:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: java.util.List<net.corda.v5.application.internal.LegalNameValidator.Rule<String>>
-net.corda.v5.application.messaging.AllPossibleRecipients:
-  annotations:
-    - CordaSerializable
-  type: public interface
-  extends:
-    - net.corda.v5.application.messaging.MessageRecipients
-  interface: true
-  methods: {}
-net.corda.v5.application.messaging.ClientRpcSslOptions:
+net.corda.v5.application.messaging.UntrustworthyDataKt:
   annotations: []
   type: public final class
   extends: null
   implements: []
   interface: false
   methods:
-    component1:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: java.nio.file.Path
-    component2:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: String
-    component3:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: String
-    copy:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.application.messaging.ClientRpcSslOptions
-      params:
-        trustStorePath:
-          annotation:
-            - NotNull
-          type: java.nio.file.Path
-        trustStorePassword:
-          annotation:
-            - NotNull
-          type: String
-        trustStoreProvider:
-          annotation:
-            - NotNull
-          type: String
-    equals:
+    unwrap:
       annotations: []
       default: false
-      type: public
-      returnType: boolean
+      type: public static final
+      returnType: R
       params:
-        "null":
+        validator:
           annotation:
-            - Nullable
+            - NotNull
+          type: "kotlin.jvm.functions.Function1<? super T, ? extends R>"
+net.corda.v5.application.persistence.PagedQuery:
+  annotations: []
+  type: public interface
+  extends:
+    - net.corda.v5.application.persistence.Query
+  interface: true
+  methods:
+    execute:
+      annotations:
+        - Suspendable
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: java.util.List<R>
+    setLimit:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.application.persistence.PagedQuery<R>
+      params:
+        limit:
+          annotation: []
+          type: int
+    setOffset:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.application.persistence.PagedQuery<R>
+      params:
+        offset:
+          annotation: []
+          type: int
+net.corda.v5.application.persistence.ParameterisedQuery:
+  annotations: []
+  type: public interface
+  extends:
+    - net.corda.v5.application.persistence.PagedQuery
+  interface: true
+  methods:
+    execute:
+      annotations:
+        - Suspendable
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: java.util.List<R>
+    setLimit:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.application.persistence.PagedQuery<R>
+      params:
+        limit:
+          annotation: []
+          type: int
+    setOffset:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.application.persistence.PagedQuery<R>
+      params:
+        offset:
+          annotation: []
+          type: int
+    setParameter:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.application.persistence.ParameterisedQuery<R>
+      params:
+        name:
+          annotation:
+            - NotNull
+          type: String
+        value:
+          annotation:
+            - NotNull
           type: Object
-    getTrustStorePassword:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: String
-    getTrustStorePath:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: java.nio.file.Path
-    getTrustStoreProvider:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: String
-    hashCode:
-      annotations: []
-      default: false
-      type: public
-      returnType: int
-    toString:
-      annotations:
-        - NotNull
-      default: false
-      type: public
-      returnType: String
-net.corda.v5.application.messaging.CordaCoreRPCOps:
-  annotations:
-    - DoNotImplement
-  type: public interface
-  extends:
-    - net.corda.v5.application.messaging.RPCOps
-  interface: true
-  methods:
-    currentNodeTime:
+    setParameters:
       annotations:
         - NotNull
       default: false
       type: public abstract
-      returnType: java.time.Instant
-    finishedFlowsWithClientIds:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: "java.util.Map<String, Boolean>"
-    finishedFlowsWithClientIdsAsAdmin:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: "java.util.Map<String, Boolean>"
-    getNetworkParameters:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.node.NetworkParameters
-    getProtocolVersion:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: int
-    isFlowsDrainingModeEnabled:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: boolean
-    isWaitingForShutdown:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: boolean
-    killFlow:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: boolean
+      returnType: net.corda.v5.application.persistence.ParameterisedQuery<R>
       params:
-        id:
-          annotation:
-            - NotNull
-          type: net.corda.v5.application.flows.FlowId
-    memberInfo:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.node.MemberInfo
-    nodeDiagnosticInfo:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.node.NodeDiagnosticInfo
-    partiesFromName:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: java.util.Set<net.corda.v5.application.identity.Party>
-      params:
-        query:
-          annotation:
-            - NotNull
-          type: String
-        exactMatch:
-          annotation: []
-          type: boolean
-    partyFromAnonymous:
-      annotations:
-        - Nullable
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.identity.Party
-      params:
-        party:
-          annotation:
-            - NotNull
-          type: net.corda.v5.application.identity.AbstractParty
-    partyFromKey:
-      annotations:
-        - Nullable
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.identity.Party
-      params:
-        key:
-          annotation:
-            - NotNull
-          type: java.security.PublicKey
-    partyFromName:
-      annotations:
-        - Nullable
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.identity.Party
-      params:
-        x500Name:
-          annotation:
-            - NotNull
-          type: net.corda.v5.application.identity.CordaX500Name
-    reattachFlowWithClientId:
-      annotations:
-        - RPCReturnsObservables
-        - Nullable
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.messaging.FlowHandleWithClientId<T>
-      params:
-        clientId:
-          annotation:
-            - NotNull
-          type: String
-    registeredFlows:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: java.util.List<String>
-    removeClientId:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: boolean
-      params:
-        clientId:
-          annotation:
-            - NotNull
-          type: String
-    removeClientIdAsAdmin:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: boolean
-      params:
-        clientId:
-          annotation:
-            - NotNull
-          type: String
-    setFlowsDrainingModeEnabled:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: void
-      params:
-        enabled:
-          annotation: []
-          type: boolean
-    shutdown:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: void
-    startFlowDynamic:
-      annotations:
-        - RPCReturnsObservables
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.messaging.FlowHandle<T>
-      params:
-        logicType:
-          annotation:
-            - NotNull
-          type: Class<? extends net.corda.v5.application.flows.Flow<? extends T>>
-        args:
-          annotation:
-            - NotNull
-          type: "Object[]"
-    startFlowDynamicWithClientId:
-      annotations:
-        - RPCReturnsObservables
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.messaging.FlowHandleWithClientId<T>
-      params:
-        clientId:
-          annotation:
-            - NotNull
-          type: String
-        logicType:
-          annotation:
-            - NotNull
-          type: Class<? extends net.corda.v5.application.flows.Flow<? extends T>>
-        args:
-          annotation:
-            - NotNull
-          type: "Object[]"
-    terminate:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: void
-      params:
-        drainPendingFlows:
-          annotation: []
-          type: boolean
-    waitUntilNetworkReady:
-      annotations:
-        - RPCReturnsObservables
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: java.util.concurrent.CompletableFuture<Void>
-net.corda.v5.application.messaging.CordaCoreRPCOpsKt:
-  annotations: []
-  type: public final class
-  extends: null
-  implements: []
-  interface: false
-  methods:
-    startFlow:
-      annotations: []
-      default: false
-      type: public static final synthetic
-      returnType: net.corda.v5.application.messaging.FlowHandle<T>
-      params:
-        "null":
-          annotation: []
-          type: F
-    startFlowWithClientId:
-      annotations: []
-      default: false
-      type: public static final synthetic
-      returnType: net.corda.v5.application.messaging.FlowHandleWithClientId<T>
-      params:
-        "null":
-          annotation: []
-          type: F
-net.corda.v5.application.messaging.FlowHandle:
-  annotations:
-    - CordaSerializable
-    - DoNotImplement
-  type: public interface
-  extends:
-    - java.lang.AutoCloseable
-  interface: true
-  methods:
-    close:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: void
-    getId:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.flows.FlowId
-    getReturnValue:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: java.util.concurrent.CompletableFuture<A>
-net.corda.v5.application.messaging.FlowHandleWithClientId:
-  annotations:
-    - CordaSerializable
-    - DoNotImplement
-  type: public interface
-  extends:
-    - net.corda.v5.application.messaging.FlowHandle
-  interface: true
-  methods:
-    close:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: void
-    getClientId:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: String
-    getId:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.flows.FlowId
-    getReturnValue:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: java.util.concurrent.CompletableFuture<A>
-net.corda.v5.application.messaging.MessageRecipientGroup:
-  annotations:
-    - CordaSerializable
-  type: public interface
-  extends:
-    - net.corda.v5.application.messaging.MessageRecipients
-  interface: true
-  methods: {}
-net.corda.v5.application.messaging.MessageRecipients:
-  annotations:
-    - CordaSerializable
-  type: public interface
-  extends: []
-  interface: true
-  methods: {}
-net.corda.v5.application.messaging.ParametersUpdateInfo:
-  annotations:
-    - CordaSerializable
-  type: public final class
-  extends: null
-  implements: []
-  interface: false
-  methods:
-    component1:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.crypto.SecureHash
-    component2:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.application.node.NetworkParameters
-    component3:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: String
-    component4:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: java.time.Instant
-    copy:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.application.messaging.ParametersUpdateInfo
-      params:
-        hash:
-          annotation:
-            - NotNull
-          type: net.corda.v5.crypto.SecureHash
         parameters:
           annotation:
             - NotNull
-          type: net.corda.v5.application.node.NetworkParameters
-        description:
-          annotation:
-            - NotNull
-          type: String
-        updateDeadline:
-          annotation:
-            - NotNull
-          type: java.time.Instant
-    equals:
-      annotations: []
-      default: false
-      type: public
-      returnType: boolean
-      params:
-        "null":
-          annotation:
-            - Nullable
-          type: Object
-    getDescription:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: String
-    getHash:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.crypto.SecureHash
-    getParameters:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.application.node.NetworkParameters
-    getUpdateDeadline:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: java.time.Instant
-    hashCode:
-      annotations: []
-      default: false
-      type: public
-      returnType: int
-    toString:
-      annotations:
-        - NotNull
-      default: false
-      type: public
-      returnType: String
-net.corda.v5.application.messaging.RPCOps:
-  annotations:
-    - DoNotImplement
-  type: public interface
-  extends: []
-  interface: true
-  methods:
-    getProtocolVersion:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: int
-net.corda.v5.application.messaging.RPCReturnsObservables:
-  annotations: []
-  type: public @interface
-  interface: false
-  methods: {}
-net.corda.v5.application.messaging.SingleMessageRecipient:
-  annotations:
-    - CordaSerializable
-  type: public interface
-  extends:
-    - net.corda.v5.application.messaging.MessageRecipients
-  interface: true
-  methods: {}
-net.corda.v5.application.node.CordaClock:
-  annotations:
-    - DoNotImplement
-  type: public abstract class
-  extends: java.time.Clock
-  implements:
-    - net.corda.v5.application.injection.CordaFlowInjectable
-    - net.corda.v5.application.injection.CordaServiceInjectable
-    - net.corda.v5.serialization.SerializeAsToken
-  interface: false
-  methods:
-    getDelegateClock:
-      annotations:
-        - NotNull
-      default: false
-      type: protected abstract
-      returnType: java.time.Clock
-    getZone:
-      annotations:
-        - NotNull
-      default: false
-      type: public
-      returnType: java.time.ZoneId
-    instant:
-      annotations:
-        - NotNull
-      default: false
-      type: public
-      returnType: java.time.Instant
-    toToken:
-      annotations:
-        - NotNull
-      default: false
-      type: public
-      returnType: net.corda.v5.serialization.SingletonSerializationToken
-      params:
-        context:
-          annotation:
-            - NotNull
-          type: net.corda.v5.serialization.SerializeAsTokenContext
-    withZone:
-      annotations:
-        - NotNull
-      default: false
-      type: public
-      returnType: Void
-      params:
-        zone:
-          annotation:
-            - NotNull
-          type: java.time.ZoneId
-net.corda.v5.application.node.MemberContext:
-  annotations:
-    - CordaSerializable
-  type: public interface
-  extends: []
-  interface: true
-  methods:
-    get:
-      annotations:
-        - Nullable
-      default: false
-      type: public abstract
-      returnType: Object
-      params:
-        key:
-          annotation:
-            - NotNull
-          type: String
-    getKeys:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: java.util.Set<String>
-net.corda.v5.application.node.MemberContextKt:
-  annotations: []
-  type: public final class
-  extends: null
-  implements: []
-  interface: false
-  methods:
-    getValue:
-      annotations: []
-      default: false
-      type: public static final synthetic
-      returnType: T
-      params:
-        "null":
-          annotation: []
-          type: String
-net.corda.v5.application.node.MemberInfo:
-  annotations:
-    - CordaSerializable
-  type: public interface
-  extends: []
-  interface: true
-  methods:
-    getIdentityKeys:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: java.util.List<java.security.PublicKey>
-    getMemberProvidedContext:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.node.MemberContext
-    getMgmProvidedContext:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.node.MemberContext
-    getParty:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.identity.Party
-    getPlatformVersion:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: int
-    getSerial:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: long
-    isActive:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: boolean
-net.corda.v5.application.node.NetworkParameters:
-  annotations:
-    - CordaSerializable
-  type: public interface
-  extends:
-    - net.corda.v5.application.injection.CordaFlowInjectable
-    - net.corda.v5.application.injection.CordaServiceInjectable
-  interface: true
-  methods:
-    get:
-      annotations:
-        - Nullable
-      default: false
-      type: public abstract
-      returnType: Object
-      params:
-        key:
-          annotation:
-            - NotNull
-          type: String
-    getEpoch:
-      annotations: []
-      default: true
-      type: public static
-      returnType: int
-      params: {}
-    getKeys:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: java.util.Set<String>
-    getMinimumPlatformVersion:
-      annotations: []
-      default: true
-      type: public static
-      returnType: int
-      params: {}
-    getModifiedTime:
-      annotations:
-        - NotNull
-      default: true
-      type: public static
-      returnType: java.time.Instant
-      params: {}
-net.corda.v5.application.node.NetworkParameters$Companion:
-  annotations: []
-  type: public static final class
-  extends: null
-  implements: []
-  interface: false
-  methods:
-    getEpoch:
-      annotations: []
-      default: false
-      type: public final
-      returnType: int
-      params: {}
-    getMinimumPlatformVersion:
-      annotations: []
-      default: false
-      type: public final
-      returnType: int
-      params: {}
-    getModifiedTime:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: java.time.Instant
-      params: {}
-  fields:
-    MINIMUM_PLATFORM_VERSION_KEY:
-      annotation:
-        - NotNull
-      type: public static final String
-      initialised value: corda.minimumPlatformVersion
-    MODIFIED_TIME_KEY:
-      annotation:
-        - NotNull
-      type: public static final String
-      initialised value: corda.modifiedTime
-    EPOCH_KEY:
-      annotation:
-        - NotNull
-      type: public static final String
-      initialised value: corda.epoch
-net.corda.v5.application.node.NetworkParametersConstantsKt:
-  annotations: []
-  type: public final class
-  extends: null
-  implements: []
-  interface: false
-  methods: {}
-  fields:
-    MAX_MESSAGE_SIZE:
-      annotation: []
-      type: public static final int
-      initialised value: 1048576
-    MAX_TRANSACTION_SIZE:
-      annotation: []
-      type: public static final int
-      initialised value: 1048576
-net.corda.v5.application.node.NetworkParametersKt:
-  annotations: []
-  type: public final class
-  extends: null
-  implements: []
-  interface: false
-  methods:
-    getValue:
-      annotations: []
-      default: false
-      type: public static final synthetic
-      returnType: T
-      params:
-        "null":
-          annotation: []
-          type: String
-net.corda.v5.application.node.NodeDiagnosticInfo:
-  annotations: []
-  type: public interface
-  extends: []
-  interface: true
-  methods:
-    getCordapps:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: java.util.List<net.corda.v5.application.cordapp.CordappInfo>
-    getPlatformVersion:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: int
-    getRevision:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: String
-    getVendor:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: String
-    getVersion:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: String
-net.corda.v5.application.node.ZoneVersionTooLowException:
-  annotations: []
-  type: public final class
-  extends: net.corda.v5.base.exceptions.CordaRuntimeException
-  implements: []
-  interface: false
-  methods: {}
-net.corda.v5.application.services.CordaService:
-  annotations: []
-  type: public interface
-  extends:
-    - net.corda.v5.application.services.lifecycle.ServiceLifecycleObserver
-    - net.corda.v5.serialization.SingletonSerializeAsToken
-  interface: true
-  methods:
-    onEvent:
-      annotations: []
-      default: true
-      type: public
-      returnType: void
-      params:
-        event:
-          annotation:
-            - NotNull
-          type: net.corda.v5.application.services.lifecycle.ServiceLifecycleEvent
-net.corda.v5.application.services.IdentityService:
-  annotations:
-    - DoNotImplement
-  type: public interface
-  extends:
-    - net.corda.v5.application.injection.CordaFlowInjectable
-    - net.corda.v5.application.injection.CordaServiceInjectable
-  interface: true
-  methods:
-    anonymousPartyFromKey:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.identity.AnonymousParty
-      params:
-        publicKey:
-          annotation:
-            - NotNull
-          type: java.security.PublicKey
-    externalIdForPublicKey:
-      annotations:
-        - Nullable
-      default: false
-      type: public abstract
-      returnType: java.util.UUID
-      params:
-        publicKey:
-          annotation:
-            - NotNull
-          type: java.security.PublicKey
-    nameFromKey:
-      annotations:
-        - Nullable
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.identity.CordaX500Name
-      params:
-        publicKey:
-          annotation:
-            - NotNull
-          type: java.security.PublicKey
-    partyFromAnonymous:
-      annotations:
-        - Nullable
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.identity.Party
-      params:
-        party:
-          annotation:
-            - NotNull
-          type: net.corda.v5.application.identity.AbstractParty
-    partyFromName:
-      annotations:
-        - Nullable
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.identity.Party
-      params:
-        name:
-          annotation:
-            - NotNull
-          type: net.corda.v5.application.identity.CordaX500Name
-    publicKeysForExternalId:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: Iterable<java.security.PublicKey>
-      params:
-        externalId:
-          annotation:
-            - NotNull
-          type: java.util.UUID
-    registerKey:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: void
-      params:
-        publicKey:
-          annotation:
-            - NotNull
-          type: java.security.PublicKey
-        name:
-          annotation:
-            - NotNull
-          type: net.corda.v5.application.identity.CordaX500Name
-net.corda.v5.application.services.MemberLookupService:
-  annotations:
-    - DoNotImplement
-  type: public interface
-  extends:
-    - net.corda.v5.application.injection.CordaFlowInjectable
-    - net.corda.v5.application.injection.CordaServiceInjectable
-  interface: true
-  methods:
-    lookup:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: java.util.List<net.corda.v5.application.node.MemberInfo>
-    myInfo:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.node.MemberInfo
-net.corda.v5.application.services.NetworkParametersService:
-  annotations:
-    - DoNotImplement
-  type: public interface
-  extends:
-    - net.corda.v5.application.injection.CordaFlowInjectable
-    - net.corda.v5.application.injection.CordaServiceInjectable
-  interface: true
-  methods:
-    getCurrentHash:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.crypto.SecureHash
-    getDefaultHash:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.crypto.SecureHash
-    lookup:
-      annotations:
-        - Nullable
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.node.NetworkParameters
-      params:
-        hash:
-          annotation:
-            - NotNull
-          type: net.corda.v5.crypto.SecureHash
-net.corda.v5.application.services.crypto.DigitalSignatureVerificationService:
-  annotations: []
-  type: public interface
-  extends:
-    - net.corda.v5.application.injection.CordaFlowInjectable
-    - net.corda.v5.application.injection.CordaServiceInjectable
-    - net.corda.v5.crypto.SignatureVerificationService
-  interface: true
-  methods:
-    isValid:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: boolean
-      params:
-        hash:
-          annotation:
-            - NotNull
-          type: net.corda.v5.crypto.SecureHash
-        signature:
-          annotation:
-            - NotNull
-          type: net.corda.v5.application.crypto.DigitalSignatureAndMeta
-    verify:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: void
-      params:
-        hash:
-          annotation:
-            - NotNull
-          type: net.corda.v5.crypto.SecureHash
-        signature:
-          annotation:
-            - NotNull
-          type: net.corda.v5.application.crypto.DigitalSignatureAndMeta
-net.corda.v5.application.services.crypto.HashingService:
-  annotations:
-    - DoNotImplement
-  type: public interface
-  extends:
-    - net.corda.v5.application.injection.CordaFlowInjectable
-    - net.corda.v5.application.injection.CordaServiceInjectable
-    - net.corda.v5.crypto.DigestService
-  interface: true
-  methods:
-    concatenate:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.crypto.SecureHash
-      params:
-        first:
-          annotation:
-            - NotNull
-          type: net.corda.v5.crypto.SecureHash
-        second:
-          annotation:
-            - NotNull
-          type: net.corda.v5.crypto.SecureHash
-    getDefaultDigestAlgorithmName:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.crypto.DigestAlgorithmName
-    hash:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.crypto.SecureHash
-      params:
-        str:
-          annotation:
-            - NotNull
-          type: String
-    randomHash:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.crypto.SecureHash
-      params:
-        digestAlgorithmName:
-          annotation:
-            - NotNull
-          type: net.corda.v5.crypto.DigestAlgorithmName
-    reHash:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.crypto.SecureHash
-      params:
-        secureHash:
-          annotation:
-            - NotNull
-          type: net.corda.v5.crypto.SecureHash
-net.corda.v5.application.services.crypto.KeyManagementService:
-  annotations:
-    - DoNotImplement
-  type: public interface
-  extends:
-    - net.corda.v5.application.injection.CordaFlowInjectable
-    - net.corda.v5.application.injection.CordaServiceInjectable
-  interface: true
-  methods:
-    filterMyKeys:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: Iterable<java.security.PublicKey>
-      params:
-        candidateKeys:
-          annotation:
-            - NotNull
-          type: Iterable<? extends java.security.PublicKey>
-    freshKey:
-      annotations:
-        - Suspendable
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: java.security.PublicKey
-      params:
-        externalId:
-          annotation:
-            - NotNull
-          type: java.util.UUID
-    sign:
-      annotations:
-        - Suspendable
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.crypto.DigitalSignatureAndMeta
-      params:
-        signableData:
-          annotation:
-            - NotNull
-          type: net.corda.v5.application.crypto.SignableData
-        publicKey:
-          annotation:
-            - NotNull
-          type: java.security.PublicKey
-net.corda.v5.application.services.diagnostics.DiagnosticsService:
-  annotations:
-    - DoNotImplement
-  type: public interface
-  extends:
-    - net.corda.v5.application.injection.CordaFlowInjectable
-    - net.corda.v5.application.injection.CordaServiceInjectable
-  interface: true
-  methods:
-    getNodeVersionInfo:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.services.diagnostics.NodeVersionInfo
-net.corda.v5.application.services.diagnostics.NodeVersionInfo:
-  annotations: []
-  type: public interface
-  extends: []
-  interface: true
-  methods:
-    getPlatformVersion:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: int
-    getReleaseVersion:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: String
-    getRevision:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: String
-    getVendor:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: String
-net.corda.v5.application.services.flows.FlowStarterService:
-  annotations: []
-  type: public interface
-  extends:
-    - net.corda.v5.application.injection.CordaServiceInjectable
-  interface: true
-  methods:
-    startFlow:
-      annotations:
-        - Suspendable
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: net.corda.v5.application.messaging.FlowHandle<T>
-      params:
-        flow:
-          annotation:
-            - NotNull
-          type: net.corda.v5.application.flows.Flow<? extends T>
-net.corda.v5.application.services.json.JsonMarshallingService:
-  annotations:
-    - DoNotImplement
-  type: public interface
-  extends:
-    - net.corda.v5.application.injection.CordaFlowInjectable
-    - net.corda.v5.application.injection.CordaServiceInjectable
-  interface: true
-  methods:
-    formatJson:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: String
-      params:
-        input:
-          annotation:
-            - NotNull
-          type: Object
-    parseJson:
-      annotations: []
-      default: false
-      type: public abstract
-      returnType: T
-      params:
-        input:
-          annotation:
-            - NotNull
-          type: String
-        clazz:
-          annotation:
-            - NotNull
-          type: Class<T>
-    parseJsonList:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: java.util.List<T>
-      params:
-        input:
-          annotation:
-            - NotNull
-          type: String
-        clazz:
-          annotation:
-            - NotNull
-          type: Class<T>
-net.corda.v5.application.services.json.JsonMarshallingServiceKt:
-  annotations: []
-  type: public final class
-  extends: null
-  implements: []
-  interface: false
-  methods:
-    parseJson:
-      annotations: []
-      default: false
-      type: public static final synthetic
-      returnType: T
-      params:
-        "null":
-          annotation: []
-          type: String
-    parseJsonList:
-      annotations: []
-      default: false
-      type: public static final synthetic
-      returnType: java.util.List<T>
-      params:
-        "null":
-          annotation: []
-          type: String
-net.corda.v5.application.services.lifecycle.CordaServiceCriticalFailureException:
-  annotations: []
-  type: public final class
-  extends: java.lang.RuntimeException
-  implements: []
-  interface: false
-  methods: {}
-net.corda.v5.application.services.lifecycle.ServiceLifecycleEvent:
-  annotations:
-    - DoNotImplement
-  type: public interface
-  extends: []
-  interface: true
-  methods: {}
-net.corda.v5.application.services.lifecycle.ServiceLifecycleObserver:
-  annotations: []
-  type: public interface
-  extends: []
-  interface: true
-  methods:
-    onEvent:
-      annotations: []
-      default: true
-      type: public
-      returnType: void
-      params:
-        event:
-          annotation:
-            - NotNull
-          type: net.corda.v5.application.services.lifecycle.ServiceLifecycleEvent
-net.corda.v5.application.services.lifecycle.ServiceStart:
-  annotations:
-    - DoNotImplement
-  type: public interface
-  extends:
-    - net.corda.v5.application.services.lifecycle.ServiceLifecycleEvent
-  interface: true
-  methods: {}
-net.corda.v5.application.services.lifecycle.StateMachineStarted:
-  annotations:
-    - DoNotImplement
-  type: public interface
-  extends:
-    - net.corda.v5.application.services.lifecycle.ServiceLifecycleEvent
-  interface: true
-  methods: {}
-net.corda.v5.application.services.persistence.CustomQueryPostProcessor:
-  annotations:
-    - DoNotImplement
-  type: public interface
-  extends:
-    - net.corda.v5.application.services.persistence.GenericQueryPostProcessor
-  interface: true
-  methods:
-    getAvailableForRPC:
-      annotations: []
-      default: true
-      type: public
-      returnType: boolean
-    getName:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: String
-    postProcess:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: java.util.stream.Stream<R>
-      params:
-        inputs:
-          annotation:
-            - NotNull
-          type: java.util.stream.Stream<I>
-net.corda.v5.application.services.persistence.GenericQueryPostProcessor:
-  annotations:
-    - DoNotImplement
-  type: public interface
-  extends: []
-  interface: true
-  methods:
-    getAvailableForRPC:
-      annotations: []
-      default: true
-      type: public
-      returnType: boolean
-    getName:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: String
-    postProcess:
-      annotations:
-        - NotNull
-      default: false
-      type: public abstract
-      returnType: java.util.stream.Stream<R>
-      params:
-        inputs:
-          annotation:
-            - NotNull
-          type: java.util.stream.Stream<I>
-net.corda.v5.application.services.persistence.NamedQueryException:
-  annotations: []
-  type: public final class
-  extends: net.corda.v5.base.exceptions.CordaRuntimeException
-  implements: []
-  interface: false
-  methods: {}
-net.corda.v5.application.services.persistence.NamedQueryFilter:
-  annotations:
-    - CordaSerializable
-  type: public interface
-  extends: []
-  interface: true
-  methods: {}
-net.corda.v5.application.services.persistence.PersistenceQueryRequest:
-  annotations: []
-  type: public final class
-  extends: null
-  implements: []
-  interface: false
-  methods:
-    component1:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: String
-    component2:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: "java.util.Map<String, Object>"
-    component3:
-      annotations:
-        - Nullable
-      default: false
-      type: public final
-      returnType: net.corda.v5.application.services.persistence.NamedQueryFilter
-    component4:
-      annotations:
-        - Nullable
-      default: false
-      type: public final
-      returnType: String
-    copy:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.application.services.persistence.PersistenceQueryRequest
-      params:
-        queryName:
-          annotation:
-            - NotNull
-          type: String
-        namedParameters:
-          annotation:
-            - NotNull
           type: "java.util.Map<String, ?>"
-        postFilter:
-          annotation:
-            - Nullable
-          type: net.corda.v5.application.services.persistence.NamedQueryFilter
-        postProcessorName:
-          annotation:
-            - Nullable
-          type: String
-    equals:
-      annotations: []
-      default: false
-      type: public
-      returnType: boolean
-      params:
-        "null":
-          annotation:
-            - Nullable
-          type: Object
-    getNamedParameters:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: "java.util.Map<String, Object>"
-    getPostFilter:
-      annotations:
-        - Nullable
-      default: false
-      type: public final
-      returnType: net.corda.v5.application.services.persistence.NamedQueryFilter
-    getPostProcessorName:
-      annotations:
-        - Nullable
-      default: false
-      type: public final
-      returnType: String
-    getQueryName:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: String
-    hashCode:
-      annotations: []
-      default: false
-      type: public
-      returnType: int
-    toString:
-      annotations:
-        - NotNull
-      default: false
-      type: public
-      returnType: String
-net.corda.v5.application.services.persistence.PersistenceQueryRequest$Builder:
-  annotations: []
-  type: public static final class
-  extends: null
-  implements: []
-  interface: false
-  methods:
-    build:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.application.services.persistence.PersistenceQueryRequest
-    withPostFilter:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.application.services.persistence.PersistenceQueryRequest.Builder
-      params:
-        postFilter:
-          annotation:
-            - NotNull
-          type: net.corda.v5.application.services.persistence.NamedQueryFilter
-    withPostProcessor:
-      annotations:
-        - NotNull
-      default: false
-      type: public final
-      returnType: net.corda.v5.application.services.persistence.PersistenceQueryRequest.Builder
-      params:
-        postProcessorName:
-          annotation:
-            - NotNull
-          type: String
-net.corda.v5.application.services.persistence.PersistenceService:
+net.corda.v5.application.persistence.PersistenceService:
   annotations:
     - DoNotImplement
   type: public interface
-  extends:
-    - net.corda.v5.application.injection.CordaFlowInjectable
-    - net.corda.v5.application.injection.CordaServiceInjectable
+  extends: []
   interface: true
   methods:
     find:
@@ -3181,6 +1267,18 @@ net.corda.v5.application.services.persistence.PersistenceService:
           annotation:
             - NotNull
           type: java.util.List<?>
+    findAll:
+      annotations:
+        - Suspendable
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.application.persistence.PagedQuery<T>
+      params:
+        entityClass:
+          annotation:
+            - NotNull
+          type: Class<T>
     merge:
       annotations:
         - Suspendable
@@ -3206,15 +1304,20 @@ net.corda.v5.application.services.persistence.PersistenceService:
           type: java.util.List<?>
     query:
       annotations:
+        - Suspendable
         - NotNull
       default: false
       type: public abstract
-      returnType: net.corda.v5.base.stream.Cursor<R>
+      returnType: net.corda.v5.application.persistence.ParameterisedQuery<T>
       params:
-        persistenceQueryRequest:
+        queryName:
           annotation:
             - NotNull
-          type: net.corda.v5.application.services.persistence.PersistenceQueryRequest
+          type: String
+        entityClass:
+          annotation:
+            - NotNull
+          type: Class<T>
     remove:
       annotations:
         - Suspendable
@@ -3226,7 +1329,7 @@ net.corda.v5.application.services.persistence.PersistenceService:
           annotation:
             - NotNull
           type: java.util.List<?>
-net.corda.v5.application.services.persistence.PersistenceServiceKt:
+net.corda.v5.application.persistence.PersistenceServiceKt:
   annotations: []
   type: public final class
   extends: null
@@ -3242,13 +1345,40 @@ net.corda.v5.application.services.persistence.PersistenceServiceKt:
         "null":
           annotation: []
           type: java.util.List<?>
-net.corda.v5.application.services.serialization.SerializationService:
+    findAll:
+      annotations: []
+      default: false
+      type: public static final synthetic
+      returnType: net.corda.v5.application.persistence.PagedQuery<T>
+      params:
+        "null":
+          annotation: []
+          type: net.corda.v5.application.persistence.PersistenceService
+net.corda.v5.application.persistence.Query:
+  annotations: []
+  type: public interface
+  extends: []
+  interface: true
+  methods:
+    execute:
+      annotations:
+        - Suspendable
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: java.util.List<R>
+net.corda.v5.application.persistence.query.NamedQueryException:
+  annotations: []
+  type: public final class
+  extends: net.corda.v5.base.exceptions.CordaRuntimeException
+  implements: []
+  interface: false
+  methods: {}
+net.corda.v5.application.serialization.SerializationService:
   annotations:
     - DoNotImplement
   type: public interface
-  extends:
-    - net.corda.v5.application.injection.CordaFlowInjectable
-    - net.corda.v5.application.injection.CordaServiceInjectable
+  extends: []
   interface: true
   methods:
     deserialize:
@@ -3277,7 +1407,7 @@ net.corda.v5.application.services.serialization.SerializationService:
           annotation:
             - NotNull
           type: T
-net.corda.v5.application.services.serialization.SerializationServiceKt:
+net.corda.v5.application.serialization.SerializationServiceKt:
   annotations: []
   type: public final class
   extends: null
@@ -3293,15 +1423,16 @@ net.corda.v5.application.services.serialization.SerializationServiceKt:
         "null":
           annotation: []
           type: "byte[]"
-net.corda.v5.application.utilities.JsonRepresentable:
-  annotations: []
+net.corda.v5.application.time.CordaClock:
+  annotations:
+    - DoNotImplement
   type: public interface
   extends: []
   interface: true
   methods:
-    toJsonString:
+    instant:
       annotations:
         - NotNull
       default: false
       type: public abstract
-      returnType: String
+      returnType: java.time.Instant

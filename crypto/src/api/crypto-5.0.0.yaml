@@ -1,0 +1,1559 @@
+net.corda.v5.crypto.CompositeKey:
+  annotations: []
+  type: public final class
+  extends: null
+  implements:
+    - java.security.PublicKey
+  interface: false
+  methods:
+    checkValidity:
+      annotations: []
+      default: false
+      type: public final
+      returnType: void
+    equals:
+      annotations: []
+      default: false
+      type: public
+      returnType: boolean
+      params:
+        other:
+          annotation:
+            - Nullable
+          type: Object
+    getAlgorithm:
+      annotations:
+        - NotNull
+      default: false
+      type: public
+      returnType: String
+    getChildren:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: java.util.List<net.corda.v5.crypto.CompositeKey$NodeAndWeight>
+    getEncoded:
+      annotations:
+        - NotNull
+      default: false
+      type: public
+      returnType: "byte[]"
+    getFormat:
+      annotations:
+        - NotNull
+      default: false
+      type: public
+      returnType: String
+    getInstance:
+      annotations:
+        - NotNull
+      default: false
+      type: public static final
+      returnType: java.security.PublicKey
+      params:
+        asn1:
+          annotation:
+            - NotNull
+          type: org.bouncycastle.asn1.ASN1Primitive
+        decoder:
+          annotation:
+            - NotNull
+          type: "kotlin.jvm.functions.Function1<? super byte[], ? extends java.security.PublicKey>"
+    getLeafKeys:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: java.util.Set<java.security.PublicKey>
+    getThreshold:
+      annotations: []
+      default: false
+      type: public final
+      returnType: int
+    hashCode:
+      annotations: []
+      default: false
+      type: public
+      returnType: int
+    isFulfilledBy:
+      annotations: []
+      default: false
+      type: public final
+      returnType: boolean
+      params:
+        keysToCheck:
+          annotation:
+            - NotNull
+          type: Iterable<? extends java.security.PublicKey>
+    toString:
+      annotations:
+        - NotNull
+      default: false
+      type: public
+      returnType: String
+  fields:
+    Companion:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.CompositeKey$Companion
+    KEY_ALGORITHM:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: COMPOSITE
+net.corda.v5.crypto.CompositeKey$Builder:
+  annotations: []
+  type: public static final class
+  extends: null
+  implements: []
+  interface: false
+  methods:
+    addKey:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: net.corda.v5.crypto.CompositeKey$Builder
+      params:
+        key:
+          annotation:
+            - NotNull
+          type: java.security.PublicKey
+        weight:
+          annotation: []
+          type: int
+    addKeys:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: net.corda.v5.crypto.CompositeKey$Builder
+      params:
+        keys:
+          annotation:
+            - NotNull
+          type: java.util.List<? extends java.security.PublicKey>
+    build:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: java.security.PublicKey
+net.corda.v5.crypto.CompositeKey$Companion:
+  annotations: []
+  type: public static final class
+  extends: null
+  implements: []
+  interface: false
+  methods:
+    getInstance:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: java.security.PublicKey
+      params:
+        asn1:
+          annotation:
+            - NotNull
+          type: org.bouncycastle.asn1.ASN1Primitive
+        decoder:
+          annotation:
+            - NotNull
+          type: "kotlin.jvm.functions.Function1<? super byte[], ? extends java.security.PublicKey>"
+net.corda.v5.crypto.CompositeKey$NodeAndWeight:
+  annotations:
+    - CordaSerializable
+  type: public static final class
+  extends: org.bouncycastle.asn1.ASN1Object
+  implements:
+    - java.lang.Comparable
+  interface: false
+  methods:
+    compareTo:
+      annotations: []
+      default: false
+      type: public
+      returnType: int
+      params:
+        other:
+          annotation:
+            - NotNull
+          type: net.corda.v5.crypto.CompositeKey$NodeAndWeight
+    component1:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: java.security.PublicKey
+    component2:
+      annotations: []
+      default: false
+      type: public final
+      returnType: int
+    copy:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: net.corda.v5.crypto.CompositeKey$NodeAndWeight
+      params:
+        node:
+          annotation:
+            - NotNull
+          type: java.security.PublicKey
+        weight:
+          annotation: []
+          type: int
+    equals:
+      annotations: []
+      default: false
+      type: public
+      returnType: boolean
+      params:
+        other:
+          annotation:
+            - Nullable
+          type: Object
+    getNode:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: java.security.PublicKey
+    getWeight:
+      annotations: []
+      default: false
+      type: public final
+      returnType: int
+    hashCode:
+      annotations: []
+      default: false
+      type: public
+      returnType: int
+    toASN1Primitive:
+      annotations:
+        - NotNull
+      default: false
+      type: public
+      returnType: org.bouncycastle.asn1.ASN1Primitive
+    toString:
+      annotations:
+        - NotNull
+      default: false
+      type: public
+      returnType: String
+net.corda.v5.crypto.CompositeSignaturesWithKeys:
+  annotations:
+    - CordaSerializable
+  type: public final class
+  extends: null
+  implements: []
+  interface: false
+  methods:
+    component1:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: java.util.List<net.corda.v5.crypto.DigitalSignature$WithKey>
+    copy:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: net.corda.v5.crypto.CompositeSignaturesWithKeys
+      params:
+        sigs:
+          annotation:
+            - NotNull
+          type: java.util.List<? extends net.corda.v5.crypto.DigitalSignature$WithKey>
+    equals:
+      annotations: []
+      default: false
+      type: public
+      returnType: boolean
+      params:
+        other:
+          annotation:
+            - Nullable
+          type: Object
+    getSigs:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: java.util.List<net.corda.v5.crypto.DigitalSignature$WithKey>
+    hashCode:
+      annotations: []
+      default: false
+      type: public
+      returnType: int
+    toString:
+      annotations:
+        - NotNull
+      default: false
+      type: public
+      returnType: String
+  fields:
+    Companion:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.CompositeSignaturesWithKeys$Companion
+    EMPTY:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.CompositeSignaturesWithKeys
+net.corda.v5.crypto.CompositeSignaturesWithKeys$Companion:
+  annotations: []
+  type: public static final class
+  extends: null
+  implements: []
+  interface: false
+  methods: {}
+net.corda.v5.crypto.CordaOID:
+  annotations: []
+  type: public final class
+  extends: null
+  implements: []
+  interface: false
+  methods: {}
+  fields:
+    OID_R3_ROOT:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: 1.3.6.1.4.1.50530
+    OID_CORDA_PLATFORM:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: 1.3.6.1.4.1.50530.1
+    OID_X509_EXTENSION_CORDA_ROLE:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: 1.3.6.1.4.1.50530.1.1
+    OID_ALIAS_PRIVATE_KEY:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: 1.3.6.1.4.1.50530.1.2
+    OID_COMPOSITE_KEY:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: 1.3.6.1.4.1.50530.1.3
+    OID_COMPOSITE_SIGNATURE:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: 1.3.6.1.4.1.50530.1.4
+    OID_ALIAS_PRIVATE_KEY_IDENTIFIER:
+      annotation:
+        - NotNull
+      type: public static final org.bouncycastle.asn1.ASN1ObjectIdentifier
+    OID_COMPOSITE_KEY_IDENTIFIER:
+      annotation:
+        - NotNull
+      type: public static final org.bouncycastle.asn1.ASN1ObjectIdentifier
+    OID_COMPOSITE_SIGNATURE_IDENTIFIER:
+      annotation:
+        - NotNull
+      type: public static final org.bouncycastle.asn1.ASN1ObjectIdentifier
+net.corda.v5.crypto.CryptoUtils:
+  annotations: []
+  type: public final class
+  extends: null
+  implements: []
+  interface: false
+  methods:
+    byKeys:
+      annotations:
+        - NotNull
+      default: false
+      type: public static final
+      returnType: java.util.Set<java.security.PublicKey>
+      params: {}
+    component1:
+      annotations:
+        - NotNull
+      default: false
+      type: public static final
+      returnType: java.security.PrivateKey
+      params: {}
+    component2:
+      annotations:
+        - NotNull
+      default: false
+      type: public static final
+      returnType: java.security.PublicKey
+      params: {}
+    containsAny:
+      annotations: []
+      default: false
+      type: public static final
+      returnType: boolean
+      params:
+        otherKeys:
+          annotation:
+            - NotNull
+          type: Iterable<? extends java.security.PublicKey>
+    getKeys:
+      annotations:
+        - NotNull
+      default: false
+      type: public static final
+      returnType: java.util.Set<java.security.PublicKey>
+      params: {}
+    hmac:
+      annotations:
+        - NotNull
+      default: false
+      type: public static final
+      returnType: "byte[]"
+      params:
+        secret:
+          annotation:
+            - NotNull
+          type: "byte[]"
+        algorithm:
+          annotation:
+            - NotNull
+          type: String
+    isFulfilledBy:
+      annotations: []
+      default: false
+      type: public static final
+      returnType: boolean
+      params:
+        otherKeys:
+          annotation:
+            - NotNull
+          type: Iterable<? extends java.security.PublicKey>
+    sha256Bytes:
+      annotations:
+        - NotNull
+      default: false
+      type: public static final
+      returnType: "byte[]"
+      params: {}
+    toStringShort:
+      annotations:
+        - NotNull
+      default: false
+      type: public static final
+      returnType: String
+      params: {}
+  fields:
+    STREAM_BUFFER_SIZE:
+      annotation: []
+      type: public static final int
+      initialised value: 8192
+    HMAC_SHA256_ALGORITHM:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: HmacSHA256
+    HMAC_SHA512_ALGORITHM:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: HmacSHA512
+    KEY_LOOKUP_INPUT_ITEMS_LIMIT:
+      annotation: []
+      type: public static final int
+      initialised value: 20
+    COMPOSITE_KEY_CHILDREN_LIMIT:
+      annotation: []
+      type: public static final int
+      initialised value: 10
+net.corda.v5.crypto.DigestAlgorithmName:
+  annotations:
+    - CordaSerializable
+  type: public final class
+  extends: null
+  implements: []
+  interface: false
+  methods:
+    equals:
+      annotations: []
+      default: false
+      type: public
+      returnType: boolean
+      params:
+        other:
+          annotation:
+            - Nullable
+          type: Object
+    getName:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: String
+    hashCode:
+      annotations: []
+      default: false
+      type: public
+      returnType: int
+    toString:
+      annotations:
+        - NotNull
+      default: false
+      type: public
+      returnType: String
+  fields:
+    Companion:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.DigestAlgorithmName$Companion
+    NONCE_SIZE:
+      annotation: []
+      type: public static final int
+      initialised value: 8
+    SHA2_256:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.DigestAlgorithmName
+    SHA2_256D:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.DigestAlgorithmName
+    SHA2_384:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.DigestAlgorithmName
+    SHA2_512:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.DigestAlgorithmName
+    DEFAULT_ALGORITHM_NAME:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.DigestAlgorithmName
+net.corda.v5.crypto.DigestAlgorithmName$Companion:
+  annotations: []
+  type: public static final class
+  extends: null
+  implements: []
+  interface: false
+  methods: {}
+net.corda.v5.crypto.DigestService:
+  annotations: []
+  type: public interface
+  extends: []
+  interface: true
+  methods:
+    digestLength:
+      annotations: []
+      default: false
+      type: public abstract
+      returnType: int
+      params:
+        digestAlgorithmName:
+          annotation:
+            - NotNull
+          type: net.corda.v5.crypto.DigestAlgorithmName
+    hash:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.crypto.SecureHash
+      params:
+        inputStream:
+          annotation:
+            - NotNull
+          type: java.io.InputStream
+        digestAlgorithmName:
+          annotation:
+            - NotNull
+          type: net.corda.v5.crypto.DigestAlgorithmName
+net.corda.v5.crypto.DigestServiceUtils:
+  annotations: []
+  type: public final class
+  extends: null
+  implements: []
+  interface: false
+  methods:
+    create:
+      annotations:
+        - NotNull
+      default: false
+      type: public static final
+      returnType: net.corda.v5.crypto.SecureHash
+      params:
+        str:
+          annotation:
+            - NotNull
+          type: String
+    getAllOnesHash:
+      annotations:
+        - NotNull
+      default: false
+      type: public static final
+      returnType: net.corda.v5.crypto.SecureHash
+      params:
+        digestAlgorithmName:
+          annotation:
+            - NotNull
+          type: net.corda.v5.crypto.DigestAlgorithmName
+    getZeroHash:
+      annotations:
+        - NotNull
+      default: false
+      type: public static final
+      returnType: net.corda.v5.crypto.SecureHash
+      params:
+        digestAlgorithmName:
+          annotation:
+            - NotNull
+          type: net.corda.v5.crypto.DigestAlgorithmName
+net.corda.v5.crypto.DigitalSignature:
+  annotations:
+    - CordaSerializable
+  type: public class
+  extends: net.corda.v5.base.types.OpaqueBytes
+  implements: []
+  interface: false
+  methods: {}
+net.corda.v5.crypto.DigitalSignature$WithKey:
+  annotations:
+    - CordaSerializable
+  type: public static class
+  extends: net.corda.v5.base.types.OpaqueBytes
+  implements: []
+  interface: false
+  methods:
+    getBy:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: java.security.PublicKey
+    getContext:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: "java.util.Map<String, String>"
+net.corda.v5.crypto.KeySchemeCodes:
+  annotations: []
+  type: public final class
+  extends: null
+  implements: []
+  interface: false
+  methods: {}
+  fields:
+    RSA_CODE_NAME:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: CORDA.RSA
+    ECDSA_SECP256K1_CODE_NAME:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: CORDA.ECDSA.SECP256K1
+    ECDSA_SECP256R1_CODE_NAME:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: CORDA.ECDSA.SECP256R1
+    EDDSA_ED25519_CODE_NAME:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: CORDA.EDDSA.ED25519
+    X25519_CODE_NAME:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: CORDA.X25519
+    SM2_CODE_NAME:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: CORDA.SM2
+    GOST3410_GOST3411_CODE_NAME:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: CORDA.GOST3410.GOST3411
+    SPHINCS256_CODE_NAME:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: CORDA.SPHINCS-256
+    COMPOSITE_KEY_CODE_NAME:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: COMPOSITE
+net.corda.v5.crypto.ParameterizedSignatureSpec:
+  annotations: []
+  type: public final class
+  extends: net.corda.v5.crypto.SignatureSpec
+  implements: []
+  interface: false
+  methods:
+    getParams:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: java.security.spec.AlgorithmParameterSpec
+    getSignatureName:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: String
+    getSigningData:
+      annotations:
+        - NotNull
+      default: false
+      type: public
+      returnType: "byte[]"
+      params:
+        hashingService:
+          annotation:
+            - NotNull
+          type: net.corda.v5.crypto.DigestService
+        data:
+          annotation:
+            - NotNull
+          type: "byte[]"
+    toString:
+      annotations:
+        - NotNull
+      default: false
+      type: public
+      returnType: String
+  fields:
+    Companion:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec$Companion
+    RSA_SHA256:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec
+    RSA_SHA384:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec
+    RSA_SHA512:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec
+    RSASSA_PSS_SHA256:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.ParameterizedSignatureSpec
+    RSASSA_PSS_SHA384:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.ParameterizedSignatureSpec
+    RSASSA_PSS_SHA512:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.ParameterizedSignatureSpec
+    RSA_SHA256_WITH_MGF1:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec
+    RSA_SHA384_WITH_MGF1:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec
+    RSA_SHA512_WITH_MGF1:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec
+    ECDSA_SHA256:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec
+    ECDSA_SHA384:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec
+    ECDSA_SHA512:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec
+    EDDSA_ED25519:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec
+    SPHINCS256_SHA512:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec
+    SM2_SM3:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec
+    SM2_SHA256:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec
+    GOST3410_GOST3411:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec
+net.corda.v5.crypto.PublicKeyHash:
+  annotations: []
+  type: public final class
+  extends: null
+  implements: []
+  interface: false
+  methods:
+    equals:
+      annotations: []
+      default: false
+      type: public
+      returnType: boolean
+      params:
+        other:
+          annotation:
+            - Nullable
+          type: Object
+    getId:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: String
+    getValue:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: String
+    hashCode:
+      annotations: []
+      default: false
+      type: public
+      returnType: int
+    toString:
+      annotations:
+        - NotNull
+      default: false
+      type: public
+      returnType: String
+  fields:
+    Companion:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.PublicKeyHash$Companion
+net.corda.v5.crypto.PublicKeyHash$Companion:
+  annotations: []
+  type: public static final class
+  extends: null
+  implements: []
+  interface: false
+  methods:
+    calculate:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: net.corda.v5.crypto.PublicKeyHash
+      params:
+        publicKey:
+          annotation:
+            - NotNull
+          type: "byte[]"
+    parse:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: net.corda.v5.crypto.PublicKeyHash
+      params:
+        str:
+          annotation:
+            - NotNull
+          type: String
+net.corda.v5.crypto.PublicKeyHashKt:
+  annotations: []
+  type: public final class
+  extends: null
+  implements: []
+  interface: false
+  methods:
+    calculateHash:
+      annotations:
+        - NotNull
+      default: false
+      type: public static final
+      returnType: net.corda.v5.crypto.PublicKeyHash
+      params: {}
+    publicKeyId:
+      annotations:
+        - NotNull
+      default: false
+      type: public static final
+      returnType: String
+      params: {}
+net.corda.v5.crypto.SecureHash:
+  annotations:
+    - CordaSerializable
+  type: public final class
+  extends: net.corda.v5.base.types.OpaqueBytes
+  implements: []
+  interface: false
+  methods:
+    create:
+      annotations:
+        - NotNull
+      default: false
+      type: public static final
+      returnType: net.corda.v5.crypto.SecureHash
+      params:
+        str:
+          annotation:
+            - NotNull
+          type: String
+    equals:
+      annotations: []
+      default: false
+      type: public
+      returnType: boolean
+      params:
+        other:
+          annotation:
+            - Nullable
+          type: Object
+    getAlgorithm:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: String
+    hashCode:
+      annotations: []
+      default: false
+      type: public
+      returnType: int
+    prefixChars:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: String
+      params:
+        prefixLen:
+          annotation: []
+          type: int
+    toHexString:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: String
+    toString:
+      annotations:
+        - NotNull
+      default: false
+      type: public
+      returnType: String
+  fields:
+    Companion:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SecureHash$Companion
+    DELIMITER:
+      annotation: []
+      type: public static final char
+      initialised value: ':'
+net.corda.v5.crypto.SecureHash$Companion:
+  annotations: []
+  type: public static final class
+  extends: null
+  implements: []
+  interface: false
+  methods:
+    create:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: net.corda.v5.crypto.SecureHash
+      params:
+        str:
+          annotation:
+            - NotNull
+          type: String
+net.corda.v5.crypto.SignatureSpec:
+  annotations: []
+  type: public class
+  extends: null
+  implements: []
+  interface: false
+  methods:
+    getSignatureName:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: String
+    getSigningData:
+      annotations:
+        - NotNull
+      default: false
+      type: public
+      returnType: "byte[]"
+      params:
+        hashingService:
+          annotation:
+            - NotNull
+          type: net.corda.v5.crypto.DigestService
+        data:
+          annotation:
+            - NotNull
+          type: "byte[]"
+    toString:
+      annotations:
+        - NotNull
+      default: false
+      type: public
+      returnType: String
+  fields:
+    Companion:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec$Companion
+    RSA_SHA256:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec
+    RSA_SHA384:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec
+    RSA_SHA512:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec
+    RSASSA_PSS_SHA256:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.ParameterizedSignatureSpec
+    RSASSA_PSS_SHA384:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.ParameterizedSignatureSpec
+    RSASSA_PSS_SHA512:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.ParameterizedSignatureSpec
+    RSA_SHA256_WITH_MGF1:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec
+    RSA_SHA384_WITH_MGF1:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec
+    RSA_SHA512_WITH_MGF1:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec
+    ECDSA_SHA256:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec
+    ECDSA_SHA384:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec
+    ECDSA_SHA512:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec
+    EDDSA_ED25519:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec
+    SPHINCS256_SHA512:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec
+    SM2_SM3:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec
+    SM2_SHA256:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec
+    GOST3410_GOST3411:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.SignatureSpec
+net.corda.v5.crypto.SignatureSpec$Companion:
+  annotations: []
+  type: public static final class
+  extends: null
+  implements: []
+  interface: false
+  methods: {}
+net.corda.v5.crypto.failures.CryptoException:
+  annotations:
+    - CordaSerializable
+  type: public class
+  extends: net.corda.v5.base.exceptions.CordaRuntimeException
+  implements: []
+  interface: false
+  methods:
+    isRecoverable:
+      annotations: []
+      default: false
+      type: public final
+      returnType: boolean
+net.corda.v5.crypto.failures.CryptoRetryException:
+  annotations:
+    - CordaSerializable
+  type: public final class
+  extends: net.corda.v5.base.exceptions.CordaRuntimeException
+  implements: []
+  interface: false
+  methods:
+    isRecoverable:
+      annotations: []
+      default: false
+      type: public final
+      returnType: boolean
+net.corda.v5.crypto.failures.CryptoSignatureException:
+  annotations:
+    - CordaSerializable
+  type: public final class
+  extends: net.corda.v5.base.exceptions.CordaRuntimeException
+  implements: []
+  interface: false
+  methods:
+    isRecoverable:
+      annotations: []
+      default: false
+      type: public final
+      returnType: boolean
+net.corda.v5.crypto.failures.CryptoThrottlingException:
+  annotations:
+    - CordaSerializable
+  type: public class
+  extends: net.corda.v5.base.exceptions.CordaRuntimeException
+  implements:
+    - net.corda.v5.base.exceptions.BackoffStrategy
+  interface: false
+  methods:
+    createExponential:
+      annotations:
+        - NotNull
+      default: false
+      type: public static final
+      returnType: net.corda.v5.crypto.failures.CryptoThrottlingException
+      params:
+        message:
+          annotation:
+            - NotNull
+          type: String
+        cause:
+          annotation:
+            - Nullable
+          type: Throwable
+        maxAttempts:
+          annotation: []
+          type: int
+        initialBackoff:
+          annotation: []
+          type: long
+    getBackoff:
+      annotations: []
+      default: false
+      type: public
+      returnType: long
+      params:
+        attempt:
+          annotation: []
+          type: int
+    isRecoverable:
+      annotations: []
+      default: false
+      type: public final
+      returnType: boolean
+  fields:
+    Companion:
+      annotation:
+        - NotNull
+      type: public static final net.corda.v5.crypto.failures.CryptoThrottlingException$Companion
+net.corda.v5.crypto.failures.CryptoThrottlingException$Companion:
+  annotations: []
+  type: public static final class
+  extends: null
+  implements: []
+  interface: false
+  methods:
+    createExponential:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: net.corda.v5.crypto.failures.CryptoThrottlingException
+      params:
+        message:
+          annotation:
+            - NotNull
+          type: String
+        cause:
+          annotation:
+            - Nullable
+          type: Throwable
+        maxAttempts:
+          annotation: []
+          type: int
+        initialBackoff:
+          annotation: []
+          type: long
+net.corda.v5.crypto.merkle.IndexedMerkleLeaf:
+  annotations:
+    - CordaSerializable
+  type: public final class
+  extends: null
+  implements: []
+  interface: false
+  methods:
+    equals:
+      annotations: []
+      default: false
+      type: public
+      returnType: boolean
+      params:
+        other:
+          annotation:
+            - Nullable
+          type: Object
+    getIndex:
+      annotations: []
+      default: false
+      type: public final
+      returnType: int
+    getLeafData:
+      annotations:
+        - NotNull
+      default: false
+      type: public final
+      returnType: "byte[]"
+    getNonce:
+      annotations:
+        - Nullable
+      default: false
+      type: public final
+      returnType: "byte[]"
+    hashCode:
+      annotations: []
+      default: false
+      type: public
+      returnType: int
+    toString:
+      annotations:
+        - NotNull
+      default: false
+      type: public
+      returnType: String
+net.corda.v5.crypto.merkle.MerkleProof:
+  annotations:
+    - CordaSerializable
+  type: public interface
+  extends: []
+  interface: true
+  methods:
+    getHashes:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: java.util.List<net.corda.v5.crypto.SecureHash>
+    getLeaves:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: java.util.List<net.corda.v5.crypto.merkle.IndexedMerkleLeaf>
+    getTreeSize:
+      annotations: []
+      default: false
+      type: public abstract
+      returnType: int
+    verify:
+      annotations: []
+      default: false
+      type: public abstract
+      returnType: boolean
+      params:
+        root:
+          annotation:
+            - NotNull
+          type: net.corda.v5.crypto.SecureHash
+        digestProvider:
+          annotation:
+            - NotNull
+          type: net.corda.v5.crypto.merkle.MerkleTreeHashDigestProvider
+net.corda.v5.crypto.merkle.MerkleTree:
+  annotations: []
+  type: public interface
+  extends: []
+  interface: true
+  methods:
+    createAuditProof:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.crypto.merkle.MerkleProof
+      params:
+        leafIndices:
+          annotation:
+            - NotNull
+          type: java.util.List<Integer>
+    getDigestProvider:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.crypto.merkle.MerkleTreeHashDigestProvider
+    getLeaves:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: "java.util.List<byte[]>"
+    getRoot:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.crypto.SecureHash
+net.corda.v5.crypto.merkle.MerkleTreeFactory:
+  annotations:
+    - DoNotImplement
+  type: public interface
+  extends: []
+  interface: true
+  methods:
+    createHashDigestProvider:
+      annotations:
+        - Suspendable
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.crypto.merkle.MerkleTreeHashDigestProvider
+      params:
+        merkleTreeHashDigestProviderName:
+          annotation:
+            - NotNull
+          type: String
+        digestAlgorithmName:
+          annotation:
+            - NotNull
+          type: net.corda.v5.crypto.DigestAlgorithmName
+        options:
+          annotation:
+            - NotNull
+          type: "java.util.Map<String, ?>"
+    createTree:
+      annotations:
+        - Suspendable
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.crypto.merkle.MerkleTree
+      params:
+        leaves:
+          annotation:
+            - NotNull
+          type: "java.util.List<byte[]>"
+        digestProvider:
+          annotation:
+            - NotNull
+          type: net.corda.v5.crypto.merkle.MerkleTreeHashDigestProvider
+net.corda.v5.crypto.merkle.MerkleTreeFactoryKt:
+  annotations: []
+  type: public final class
+  extends: null
+  implements: []
+  interface: false
+  methods: {}
+  fields:
+    HASH_DIGEST_PROVIDER_DEFAULT_NAME:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: DefaultHashDigestProvider
+    HASH_DIGEST_PROVIDER_NONCE_NAME:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: NonceHashDigestProvider
+    HASH_DIGEST_PROVIDER_NONCE_VERIFY_NAME:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: NonceHashDigestProviderVerify
+    HASH_DIGEST_PROVIDER_NONCE_SIZE_ONLY_VERIFY_NAME:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: NonceHashDigestProviderSizeOnlyVerify
+    HASH_DIGEST_PROVIDER_TWEAKABLE_NAME:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: TweakableHashDigestProvider
+    HASH_DIGEST_PROVIDER_LEAF_PREFIX_OPTION:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: leafPrefix
+    HASH_DIGEST_PROVIDER_NODE_PREFIX_OPTION:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: nodePrefix
+    HASH_DIGEST_PROVIDER_ENTROPY_OPTION:
+      annotation:
+        - NotNull
+      type: public static final String
+      initialised value: entropy
+net.corda.v5.crypto.merkle.MerkleTreeHashDigestProvider:
+  annotations: []
+  type: public interface
+  extends: []
+  interface: true
+  methods:
+    getDigestAlgorithmName:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.crypto.DigestAlgorithmName
+    leafHash:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.crypto.SecureHash
+      params:
+        index:
+          annotation: []
+          type: int
+        nonce:
+          annotation:
+            - Nullable
+          type: "byte[]"
+        bytes:
+          annotation:
+            - NotNull
+          type: "byte[]"
+    leafNonce:
+      annotations:
+        - Nullable
+      default: false
+      type: public abstract
+      returnType: "byte[]"
+      params:
+        index:
+          annotation: []
+          type: int
+    nodeHash:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.crypto.SecureHash
+      params:
+        depth:
+          annotation: []
+          type: int
+        left:
+          annotation:
+            - NotNull
+          type: net.corda.v5.crypto.SecureHash
+        right:
+          annotation:
+            - NotNull
+          type: net.corda.v5.crypto.SecureHash
+net.corda.v5.crypto.merkle.MerkleTreeHashDigestProviderWithSizeProofSupport:
+  annotations: []
+  type: public interface
+  extends:
+    - net.corda.v5.crypto.merkle.MerkleTreeHashDigestProvider
+  interface: true
+  methods:
+    getDigestAlgorithmName:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.crypto.DigestAlgorithmName
+    getSizeProof:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.crypto.merkle.MerkleProof
+      params:
+        leaves:
+          annotation:
+            - NotNull
+          type: "java.util.List<byte[]>"
+    leafHash:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.crypto.SecureHash
+      params:
+        index:
+          annotation: []
+          type: int
+        nonce:
+          annotation:
+            - Nullable
+          type: "byte[]"
+        bytes:
+          annotation:
+            - NotNull
+          type: "byte[]"
+    leafNonce:
+      annotations:
+        - Nullable
+      default: false
+      type: public abstract
+      returnType: "byte[]"
+      params:
+        index:
+          annotation: []
+          type: int
+    nodeHash:
+      annotations:
+        - NotNull
+      default: false
+      type: public abstract
+      returnType: net.corda.v5.crypto.SecureHash
+      params:
+        depth:
+          annotation: []
+          type: int
+        left:
+          annotation:
+            - NotNull
+          type: net.corda.v5.crypto.SecureHash
+        right:
+          annotation:
+            - NotNull
+          type: net.corda.v5.crypto.SecureHash
