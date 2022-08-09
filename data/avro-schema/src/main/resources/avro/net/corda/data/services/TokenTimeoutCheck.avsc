@@ -1,6 +1,6 @@
 {
   "type": "record",
-  "name": "TokenTimeoutCheckEvent",
+  "name": "TokenTimeoutCheck",
   "namespace": "net.corda.data.services",
   "fields": []
 }

@@ -4,10 +4,6 @@
   "namespace": "net.corda.data.services",
   "fields": [
       {
-        "name": "claimRequestId",
-        "type": "string"
-      },
-      {
         "name": "claimExpiryTime",
         "type": {
           "type": "long",

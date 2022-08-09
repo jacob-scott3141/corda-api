@@ -15,7 +15,7 @@
          }
       },
       {
-        "name": "claimedTokens",
+        "name": "tokenClaims",
         "type": {
           "type": "array",
           "items": "net.corda.data.services.TokenClaimState"

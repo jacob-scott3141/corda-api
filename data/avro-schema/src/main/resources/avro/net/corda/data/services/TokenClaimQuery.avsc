@@ -4,12 +4,8 @@
   "namespace": "net.corda.data.services",
   "fields": [
       {
-        "name": "claimRequestId",
-        "type": "string"
-      },
-      {
-        "name": "flowId",
-        "type": "string"
+        "name": "requestContext",
+        "type": "net.corda.data.flow.event.external.ExternalEventContext"
       },
       {
         "name": "tokenSet",

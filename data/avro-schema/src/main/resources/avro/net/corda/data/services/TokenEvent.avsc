@@ -11,7 +11,7 @@
         "name": "payload",
         "type": [
           "net.corda.data.services.TokenLedgerEvent",
-          "net.corda.data.services.TokenTimeoutCheckEvent",
+          "net.corda.data.services.TokenTimeoutCheck",
           "net.corda.data.services.TokenClaimQuery",
           "net.corda.data.services.TokenClaimRelease"
         ]

@@ -11,14 +11,15 @@
     },
     {
       "name": "key",
-      "type": ["string"],
+      "type": ["string", "net.corda.data.services.TokenSetKey"],
       "doc": "The key that the external event is partitioned by."
     },
     {
       "name": "payload",
       "type": [
         "net.corda.data.persistence.EntityRequest",
-        "net.corda.data.crypto.wire.ops.flow.FlowOpsRequest"
+        "net.corda.data.crypto.wire.ops.flow.FlowOpsRequest",
+        "net.corda.data.services.TokenEvent"
       ],
       "doc": "The underlying payload that the external processor will process."
     },

@@ -30,7 +30,8 @@
       "type": [
         "null",
         "net.corda.data.persistence.EntityResponse",
-        "net.corda.data.crypto.wire.ops.flow.FlowOpsResponse"
+        "net.corda.data.crypto.wire.ops.flow.FlowOpsResponse",
+        "net.corda.data.services.TokenClaimResult"
       ],
       "doc": "The underlying payload that can contain domain specific information that is not serialized into the {@link ExternalEventResponse#data} property. `null` if the response represents an error and therefore does not have a payload to respond with."
     },
