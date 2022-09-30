@@ -1,5 +1,6 @@
 package net.corda.v5.application.crypto
 
+import net.corda.v5.crypto.CompositeKeyNodeAndWeight
 import java.security.PublicKey
 
 interface CompositeKeyGenerator {

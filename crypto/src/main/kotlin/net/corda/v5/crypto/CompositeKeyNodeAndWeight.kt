@@ -1,4 +1,4 @@
-package net.corda.v5.application.crypto
+package net.corda.v5.crypto
 
 import java.security.PublicKey
 
