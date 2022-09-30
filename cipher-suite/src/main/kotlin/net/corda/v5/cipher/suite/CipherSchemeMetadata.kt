@@ -90,6 +90,14 @@ interface CipherSchemeMetadata : KeyEncodingService, AlgorithmParameterSpecEncod
     fun inferSignatureSpec(publicKey: PublicKey, digest: DigestAlgorithmName): SignatureSpec?
 
     /**
+     * Infers the default signature spec from the [PublicKey].
+     *
+     * @return [SignatureSpec] with the signatureName formatted like "SHA256withECDSA" if that can be inferred or
+     * otherwise null.
+     */
+    fun defaultSignatureSpec(publicKey: PublicKey): SignatureSpec?
+
+    /**
      * Returns list of the non-custom signature specs for the given [KeyScheme] with the signatureName
      * formatted like "SHA256withECDSA" .
      */

@@ -167,6 +167,15 @@ open class SignatureSpec(
         val GOST3410_GOST3411 = SignatureSpec(
             signatureName = "GOST3411withGOST3410"
         )
+
+        /**
+         * Default [SignatureSpec] which can be used in place where the default signature spec for
+         * a [KeyScheme] can be used.
+         */
+        @JvmField
+        val DEFAULT = SignatureSpec(
+            signatureName = ".DEFAULT"
+        )
     }
 
     init {
