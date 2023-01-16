@@ -1,0 +1,18 @@
+topics:
+  ClusterWorkerHeartbeat:
+    name: cluster.worker.version
+    consumers:
+      - crypto
+      - db
+      - flow
+      - membership
+      - link-manager
+      - rpc
+    producers:
+      - crypto
+      - db
+      - flow
+      - membership
+      - link-manager
+      - rpc
+    config:

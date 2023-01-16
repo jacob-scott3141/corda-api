@@ -1,0 +1,23 @@
+{
+  "type": "record",
+  "name": "WorkerVersion",
+  "namespace": "net.corda.data.cluster",
+  "doc": "Version information for a worker in the cluster",
+  "fields": [
+    {
+      "name": "workerPlatformVersion",
+      "type": "int",
+      "doc": "the platform version the worker has been built against"
+    },
+    {
+      "name": "applicationPlatformVersion",
+      "type": "int",
+      "doc": "the application platform version the worker is running"
+    },
+    {
+      "name": "workerSoftwareVersion",
+      "type": "string",
+      "doc": "the string representation of the Corda version the worker is running"
+    }
+  ]
+}
