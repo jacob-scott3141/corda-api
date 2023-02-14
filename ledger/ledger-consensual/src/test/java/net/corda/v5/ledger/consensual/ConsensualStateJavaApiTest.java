@@ -5,6 +5,7 @@ import org.assertj.core.api.Assertions;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 
+import java.security.PublicKey;
 import java.util.List;
 
 import static org.mockito.Mockito.doNothing;
@@ -14,15 +15,16 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class ConsensualStateJavaApiTest {
-    private final Party Party = mock(Party.class);
-    private final List<Party> participants = List.of(Party);
+
+    private final PublicKey key = mock(PublicKey.class);
+    private final List<PublicKey> participants = List.of(key);
     private final ConsensualState consensualState = mock(ConsensualState.class);
 
     @Test
     public void participants() {
         when(consensualState.getParticipants()).thenReturn(participants);
 
-        final List<Party> result = consensualState.getParticipants();
+        final List<PublicKey> result = consensualState.getParticipants();
 
         Assertions.assertThat(result).isNotNull();
         Assertions.assertThat(result).isEqualTo(participants);
@@ -48,15 +50,15 @@ public class ConsensualStateJavaApiTest {
     }
 
     class CustomConsensualState implements ConsensualState {
-        private final List<Party> participants;
+        private final List<PublicKey> participants;
 
-        public CustomConsensualState(List<Party> participants) {
+        public CustomConsensualState(List<PublicKey> participants) {
             this.participants = participants;
         }
 
         @NotNull
         @Override
-        public List<Party> getParticipants() {
+        public List<PublicKey> getParticipants() {
             return participants;
         }
 

@@ -6,12 +6,13 @@ package net.corda.db.schema
  * For more information, please see [here](https://docs.liquibase.com/concepts/advanced/liquibase-schema-name-parameter.html).
  */
 object DbSchema {
-    const val RPC_RBAC = "RPC_RBAC"
+    const val RBAC = "RBAC"
 
     const val CONFIG = "CONFIG"
     const val CONFIG_TABLE = "config"
     const val CONFIG_AUDIT_TABLE = "config_audit"
     const val CONFIG_AUDIT_ID_SEQUENCE = "config_audit_id_seq"
+    const val CLUSTER_CERTIFICATE_DB_TABLE = "cluster_certificate"
     const val CONFIG_AUDIT_ID_SEQUENCE_ALLOC_SIZE = 1
 
     const val DB_CONNECTION_TABLE = "db_connection"
@@ -20,15 +21,19 @@ object DbSchema {
     const val DB_CONNECTION_AUDIT_ID_SEQUENCE_ALLOC_SIZE = 1
 
     const val VNODE = "VNODE"
-    const val VNODE_INSTANCE_DB_TABLE = "vnode_instance"
+    const val VIRTUAL_NODE_DB_TABLE = "virtual_node"
     const val HOLDING_IDENTITY_DB_TABLE = "holding_identity"
     const val VNODE_VAULT_DB_TABLE = "vnode_vault"
     const val VNODE_KEY_DB_TABLE = "vnode_key"
     const val VNODE_CERTIFICATE_DB_TABLE = "vnode_certificate"
+    const val VNODE_ALLOWED_CERTIFICATE_DB_TABLE = "vnode_mtls_allowed_certificate"
     const val VNODE_GROUP_REGISTRATION_TABLE = "vnode_registration_request"
     const val VNODE_MEMBER_INFO = "vnode_member_info"
     const val VNODE_GROUP_POLICY = "vnode_group_policy"
     const val VNODE_MEMBER_SIGNATURE = "vnode_member_signature"
+    const val VNODE_GROUP_PARAMETERS = "vnode_group_parameters"
+    const val VNODE_GROUP_APPROVAL_RULES = "vnode_group_approval_rules"
+    const val VNODE_PRE_AUTH_TOKENS = "vnode_pre_auth_tokens"
 
     const val LEDGER_CONSENSUAL_TRANSACTION_TABLE = "consensual_transaction"
     const val LEDGER_CONSENSUAL_TRANSACTION_STATUS_TABLE = "consensual_transaction_status"
@@ -36,9 +41,6 @@ object DbSchema {
     const val LEDGER_CONSENSUAL_TRANSACTION_COMPONENT_TABLE = "consensual_transaction_component"
     const val LEDGER_CONSENSUAL_CPK_TABLE = "consensual_cpk"
     const val LEDGER_CONSENSUAL_TRANSACTION_CPK_TABLE = "consensual_transaction_cpk"
-
-    const val CERTIFICATES_SCHEME = "CERTIFICATES"
-    const val CLUSTER_CERTIFICATES_DB_TABLE = "cluster_certificates"
 
     const val DB_MESSAGE_BUS = "DB_MESSAGE_BUS"
 

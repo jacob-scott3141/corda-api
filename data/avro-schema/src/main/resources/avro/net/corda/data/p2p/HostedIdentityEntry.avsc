@@ -1,7 +1,7 @@
 {
   "type": "record",
   "name": "HostedIdentityEntry",
-  "namespace": "net.corda.p2p",
+  "namespace": "net.corda.data.p2p",
   "fields": [
     {
       "doc": "The Holding identity hosted in this node",
@@ -11,11 +11,6 @@
     {
       "doc": "The tenant ID under which the TLS key is stored",
       "name": "tlsTenantId",
-      "type": "string"
-    },
-    {
-      "doc": "The tenant ID under which the session initiation key is stored",
-      "name": "sessionKeyTenantId",
       "type": "string"
     },
     {
@@ -30,6 +25,18 @@
       "doc": "The session initiation public key (in PEM format)",
       "name": "sessionPublicKey",
       "type": "string"
+    },
+    {
+      "doc": "The session certificates (in PEM format)",
+      "name": "sessionCertificates",
+      "type": [
+        "null",
+        {
+          "type": "array",
+          "items": "string"
+        }
+      ],
+      "default": null
     }
   ]
 }

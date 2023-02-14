@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://corda.r3.com/net/corda/schema/configuration/rest/1.0/corda.rest.json",
+  "title": "Corda REST Configuration Schema",
+  "description": "Configuration schema for the REST subsection.",
+  "type": "object",
+  "default": {},
+  "properties": {
+    "address": {
+      "description": "",
+      "type": "string",
+      "default": "0.0.0.0:8888"
+    },
+    "context": {
+      "description": "",
+      "type": "object",
+      "default": {},
+      "properties": {
+        "description": {
+          "description": "",
+          "type": "string",
+          "default": "Exposing REST interfaces as OpenAPI WebServices"
+        },
+        "title": {
+          "description": "",
+          "type": "string",
+          "default": "REST"
+        }
+      }
+    },
+    "maxContentLength": {
+      "description": "Maximum length in bytes that can be sent over HTTP transport.",
+      "type": "integer",
+      "minimum": 1024,
+      "maximum": 2147483647,
+      "default": 200000000
+    },
+    "endpoint": {
+      "description": "",
+      "type": "object",
+      "default": {},
+      "properties": {
+        "timeoutMs": {
+          "description": "Amount of time in milliseconds to wait for response on backend message bus for a remote operation before timing out the REST call.",
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 2147483647,
+          "default": 12000
+        }
+      }
+    },
+    "websocket": {
+      "description": "Configuration settings for WebSockets.",
+      "type": "object",
+      "default": {},
+      "properties": {
+        "idleTimeoutMs": {
+          "description": "Amount of time in milliseconds for a websocket connection to be idle (i.e. no messages are either sent or received) before timing out and closing the connection. Value of 0 means such idle check will be disabled.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2147483647,
+          "default": 30000
+        }
+      }
+    }
+  }
+}

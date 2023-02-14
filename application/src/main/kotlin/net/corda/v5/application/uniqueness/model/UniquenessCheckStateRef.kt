@@ -1,5 +1,6 @@
 package net.corda.v5.application.uniqueness.model
 
+import net.corda.v5.base.annotations.CordaSerializable
 import net.corda.v5.crypto.SecureHash
 
 /**
@@ -8,8 +9,11 @@ import net.corda.v5.crypto.SecureHash
  * model and is agnostic to both the message bus API and any DB schema that may be used to persist data
  * by the backing store.
  *
- * T0DO CORE-6629: This class can be removed once the UTXO ledger model gets merged
+ * Please note that this representation of a state ref is entirely different from the Ledger specific
+ * [StateRef][net.corda.v5.ledger.utxo.StateRef] class. This class represents a state ref that the
+ * uniqueness checker will process and may differ from the UTXO ledger data model.
  */
+@CordaSerializable
 interface UniquenessCheckStateRef {
     val txHash: SecureHash
     val stateIndex: Int

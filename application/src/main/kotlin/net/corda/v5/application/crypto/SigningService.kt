@@ -6,17 +6,16 @@ import net.corda.v5.base.exceptions.CordaRuntimeException
 import net.corda.v5.crypto.CompositeKey
 import net.corda.v5.crypto.DigitalSignature
 import net.corda.v5.crypto.SignatureSpec
-import net.corda.v5.crypto.exceptions.CryptoException
 import java.security.KeyPair
 import java.security.PrivateKey
 import java.security.PublicKey
 import java.util.*
 
 /**
- * [SigningService] is responsible for storing and using private keys to sign things. An implementation of this may,
- * for example, call out to a hardware security module that enforces various auditing and frequency-of-use requirements.
+ * Responsible for storing and using private keys to sign things. An implementation of this may, for example, call out
+ * to a hardware security module that enforces various auditing and frequency-of-use requirements.
  *
- * The platform will provide an instance of [SigningService] to flows via property injection.
+ * Corda provides an instance of [DigitalSignatureVerificationService] to flows via property injection.
  */
 @DoNotImplement
 interface SigningService {
@@ -39,13 +38,13 @@ interface SigningService {
     fun sign(bytes: ByteArray, publicKey: PublicKey, signatureSpec: SignatureSpec): DigitalSignature.WithKey
 
     /**
-     * TODO CORE-6561 Remove this API from C5. Added as a temporary API for testing until MGM code is fully integrated.
+     * Gets a set of signing keys to look into and returns a mapping of the requested signing keys to signing keys
+     * found to be owned by the caller. In case of [CompositeKey] it maps the composite key with the firstly found
+     * composite key leaf.
      *
-     * Decodes public key from PEM encoded string.
-     *
-     * @throws [IllegalArgumentException] If the key scheme is not supported.
-     * @throws [CryptoException] For general cryptographic exceptions.
+     * @param keys The signing keys to look into.
+     * @return A mapping of requested signing keys to found signing keys to be owned by the caller or null if not found to be owned.
      */
     @Suspendable
-    fun decodePublicKey(encodedKey: String): PublicKey
+    fun findMySigningKeys(keys: Set<PublicKey>): Map<PublicKey, PublicKey?>
 }

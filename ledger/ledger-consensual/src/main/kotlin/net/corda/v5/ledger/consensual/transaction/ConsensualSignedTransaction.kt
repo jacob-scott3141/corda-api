@@ -1,10 +1,8 @@
 package net.corda.v5.ledger.consensual.transaction
 
 import net.corda.v5.application.crypto.DigitalSignatureAndMetadata
-import net.corda.v5.base.annotations.CordaSerializable
 import net.corda.v5.base.annotations.DoNotImplement
-import net.corda.v5.crypto.SecureHash
-import java.security.PublicKey
+import net.corda.v5.ledger.common.transaction.TransactionWithMetadata
 
 /**
  * Defines a signed Consensual transaction.
@@ -25,13 +23,7 @@ import java.security.PublicKey
  * Thus adding or removing a signature does not change it.
  */
 @DoNotImplement
-@CordaSerializable
-interface ConsensualSignedTransaction {
-    /**
-     * @property id The ID of the transaction.
-     */
-    val id: SecureHash
-
+interface ConsensualSignedTransaction: TransactionWithMetadata {
     /**
      * @property signatures The signatures that have been applied to the transaction.
      */
@@ -43,22 +35,4 @@ interface ConsensualSignedTransaction {
      * @return Returns a [ConsensualLedgerTransaction] from the current signed transaction.
      */
     fun toLedgerTransaction(): ConsensualLedgerTransaction
-
-    /**
-     * Sign the current [ConsensualSignedTransaction] with the specified key.
-     *
-     * @param publicKey The private counterpart of the specified public key will be used for signing the
-     *      [ConsensualSignedTransaction].
-     * @return Returns a new [ConsensualSignedTransaction] containing the applied signature.
-     */
-    fun addSignature(publicKey: PublicKey): ConsensualSignedTransaction
-
-    /**
-     * Gets the signing keys for any missing transaction signatures.
-     *
-     * @return Returns a [Set] of [PublicKey] representing the signing keys for any missing transaction signatures.
-     */
-    fun getMissingSigningKeys(): Set<PublicKey>
 }
-
-

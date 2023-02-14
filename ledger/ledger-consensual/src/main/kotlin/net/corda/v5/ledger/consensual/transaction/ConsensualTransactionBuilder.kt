@@ -2,7 +2,8 @@ package net.corda.v5.ledger.consensual.transaction
 
 import net.corda.v5.base.annotations.DoNotImplement
 import net.corda.v5.ledger.consensual.ConsensualState
-import java.security.PublicKey
+import net.corda.v5.base.annotations.Suspendable
+import net.corda.v5.ledger.common.transaction.TransactionNoAvailableKeysException
 
 /**
  * Defines a builder for [ConsensualSignedTransaction]s.
@@ -27,20 +28,18 @@ interface ConsensualTransactionBuilder {
     fun withStates(vararg states: ConsensualState) : ConsensualTransactionBuilder
 
     /**
-     * 1. Verifies the content of the [ConsensualTransactionBuilder]
-     * 2.a Creates
-     * 2.b signs
-     * 2.c and returns a [ConsensualSignedTransaction]
+     * Verifies the content of the [ConsensualTransactionBuilder] and
+     * signs the transaction with any required signatories that belong to the current node.
      *
      * Calling this function once consumes the [ConsensualTransactionBuilder], so it cannot be used again.
      * Therefore, if you want to build two transactions you need two builders.
      *
-     * @param publicKey The private counterpart of the specified public key will be used for signing the
-     *      [ConsensualSignedTransaction].
-     * @return Returns a new [ConsensualSignedTransaction] with the specified details.
+     * @return Returns a [ConsensualSignedTransaction] with signatures for any required signatories that belong to the current node.
      *
-     * @throws [UnsupportedOperationException] when called second time on the same object to prevent duplicate
-     *      transactions accidentally.
+     * @throws IllegalStateException when called a second time on the same object to prevent
+     *      unintentional duplicate transactions.
+     * @throws TransactionNoAvailableKeysException if none of the required keys are available to sign the transaction.
      */
-    fun signInitial(publicKey: PublicKey): ConsensualSignedTransaction
+    @Suspendable
+    fun toSignedTransaction(): ConsensualSignedTransaction
 }

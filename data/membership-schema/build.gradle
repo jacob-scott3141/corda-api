@@ -1,0 +1,15 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm'
+    id 'corda.common-publishing'
+    id 'corda-api.common-library'
+}
+
+description 'Schema definitions for membership operations'
+
+dependencies {
+    implementation 'org.jetbrains.kotlin:kotlin-osgi-bundle'
+    implementation platform(project(':corda-api'))
+    implementation project(":base")
+
+    compileOnly 'org.osgi:osgi.annotation'
+}

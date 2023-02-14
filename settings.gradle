@@ -28,7 +28,6 @@ pluginManagement {
     plugins {
         id 'com.gradle.enterprise' version gradleEnterpriseVersion
         id 'com.gradle.common-custom-user-data-gradle-plugin' version gradleDataPlugin
-        id 'net.corda.plugins.cordapp-cpk' version gradlePluginsVersion
         id 'org.jetbrains.kotlin.jvm' version kotlinVersion
         id 'org.jetbrains.kotlin.plugin.allopen' version kotlinVersion
         id 'org.jetbrains.kotlin.plugin.jpa' version kotlinVersion
@@ -39,7 +38,6 @@ pluginManagement {
         id 'org.jetbrains.dokka' version dokkaVersion
         id "com.github.davidmc24.gradle.plugin.avro-base" version avroGradlePluginVersion
         id 'com.github.ben-manes.versions' version dependencyCheckVersion
-        id "org.gradle.test-retry" version gradleTestRetryPluginVersion
         id "com.jfrog.artifactory" version artifactoryPluginVersion
         id 'io.snyk.gradle.plugin.snykplugin' version snykVersion
     }
@@ -88,7 +86,6 @@ rootProject.name = "corda-api"
 includeBuild 'cordapp-configuration'
 include 'application'
 include 'base'
-include 'cipher-suite'
 include 'corda-api'
 include 'cordapp-configuration-publish'
 include 'crypto'
@@ -96,11 +93,13 @@ include 'crypto-extensions'
 include 'data:avro-schema'
 include 'data:config-schema'
 include 'data:db-schema'
+include 'data:membership-schema'
 include 'data:topic-schema'
-include 'ledger-obsolete'
+include 'data:rbac-schema'
 include 'ledger:ledger-common'
 include 'ledger:ledger-consensual'
 include 'ledger:ledger-utxo'
+include 'ledger:notary-plugin'
 include 'membership'
 include 'serialization'
 
@@ -108,15 +107,15 @@ include 'serialization'
 gradleEnterprise {
     server = gradleEnterpriseUrl
     allowUntrustedServer = false
+    def apiKey = settings.ext.find('CORDA_GRADLE_SCAN_KEY') ?: System.getenv('CORDA_GRADLE_SCAN_KEY')
+    accessKey = apiKey
     buildScan {
-        def apiKey = settings.ext.find('CORDA_GRADLE_SCAN_KEY') ?: System.getenv('CORDA_GRADLE_SCAN_KEY')
         if (apiKey?.trim()) {
             publishAlways()
             capture {
                 taskInputFiles = true
             }
             uploadInBackground = false
-            accessKey = apiKey
         }
     }
     buildCache {
@@ -124,19 +123,14 @@ gradleEnterprise {
             enabled = true
             removeUnusedEntriesAfterDays = 14  // Garbage collect if a cache item is not used in 2 weeks.
         }
-        remote(HttpBuildCache) {
-            url = "${gradleEnterpriseUrl}/cache/"
-            credentials {
-                username = settings.ext.find('BUILD_CACHE_CREDENTIALS_USR') ?: System.getenv('BUILD_CACHE_CREDENTIALS_USR')
-                password = settings.ext.find('BUILD_CACHE_CREDENTIALS_PSW') ?: System.getenv('BUILD_CACHE_CREDENTIALS_PSW')
-            }
+        remote(gradleEnterprise.buildCache) {
             // For the remote build cache we will populate cache only from Jenkins, all machines can pull from cache however.
             if (System.getenv().containsKey("JENKINS_URL")) {
                 push = true
                 enabled = true
             } else {
                 push = false
-                enabled = false
+                enabled = apiKey?.trim() ? true : false
             }
         }
     }

@@ -1,9 +1,8 @@
 package net.corda.v5.application.persistence;
 
 import net.corda.v5.application.flows.CordaInject;
-import net.corda.v5.application.flows.RPCRequestData;
-import net.corda.v5.application.flows.RPCStartableFlow;
-import net.corda.v5.application.messaging.FlowMessaging;
+import net.corda.v5.application.flows.RestRequestBody;
+import net.corda.v5.application.flows.ClientStartableFlow;
 import net.corda.v5.base.annotations.CordaSerializable;
 
 import javax.persistence.*;
@@ -11,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class PersistenceServiceFindAllFlowJavaExample implements RPCStartableFlow {
+public class PersistenceServiceFindAllFlowJavaExample implements ClientStartableFlow {
 
     // For JPA Entity:
     @CordaSerializable
@@ -34,9 +33,9 @@ public class PersistenceServiceFindAllFlowJavaExample implements RPCStartableFlo
     public PersistenceService persistenceService;
 
     @Override
-    public String call(RPCRequestData requestBody) {
+    public String call(RestRequestBody requestBody) {
         // create a named query setting parameters one-by-one, that returns the second page of up to 100 records
-        ParameterisedQuery<Dog> pagedQuery = persistenceService
+        ParameterizedQuery<Dog> pagedQuery = persistenceService
                 .query("find_by_name_and_age", Dog.class)
                 .setParameter("name", "Felix")
                 .setParameter("maxAge", 5)
@@ -47,7 +46,7 @@ public class PersistenceServiceFindAllFlowJavaExample implements RPCStartableFlo
         List<Dog> result1 = pagedQuery.execute();
 
         // create a named query setting parameters as Map, that returns the second page of up to 100 records
-        ParameterisedQuery<Dog> paramQuery = persistenceService
+        ParameterizedQuery<Dog> paramQuery = persistenceService
                 .query("find_by_name_and_age", Dog.class)
                 .setParameters(Map.of("name", "Felix", "maxAge", 5))
                 .setLimit(100)

@@ -11,8 +11,11 @@ import org.junit.jupiter.api.Assertions.assertArrayEquals
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertAll
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.mock
 import java.io.ByteArrayInputStream
 import java.security.MessageDigest
 import java.security.PublicKey
@@ -71,59 +74,12 @@ class CryptoUtilsTests {
         assertEquals(key, result.first())
     }
 
-    @Test
-    fun `keys should return collection consisting of all leaves for a given composite key with flat leaves`() {
-        val publicKeyRSA = generateKeyPair(RSA_SPEC).public
-        val publicKeyK1 = generateKeyPair(ECDSA_SECP256K1_SPEC).public
-        val publicKeyR1 = generateKeyPair(ECDSA_SECP256R1_SPEC).public
-        val publicKeyEd1 = generateKeyPair(EDDSA_ED25519_SPEC).public
-        val publicKeyEd2 = generateKeyPair(EDDSA_ED25519_SPEC).public
-        val compositeKey = CompositeKey.Builder().addKeys(
-            publicKeyRSA,
-            publicKeyK1,
-            publicKeyR1,
-            publicKeyEd1,
-            publicKeyEd2
-        ).build()
-        val result = compositeKey.keys
-        assertEquals(5, result.size)
-        assertTrue(result.any { it == publicKeyRSA })
-        assertTrue(result.any { it == publicKeyK1 })
-        assertTrue(result.any { it == publicKeyR1 })
-        assertTrue(result.any { it == publicKeyEd1 })
-        assertTrue(result.any { it == publicKeyEd2 })
-    }
-
-    @Test
-    fun `keys should return collection consisting of all root leaves for a given hierarchical composite key`() {
-        val alicePublicKey = generateKeyPair(ECDSA_SECP256K1_SPEC).public
-        val bobPublicKey = generateKeyPair(ECDSA_SECP256K1_SPEC).public
-        val key1 = CompositeKey.Builder().addKeys(alicePublicKey, bobPublicKey).build()
-        val key2 = CompositeKey.Builder().addKeys(alicePublicKey, key1).build()
-        val key3 = CompositeKey.Builder().addKeys(alicePublicKey, key2).build()
-        val key4 = CompositeKey.Builder().addKeys(alicePublicKey, key3).build()
-        val key5 = CompositeKey.Builder().addKeys(alicePublicKey, key4).build()
-        val key6 = CompositeKey.Builder().addKeys(alicePublicKey, key5, key2).build()
-        val result = key6.keys
-        assertEquals(2, result.size)
-        assertTrue(result.any { it == alicePublicKey })
-        assertTrue(result.any { it == bobPublicKey })
-    }
-
     @ParameterizedTest
     @MethodSource("publicKeys")
     fun `isFulfilledBy overload with single key should return true if the keys are matching for a given public key`(key: PublicKey) {
         assertTrue(key.isFulfilledBy(key))
     }
 
-    @Test
-    fun `isFulfilledBy overload with single key should return true if the keys is held in the composite key`() {
-        val publicKeyK1 = generateKeyPair(ECDSA_SECP256K1_SPEC).public
-        val compositeKey = CompositeKey.Builder().addKeys(
-            publicKeyK1
-        ).build()
-        assertTrue(compositeKey.isFulfilledBy(publicKeyK1))
-    }
 
     @ParameterizedTest
     @MethodSource("publicKeys")
@@ -131,24 +87,6 @@ class CryptoUtilsTests {
         assertFalse(key.isFulfilledBy(generateKeyPair(ECDSA_SECP256K1_SPEC).public))
     }
 
-    @Test
-    fun `isFulfilledBy overload with single key should return false if the keys is not held in the composite key`() {
-        val publicKeyK1 = generateKeyPair(ECDSA_SECP256K1_SPEC).public
-        val compositeKey = CompositeKey.Builder().addKeys(
-            publicKeyK1
-        ).build()
-        assertFalse(compositeKey.isFulfilledBy(generateKeyPair(ECDSA_SECP256K1_SPEC).public))
-    }
-
-    @Test
-    fun `isFulfilledBy overload with single key should return false if the the composite key has more than one key`() {
-        val publicKeyK1 = generateKeyPair(ECDSA_SECP256K1_SPEC).public
-        val publicKeyR1 = generateKeyPair(ECDSA_SECP256R1_SPEC).public
-        val compositeKey = CompositeKey.Builder().addKeys(
-            publicKeyK1, publicKeyR1
-        ).build()
-        assertFalse(compositeKey.isFulfilledBy(publicKeyK1))
-    }
 
     @ParameterizedTest
     @MethodSource("publicKeys")
@@ -156,71 +94,11 @@ class CryptoUtilsTests {
         assertTrue(key.isFulfilledBy(listOf(generateKeyPair(ECDSA_SECP256R1_SPEC).public, key)))
     }
 
-    @Test
-    fun `isFulfilledBy overload with collection should return true if all keys are held in the composite key`() {
-        val publicKeyRSA = generateKeyPair(RSA_SPEC).public
-        val publicKeyK1 = generateKeyPair(ECDSA_SECP256K1_SPEC).public
-        val publicKeyR1 = generateKeyPair(ECDSA_SECP256R1_SPEC).public
-        val publicKeyEd1 = generateKeyPair(EDDSA_ED25519_SPEC).public
-        val publicKeyEd2 = generateKeyPair(EDDSA_ED25519_SPEC).public
-        val compositeKey = CompositeKey.Builder().addKeys(
-            publicKeyRSA,
-            publicKeyK1,
-            publicKeyR1,
-            publicKeyEd1,
-            publicKeyEd2
-        ).build()
-        assertTrue {
-            compositeKey.isFulfilledBy(listOf(publicKeyRSA, publicKeyK1, publicKeyR1, publicKeyEd1, publicKeyEd2))
-        }
-    }
-
-    @Test
-    fun `isFulfilledBy overload with collection should return true if at least one key is not held in the composite key`() {
-        val publicKeyRSA = generateKeyPair(RSA_SPEC).public
-        val publicKeyK1 = generateKeyPair(ECDSA_SECP256K1_SPEC).public
-        val publicKeyR1 = generateKeyPair(ECDSA_SECP256R1_SPEC).public
-        val publicKeyEd1 = generateKeyPair(EDDSA_ED25519_SPEC).public
-        val publicKeyEd2 = generateKeyPair(EDDSA_ED25519_SPEC).public
-        val compositeKey = CompositeKey.Builder().addKeys(
-            publicKeyRSA,
-            publicKeyK1,
-            publicKeyR1,
-            publicKeyEd1,
-            publicKeyEd2
-        ).build()
-        assertTrue {
-            compositeKey.isFulfilledBy(
-                listOf(
-                    publicKeyRSA, publicKeyK1, publicKeyR1, publicKeyEd1, publicKeyEd2, generateKeyPair(ECDSA_SECP256K1_SPEC).public
-                )
-            )
-        }
-    }
 
     @ParameterizedTest
     @MethodSource("publicKeys")
     fun `isFulfilledBy overload with collection should return false if the keys are not matching at least one given public key`(key: PublicKey) {
         assertFalse(key.isFulfilledBy(listOf(generateKeyPair(ECDSA_SECP256R1_SPEC).public)))
-    }
-
-    @Test
-    fun `isFulfilledBy overload with collection should return false if not all keys are held in the composite key`() {
-        val publicKeyRSA = generateKeyPair(RSA_SPEC).public
-        val publicKeyK1 = generateKeyPair(ECDSA_SECP256K1_SPEC).public
-        val publicKeyR1 = generateKeyPair(ECDSA_SECP256R1_SPEC).public
-        val publicKeyEd1 = generateKeyPair(EDDSA_ED25519_SPEC).public
-        val publicKeyEd2 = generateKeyPair(EDDSA_ED25519_SPEC).public
-        val compositeKey = CompositeKey.Builder().addKeys(
-            publicKeyRSA,
-            publicKeyK1,
-            publicKeyR1,
-            publicKeyEd1,
-            publicKeyEd2
-        ).build()
-        assertFalse {
-            compositeKey.isFulfilledBy(listOf(publicKeyRSA, publicKeyK1, publicKeyR1))
-        }
     }
 
     @ParameterizedTest
@@ -249,42 +127,41 @@ class CryptoUtilsTests {
     }
 
     @Test
-    fun `containsAny should return true when composite key leaves intersect with collection`() {
-        val publicKeyRSA = generateKeyPair(RSA_SPEC).public
-        val publicKeyK1 = generateKeyPair(ECDSA_SECP256K1_SPEC).public
-        val publicKeyR1 = generateKeyPair(ECDSA_SECP256R1_SPEC).public
-        val publicKeyEd1 = generateKeyPair(EDDSA_ED25519_SPEC).public
-        val publicKeyEd2 = generateKeyPair(EDDSA_ED25519_SPEC).public
-        val compositeKey = CompositeKey.Builder().addKeys(
-            publicKeyRSA,
-            publicKeyK1,
-            publicKeyR1,
-            publicKeyEd1,
-            publicKeyEd2
-        ).build()
-        assertTrue {
-            compositeKey.containsAny(listOf(publicKeyRSA, generateKeyPair(ECDSA_SECP256R1_SPEC).public, publicKeyR1))
+    fun `containsAny should only return true if one of the provided key parameters is associated with the composite key`() {
+        val key = generateKeyPair(ECDSA_SECP256R1_SPEC).public
+        val key2 = generateKeyPair(ECDSA_SECP256R1_SPEC).public
+        val key3 = generateKeyPair(ECDSA_SECP256R1_SPEC).public
+
+        val invalidKey = generateKeyPair(ECDSA_SECP256R1_SPEC).public
+        val differentAlgoKey = generateKeyPair(RSA_SPEC).public
+
+        val compositeKey = mock<CompositeKey> {
+            on { leafKeys } doReturn setOf(key, key2, key3)
         }
+
+        val compositeKey2 = mock<CompositeKey> {
+            on { leafKeys } doReturn setOf(key, key3)
+        }
+
+        assertAll(
+            // First composite key probes
+            { assertTrue { compositeKey.containsAny(setOf(key)) } },
+            { assertTrue { compositeKey.containsAny(setOf(key, key2)) } },
+            { assertTrue { compositeKey.containsAny(setOf(key2, key3)) } },
+            { assertTrue { compositeKey.containsAny(setOf(key, key3)) } },
+            { assertTrue { compositeKey.containsAny(setOf(key2)) } },
+            { assertTrue { compositeKey.containsAny(setOf(key2, invalidKey)) } },
+            { assertTrue { compositeKey.containsAny(setOf(key3, differentAlgoKey)) } },
+            { assertFalse { compositeKey.containsAny(setOf(invalidKey)) } },
+            { assertFalse { compositeKey.containsAny(setOf(differentAlgoKey)) } },
+            { assertFalse { compositeKey.containsAny(emptySet()) } },
+            // Second composite key probes
+            { assertTrue { compositeKey2.containsAny(setOf(key)) } },
+            { assertTrue { compositeKey2.containsAny(setOf(key3)) } },
+            { assertFalse { compositeKey2.containsAny(setOf(key2)) } }
+        )
     }
 
-    @Test
-    fun `containsAny should return false when composite key leaves do not intersect with collection`() {
-        val publicKeyRSA = generateKeyPair(RSA_SPEC).public
-        val publicKeyK1 = generateKeyPair(ECDSA_SECP256K1_SPEC).public
-        val publicKeyR1 = generateKeyPair(ECDSA_SECP256R1_SPEC).public
-        val publicKeyEd1 = generateKeyPair(EDDSA_ED25519_SPEC).public
-        val publicKeyEd2 = generateKeyPair(EDDSA_ED25519_SPEC).public
-        val compositeKey = CompositeKey.Builder().addKeys(
-            publicKeyRSA,
-            publicKeyK1,
-            publicKeyR1,
-            publicKeyEd1,
-            publicKeyEd2
-        ).build()
-        assertFalse {
-            compositeKey.containsAny(listOf(generateKeyPair(ECDSA_SECP256R1_SPEC).public, generateKeyPair(ECDSA_SECP256R1_SPEC).public))
-        }
-    }
 
     @Test
     fun `byKeys should return the set of all public keys of the DigitalSignature WithKey collection`() {

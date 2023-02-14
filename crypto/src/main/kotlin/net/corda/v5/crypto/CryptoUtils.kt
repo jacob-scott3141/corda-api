@@ -91,23 +91,34 @@ fun PublicKey.isFulfilledBy(otherKeys: Iterable<PublicKey>): Boolean =
     (this as? CompositeKey)?.isFulfilledBy(otherKeys) ?: (this in otherKeys)
 
 /**
- * Checks whether any of the given [keys] matches a leaf on the [CompositeKey] tree or a single [PublicKey].
+ * Checks whether any of the given [keys] match a leaf on the [CompositeKey] tree or a single [PublicKey].
  *
  * <i>Note that this function checks against leaves, which cannot be of type [CompositeKey]. Due to that, if any of the
  * [otherKeys] is a [CompositeKey], this function will not find a match.</i>
  */
 fun PublicKey.containsAny(otherKeys: Iterable<PublicKey>): Boolean {
-    return if (this is CompositeKey) keys.intersect(otherKeys).isNotEmpty()
-    else this in otherKeys
+    return if (this is CompositeKey) {
+        // `keys` is exported to a standalone value here to make sure it is not evaluated in every loop tick
+        val currentKeys = keys
+        otherKeys.any { currentKeys.contains(it) }
+    } else this in otherKeys
 }
 
 /** Returns the set of all [PublicKey]s of the signatures. */
 fun Iterable<DigitalSignature.WithKey>.byKeys() = map { it.by }.toSet()
 
-// Allow Kotlin destructuring:
-// val (private, public) = keyPair
-/* The [PrivateKey] of this [KeyPair]. */
+/**
+ * Allows Kotlin destructuring, the [PrivateKey] of this [KeyPair].
+ * ```kotlin
+ * val (private, public) = keyPair
+ * ```
+ */
 operator fun KeyPair.component1(): PrivateKey = this.private
 
-/* The [PublicKey] of this [KeyPair]. */
+/**
+ * Allows Kotlin destructuring, the [PublicKey] of this [KeyPair].
+ * ```kotlin
+ * val (private, public) = keyPair
+ * ```
+ */
 operator fun KeyPair.component2(): PublicKey = this.public

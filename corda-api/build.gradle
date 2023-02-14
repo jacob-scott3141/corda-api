@@ -11,17 +11,18 @@ dependencies {
     constraints {
         api project(':application')
         api project(':base')
-        api project(':cipher-suite')
         api project(':crypto')
         api project(':crypto-extensions')
         api project(':data:avro-schema')
         api project(':data:config-schema')
-        api project(':data:topic-schema')
         api project(':data:db-schema')
+        api project(':data:membership-schema')
+        api project(':data:topic-schema')
+        api project(':data:rbac-schema')
         api project(':ledger:ledger-common')
         api project(':ledger:ledger-consensual')
         api project(':ledger:ledger-utxo')
-        api project(':ledger-obsolete')
+        api project(':ledger:notary-plugin')
         api project(':membership')
         api project(':serialization')
 
@@ -30,14 +31,14 @@ dependencies {
                 require javaxPersistenceApiVersion
             }
         }
-        api('net.corda.kotlin:kotlin-stdlib-jdk8-osgi') {
+        api('org.jetbrains.kotlin:kotlin-osgi-bundle') {
             version {
                 require kotlinVersion
             }
         }
-        api('net.corda.kotlin:kotlin-stdlib-jdk7-osgi') {
+        api('org.jetbrains:annotations') {
             version {
-                require kotlinVersion
+                require jetbrainsAnnotationsVersion
             }
         }
         api('org.osgi:osgi.annotation') {

@@ -7,17 +7,16 @@ plugins {
 description 'Corda Crypto'
 
 dependencies {
-    implementation 'net.corda.kotlin:kotlin-stdlib-jdk8-osgi'
+    implementation 'org.jetbrains.kotlin:kotlin-osgi-bundle'
     implementation 'org.slf4j:slf4j-api'
 
     compileOnly 'org.osgi:osgi.annotation'
 
-    api "org.bouncycastle:bcprov-jdk15on:$bouncycastleVersion"
-    api "org.bouncycastle:bcpkix-jdk15on:$bouncycastleVersion"
-
     api platform(project(':corda-api'))
     api project(':base')
 
+    testImplementation "org.bouncycastle:bcprov-jdk18on:$bouncycastleVersion"
+    testImplementation "org.bouncycastle:bcpkix-jdk18on:$bouncycastleVersion"
     testImplementation "org.assertj:assertj-core:$assertjVersion"
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
 }

@@ -5,6 +5,7 @@ import net.corda.v5.application.flows.FlowContextProperties.Companion.CORDA_RESE
 import net.corda.v5.application.flows.ResponderFlow
 import net.corda.v5.base.annotations.DoNotImplement
 import net.corda.v5.base.annotations.Suspendable
+import net.corda.v5.base.exceptions.CordaRuntimeException
 import net.corda.v5.base.types.MemberX500Name
 
 /*
@@ -21,11 +22,11 @@ import net.corda.v5.base.types.MemberX500Name
  * - Kotlin:
  *
  * ```kotlin
- * class MyFlow : RPCStartableFlow {
+ * class MyFlow : ClientStartableFlow {
  *    @CordaInject
  *    lateinit var flowMessaging: FlowMessaging
  *
- *    override fun call(requestBody: RPCRequestData): String {
+ *    override fun call(requestBody: RestRequestBody): String {
  *        val counterparty = parse("CN=Alice, O=Alice Corp, L=LDN, C=GB")
  *
  *        val session = flowMessaging.initiateFlow(counterparty)
@@ -34,7 +35,7 @@ import net.corda.v5.base.types.MemberX500Name
  *
  *        session.close()
  *
- *        return result.unwrap { it }
+ *        return result
  *    }
  *  }
  * ```
@@ -42,21 +43,21 @@ import net.corda.v5.base.types.MemberX500Name
  * - Java:
  *
  * ```java
- * class MyFlow implements RPCStartableFlow {
+ * class MyFlow implements ClientStartableFlow {
  *
  *    @CordaInject
  *    public FlowMessaging flowMessaging;
  *
  *    @Override
- *    public String call(RPCRequestData requestBody) {
+ *    public String call(RestRequestBody requestBody) {
  *        MemberX500Name counterparty = MemberX500Name.parse("CN=Alice, O=Alice Corp, L=LDN, C=GB");
  *        FlowSession session = flowMessaging.initiateFlow(counterparty);
  *
- *        UntrustworthyData<String> result = session.sendAndReceive(String.class, "hello");
+ *        String result = session.sendAndReceive(String.class, "hello");
  *
  *        session.close();
  *
- *        return result.unwrap(x -> x);
+ *        return result;
  *    }
  *}
  * ```
@@ -66,7 +67,7 @@ interface FlowMessaging {
 
     /**
      * Creates a communication session with a counterparty's [ResponderFlow]. Subsequently, you may send/receive using
-     * this session object. Note that this function does not communicate in itself, the counter-flow will be kicked off
+     * this session object. Note that this function does not communicate in itself. The counter-flow will be kicked off
      * by the first send/receive.
      *
      * Initiated flows are initiated with context based on the context of the initiating flow at the point in time this
@@ -83,7 +84,7 @@ interface FlowMessaging {
 
     /**
      * Creates a communication session with another member. Subsequently you may send/receive using this session object.
-     * Note that this function does not communicate in itself, the counter-flow will be kicked off by the first
+     * Note that this function does not communicate in itself. The counter-flow will be kicked off by the first
      * send/receive.
      *
      * This overload takes a builder of context properties. Any properties set or modified against the context passed to
@@ -118,4 +119,61 @@ interface FlowMessaging {
      */
     @Suspendable
     fun initiateFlow(x500Name: MemberX500Name, flowContextPropertiesBuilder: FlowContextPropertiesBuilder): FlowSession
+
+    /**
+     * Suspends until a message has been received for each session in the specified [sessions].
+     *
+     * Consider [receiveAllMap(sessions: Map<FlowSession, Class<out Any>>): Map<FlowSession, Any>] when sessions are
+     * expected to receive different types.
+     *
+     * @param receiveType type of object to be received for all [sessions].
+     * @param sessions Set of sessions to receive from.
+     * @returns a [List] containing the objects received from the [sessions].
+     *
+     * @throws [CordaRuntimeException] if any session is closed or in a failed state.
+     */
+    @Suspendable
+    fun <R : Any> receiveAll(receiveType: Class<out R>, sessions: Set<FlowSession>): List<R>
+
+    /**
+     * Suspends until a message has been received for each session in the specified [sessions].
+     *
+     * Consider [receiveAll(receiveType: Class<R>, sessions: Set<FlowSession>): List<R>] when the same type is expected from all sessions.
+     *
+     * @param sessions Map of session to the type of object that is expected to be received
+     * @returns a [Map] containing the objects received by the [FlowSession]s who sent them.
+     *
+     * @throws [CordaRuntimeException] if any session is closed or in a failed state.
+     */
+    @Suspendable
+    fun receiveAllMap(sessions: Map<FlowSession, Class<out Any>>): Map<FlowSession, Any>
+
+    /**
+     * Queues the given [payload] for sending to the provided [sessions] and continues without waiting for a response.
+     *
+     * Note that the other parties may receive the message at some arbitrary later point or not at all: if one of the provided [sessions]
+     * is offline then message delivery will be retried until the session expires. Sessions are deemed to be expired when this session
+     * stops receiving heartbeat messages from the counterparty within the configurable timeout.
+     *
+     * @param payload the payload to send.
+     * @param sessions the sessions to send the provided payload to.
+     *
+     * @throws [CordaRuntimeException] if any session is closed or in a failed state.
+     */
+    @Suspendable
+    fun sendAll(payload: Any, sessions: Set<FlowSession>)
+
+    /**
+     * Queues the given payloads for sending to the provided sessions and continues without waiting for a response.
+     *
+     * Note that the other parties may receive the message at some arbitrary later point or not at all: if one of the provided [sessions]
+     * is offline then message delivery will be retried until the session expires. Sessions are deemed to be expired when this session
+     * stops receiving heartbeat messages from the counterparty within the configurable timeout.
+     *
+     * @param payloadsPerSession a mapping that contains the payload to be sent to each session.
+     *
+     * @throws [CordaRuntimeException] if any session is closed or in a failed state.
+     */
+    @Suspendable
+    fun sendAllMap(payloadsPerSession: Map<FlowSession, Any>)
 }

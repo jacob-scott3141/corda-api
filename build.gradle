@@ -1,4 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import static org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
+import static org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_1_8
 import static org.gradle.api.JavaVersion.VERSION_11
 import static org.gradle.jvm.toolchain.JavaLanguageVersion.of
 
@@ -6,8 +8,16 @@ buildscript {
     ext {
         vcsUrl = System.getenv('GIT_URL') ?: 'https://github.com/corda/corda-api.git'
     }
+    
+    dependencies {
+        classpath "org.jetbrains.dokka:dokka-core:$dokkaVersion"
+        constraints {
+            classpath("org.jsoup:jsoup:1.15.3") {
+                because "required until dokka plugin updates it's internal version of jsoup, not fixed as of dokka 1.7.10"
+            }
+        }
+    }
 }
-
 
 plugins {
     id 'net.corda.cordapp.cordapp-configuration'
@@ -15,7 +25,6 @@ plugins {
     id 'org.jetbrains.kotlin.plugin.allopen' apply false
     id 'org.jetbrains.kotlin.plugin.jpa' apply false
     id 'io.gitlab.arturbosch.detekt' apply false
-    id "org.gradle.test-retry" apply false
     id 'io.snyk.gradle.plugin.snykplugin'
     id 'org.ajoberstar.grgit' // used for GIT interaction (e.g. extract commit hash)
     id 'corda.root-publish'
@@ -51,8 +60,8 @@ def revision = {
 void configureKotlinForOSGi(Configuration configuration) {
     configuration.resolutionStrategy {
         dependencySubstitution {
-            substitute module('org.jetbrains.kotlin:kotlin-stdlib-jdk8') with module("net.corda.kotlin:kotlin-stdlib-jdk8-osgi:$kotlinVersion")
-            substitute module('org.jetbrains.kotlin:kotlin-stdlib-jdk7') with module("net.corda.kotlin:kotlin-stdlib-jdk7-osgi:$kotlinVersion")
+            substitute module('org.jetbrains.kotlin:kotlin-stdlib-jdk8') with module("org.jetbrains.kotlin:kotlin-osgi-bundle:$kotlinVersion")
+            substitute module('org.jetbrains.kotlin:kotlin-stdlib-jdk7') with module("org.jetbrains.kotlin:kotlin-osgi-bundle:$kotlinVersion")
             substitute module('org.jetbrains.kotlin:kotlin-stdlib-common') with module("org.jetbrains.kotlin:kotlin-osgi-bundle:$kotlinVersion")
             substitute module('org.jetbrains.kotlin:kotlin-stdlib') with module("org.jetbrains.kotlin:kotlin-osgi-bundle:$kotlinVersion")
             substitute module('org.jetbrains.kotlin:kotlin-reflect') with module("org.jetbrains.kotlin:kotlin-osgi-bundle:$kotlinVersion")
@@ -110,8 +119,6 @@ subprojects {
         }
     }
 
-    apply plugin: "org.gradle.test-retry"
-
     pluginManager.withPlugin('org.jetbrains.kotlin.jvm') {
         apply plugin: 'io.gitlab.arturbosch.detekt'
         apply plugin: 'jacoco'
@@ -155,16 +162,16 @@ subprojects {
         }
 
         tasks.withType(KotlinCompile).configureEach {
-            kotlinOptions {
+            compilerOptions {
                 allWarningsAsErrors = true
-                languageVersion = '1.7'
-                apiVersion = '1.7'
+                languageVersion = KOTLIN_1_8
+                apiVersion = KOTLIN_1_8
                 verbose = true
-                jvmTarget = javaVersion
-                freeCompilerArgs += [
-                    "-Xjvm-default=all",
-                    "-java-parameters"
-                ]
+                jvmTarget = JVM_11
+                javaParameters = true   // Useful for reflection.
+                freeCompilerArgs.addAll([
+                    "-Xjvm-default=all"
+                ])
             }
         }
 
@@ -204,6 +211,23 @@ subprojects {
             archiveBaseName = jar.archiveBaseName
             archiveClassifier.set("javadoc")
             from(dokkaHtml.outputDirectory)
+        }
+
+        if (project.hasProperty('generateJavaDocWithBuild')) {
+            artifacts {
+                archives javadocJar
+            }
+        }
+    }
+
+    pluginManager.withPlugin('io.gitlab.arturbosch.detekt'){
+        dependencies {
+        detekt "io.gitlab.arturbosch.detekt:detekt-cli:$detektPluginVersion"
+            constraints {
+                detekt("org.yaml:snakeyaml:$snakeyamlVersion") {
+                    because "required until detekt plugin updates it's internal version of snakeYaml, not fixed as of detekt version 1.21"
+                }
+            }
         }
     }
 
@@ -260,7 +284,7 @@ subprojects {
         description = "Compiles all the Kotlin and Java classes, including all of the test classes."
         group = "verification"
 
-        task.dependsOn tasks.withType(AbstractCompile)
+        task.dependsOn tasks.withType(AbstractCompile), tasks.withType(KotlinCompile)
     }
 
     tasks.register('allDependencyInsight', DependencyInsightReportTask)
@@ -306,6 +330,32 @@ tasks.named("dependencyUpdates").configure {
 }
 
 wrapper {
-    gradleVersion = '7.4.2'
+    gradleVersion = '7.6'
     distributionType = Wrapper.DistributionType.BIN
+}
+
+tasks.register('generateMultiModuleDocs', Zip) {
+    description = 'Create mutli module docs Site Jar'
+    group = 'documentation'
+
+    dependsOn dokkaHtmlMultiModule
+    archiveName "corda-api-docs-${project.version}.zip"-
+    from(dokkaHtmlMultiModule.outputDirectory)
+    destinationDir(file("$buildDir/corda-api-docs"))
+}
+
+if (project.hasProperty('publishMultiModulekDocs')) {
+    publishing {
+        publications {
+            dokkaDocs(MavenPublication) {
+                artifact generateMultiModuleDocs
+                artifactId "corda-api-docs"
+                groupId 'net.corda'
+            }
+        }
+    }
+
+    artifactoryPublish {
+        publications('dokkaDocs')
+    }
 }
