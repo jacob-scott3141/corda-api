@@ -5,9 +5,15 @@ interface VaultNamedQueryBuilder {
 
     // do we have functions for contract state type etc, or do they go in the JSON?
 
-    fun filter(filter: Class<out VaultNamedQueryFilter<*>>): VaultNamedQueryBuilder
+//    fun filter(filter: Class<out VaultNamedQueryFilter<*>>): VaultNamedQueryBuilder
+//
+//    fun map(transform: Class<out VaultNamedQueryTransformer<*, *>>): VaultNamedQueryBuilder
 
-    fun map(transform: Class<out VaultNamedQueryTransformer<*, *>>): VaultNamedQueryBuilder
+    fun filter(filter: VaultNamedQueryFilter<*>): VaultNamedQueryBuilder
+
+    fun map(transform: VaultNamedQueryTransformer<*, *>): VaultNamedQueryBuilder
+
+    fun collect(transform: VaultNamedQueryCollector<*, *>): VaultNamedQueryBuilder
 
     fun whereStateType(type: Class<out ContractState>)
 

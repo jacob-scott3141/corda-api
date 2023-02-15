@@ -43,5 +43,13 @@ interface PagedQuery<R> {
      * @throws CordaPersistenceException If there is an error executing the query.
      */
     @Suspendable
-    fun execute(): List<R>
+    fun execute(): ResultSet<R>
+
+    interface ResultSet<R> {
+
+        val newOffset: Int
+        val size: Int
+        val hasNextPage: Boolean
+        val results: List<R>
+    }
 }

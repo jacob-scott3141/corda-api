@@ -1,6 +1,7 @@
 package net.corda.v5.ledger.utxo
 
 import net.corda.v5.application.messaging.FlowSession
+import net.corda.v5.application.persistence.ParameterizedQuery
 import net.corda.v5.base.annotations.DoNotImplement
 import net.corda.v5.base.annotations.Suspendable
 import net.corda.v5.crypto.SecureHash
@@ -16,6 +17,12 @@ import net.corda.v5.ledger.utxo.transaction.UtxoTransactionBuilder
  */
 @DoNotImplement
 interface UtxoLedgerService {
+
+    @Suspendable
+    fun <T : Any> query(
+        queryName: String,
+        entityClass: Class<T>
+    ): ParameterizedQuery<T>
 
     /**
      * Gets a UTXO transaction builder
