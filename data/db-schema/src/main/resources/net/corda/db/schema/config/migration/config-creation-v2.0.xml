@@ -1,0 +1,18 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <property name="now" value="now()" dbms="hsqldb"/>
+    <property name="now" value="now()" dbms="postgresql"/>
+
+    <changeSet author="R3.Corda" id="config-creation-v2.0">
+
+        <addColumn tableName="db_connection">
+            <column name="timestamp" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+
+    </changeSet>
+</databaseChangeLog>
