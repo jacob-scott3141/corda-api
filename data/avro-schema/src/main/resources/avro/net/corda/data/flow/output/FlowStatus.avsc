@@ -70,6 +70,12 @@
         "logicalType": "timestamp-millis"
       },
       "doc": "The date and time this status update was published."
+    },
+    {
+      "name": "someString",
+      "type": "string",
+      "default": "default_some_string",
+      "doc": "some string"
     }
   ]
 }
