@@ -5,7 +5,7 @@
 
     <changeSet author="R3.Corda" id="vnode-vault-creation-v3.0">
 
-        <addColumn tableName="vnode_member_info">
+        <addColumn tableName="vnode_member_signature">
             <column name="timestamp" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
