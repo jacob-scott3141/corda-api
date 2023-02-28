@@ -35,6 +35,15 @@ class Schemas {
     }
 
     /**
+     * Avro Schema Repository topic schema
+     */
+    class AvroSchemas {
+        companion object {
+            const val AVRO_SCHEMA_TOPIC = "avro.schema"
+        }
+    }
+
+    /**
      * Config read topic schema
      */
     class Config {
