@@ -118,4 +118,6 @@ public interface FlowSession {
      */
     @Suspendable
     void close();
+
+    void acceptNewInterface(@NotNull NewInterface newInterface);
 }
