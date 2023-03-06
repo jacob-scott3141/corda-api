@@ -4,10 +4,7 @@ package net.corda.v5.application.marshalling.json;
  * Possible types of nodes in Json.
  */
 public enum JsonNodeReaderType {
-    /**
-     * An array of objects, values, or other arrays.
-     */
-    ARRAY,
+    SOMETHING_NEW1,
 
     /**
      * Boolean, either true or false.
@@ -28,6 +25,11 @@ public enum JsonNodeReaderType {
      * A Json object.
      */
     OBJECT,
+
+    /**
+     * An array of objects, values, or other arrays.
+     */
+    ARRAY,
 
     /**
      * Text.

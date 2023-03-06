@@ -1,6 +1,7 @@
 package net.corda.v5.application.marshalling;
 
 import net.corda.v5.application.flows.ClientStartableFlow;
+import net.corda.v5.application.marshalling.json.JsonNodeReaderType;
 import net.corda.v5.base.annotations.DoNotImplement;
 import org.jetbrains.annotations.NotNull;
 
@@ -51,4 +52,7 @@ public interface MarshallingService {
      */
     @NotNull
     <T> List<T> parseList(@NotNull String input, @NotNull Class<T> clazz);
+
+    @NotNull
+    JsonNodeReaderType returnSomeReaderTypeEnum();
 }
