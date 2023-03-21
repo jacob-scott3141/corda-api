@@ -188,6 +188,7 @@ public interface UtxoLedgerService {
     /**
      * TODO KDocs
      */
+    @Suspendable
     @NotNull <R> VaultNamedParameterizedQuery<R> query(@NotNull String queryName, @NotNull Class<R> resultClass);
 
 }

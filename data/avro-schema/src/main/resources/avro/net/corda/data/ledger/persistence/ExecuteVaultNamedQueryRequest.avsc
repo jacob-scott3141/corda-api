@@ -5,16 +5,6 @@
   "namespace": "net.corda.data.ledger.persistence",
   "fields": [
     {
-      "name": "holdingIdentity",
-      "type": "net.corda.data.identity.HoldingIdentity",
-      "doc": "The holding identity of the virtual node making the named query execution request."
-    },
-    {
-      "name": "flowExternalEventContext",
-      "type": "net.corda.data.flow.event.external.ExternalEventContext",
-      "doc": "The context of the external event that this request was sent from."
-    },
-    {
       "name": "queryName",
       "type": "string",
       "doc": "The name of the query that needs executing."
