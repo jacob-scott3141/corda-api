@@ -25,6 +25,7 @@ public final class BootConfig {
 
     public static final String BOOT_DIR = "dir";
     public static final String BOOT_WORKSPACE_DIR = BOOT_DIR + ".workspace";
+    public static final String BOOT_ROCK_DB_DIR = BOOT_WORKSPACE_DIR + ".rocksDB";
     public static final String BOOT_TMP_DIR = BOOT_DIR + ".tmp";
 
     public static final String BOOT_REST = "rest";
