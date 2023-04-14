@@ -17,6 +17,9 @@ import org.jetbrains.annotations.NotNull;
  * In order to perform a "query by state" query using `UtxoLedgerService.query` for a particular state type,
  * a factory for that given type must be present, even if it's just returning an empty JSON string.
  * <p>
+ * In order to perform a "query by state" query using `UtxoLedgerService.query` for a particular state type,
+ * a factory for that given type must be present, even if it's just returning an empty JSON string.
+ * <p>
  * Please note that only one factory can be registered for a state type.
  * <p>
  * Example usage:
