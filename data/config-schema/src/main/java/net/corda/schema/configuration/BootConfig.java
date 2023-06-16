@@ -19,11 +19,15 @@ public final class BootConfig {
     public static final String BOOT_CRYPTO = "crypto";
 
     public static final String BOOT_DB = "db";
+
     public static final String BOOT_JDBC_URL = BOOT_DB + ".database.jdbc.url";
     public static final String BOOT_JDBC_USER = BOOT_DB + ".database.user";
     public static final String BOOT_JDBC_PASS = BOOT_DB + ".database.pass";
 
     public static final String BOOT_DIR = "dir";
+
+    public static final String BOOT_FLOW = "flow";
+    public static final String BOOT_FLOW_PROCESSOR_COUNT = BOOT_FLOW + ".processor.count";
     public static final String BOOT_WORKSPACE_DIR = BOOT_DIR + ".workspace";
     public static final String BOOT_TMP_DIR = BOOT_DIR + ".tmp";
 
