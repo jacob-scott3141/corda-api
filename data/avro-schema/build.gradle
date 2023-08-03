@@ -9,6 +9,14 @@ plugins {
     id "com.github.davidmc24.gradle.plugin.avro-base"
 }
 
+configurations.all {
+    // Required until a new version of Avro, which updates jackson-databind, is available.
+    // Using resolutionStrategy.force as this dependency is pulled in from several places in this module:
+    // Dokka, Avro, com.github.davidmc24.gradle.plugin.avro-base.
+    // The 'constraints' block was not sufficient here
+    resolutionStrategy.force "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+}
+
 dependencies {
     api "org.apache.avro:avro:$avroVersion"
     constraints {
