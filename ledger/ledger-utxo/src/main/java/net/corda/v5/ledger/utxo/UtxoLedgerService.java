@@ -67,6 +67,10 @@ public interface UtxoLedgerService {
     @Suspendable
     UtxoSignedTransaction findSignedTransaction(@NotNull SecureHash id);
 
+    // TODO Find a better place for this
+    @Suspendable
+    void verifyContract(@NotNull UtxoLedgerTransaction ledgerTransaction);
+
     /**
      * Finds a {@link UtxoLedgerTransaction} in the vault by the specified transaction ID.
      *
